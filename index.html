@@ -5,13 +5,10 @@
     <title>SkyNet Electron Browser</title>
     <link rel="stylesheet" href="css/css/font-awesome.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/main.scss">
-    <link rel="stylesheet" href="css/_nav.scss">
-    <link rel="stylesheet" href="css/_reset.scss">
-    <link rel="stylesheet" href="css/_tabs.scss">
-    <link rel="stylesheet" href="css/_vars.scss">
-	<link rel="stylesheet" href="index.CSS">
-	<link rel="stylesheet" href="ExiledEmpireCSS.css">
+	  <link rel="stylesheet" href="index.CSS">
+   	<link rel="stylesheet" href="tabsBar.css">
+  	<link rel="stylesheet" href="lowBar.css">
+  	<link rel="stylesheet" href="ExiledEmpireCSS.css">
     <style>
           webview{
       width: 100%;
@@ -46,7 +43,16 @@
         <i class="fa fa-terminal" aria-hidden="true"></i>
       </div>
     </nav>
+    
+    <div id="lowBar">
+        <a id="newTab">
+            <div class="close">
+              <i class="fa fa-plus-circle"></i>
+            </div>
+          </a>
+    </div>
     <div id="tabs">
+      
       <a class="tab"> Tab
         <div class="close">
           <i class="fa fa-times"></i>
@@ -62,15 +68,11 @@
           <i class="fa fa-times"></i>
         </div>
       </a>
-		<a id="newTab">
-        <div class="close">
-          <i class="fa fa-plus-circle"></i>
-        </div>
-      </a>
     </div>
-      <div id="views">
+
+    <div id="views">
         <webview id="view" class="page" src="https://www.bing.com/" partition="persist:googlepluswidgets" autosize="on" allowtransparency></webview>
-      </div>
+    </div>
       <script>
         require('./renderer.js');
         require('./Tabs.js');

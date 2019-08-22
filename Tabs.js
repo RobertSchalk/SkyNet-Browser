@@ -9,7 +9,7 @@ var uuid = require('uuid');
 
 var tabsBar = ById('tabs');
 var tab = document.getElementsByClassName('tab');
-var newTab = ById('NewTab');
+var newTab = ById('newTab');
 
 function CreateTab(){
     var createTab = document.createElement("a");

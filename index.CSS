@@ -6,90 +6,11 @@ body {
 
 #navigation{
 	width: 100%;
-	height: 75px;
+	height: 40px;
 	padding: 7px 15px;
 	background-color: #48b4e0;
 }
-#tabs{
-	width:100%;
-	left:0;
-	display:block;
-	overflow-y:hidden;
-	overflow-x:auto;
-	white-space:nowrap;
-	height:40px;
-	padding:0;
-	margin:0;
-	background: linear-gradient( #48b4e0, #1864b0);
-	border-top: 1px outset #00a;
-}
 
-#tabs::-webkit-scrollbar{
-	background:red;
-	outline:none;
-	border:none;
-	height:3px;
-}
-
-#tabs::-webkit-scrollbar-thumb{
-	background:white;
-}
-
-#tabs .tab{
-	margin:0;
-	display:inline-block;
-	height:40px;
-	margin-left:-4px;
-	color:#eee;
-	text-align:left;
-	padding: 2px 10px;
-	white-space:nowrap;
-	position:relative;
-	overflow:hidden;
-	text-overflow:ellipsis;
-	cursor:pointer;
-	box-sizing: border-box;
-	border-right:#eee 1px solid;
-	line-height:32px;
-	width: 20%;
-    max-width: 150px;
-    border: 1px solid #000;
-    border-radius: 10px 10px 0px 0px;
-	background-color: #004D96;
-	text-decoration: none;
-	transition: 0.3s;
-}
-
-#tabs .tab .close{
-	position:absolute;
-	right:0;
-	top:0;
-	height:15px;
-	width:15px;
-	text-align:center;
-	font-size:14px;
-	line-height:0;
-	font-family:monospace;
-	border: 1px solid #003;
-	border-radius: 10px;
-	padding: 1px;
-	transition: 0.3s;
-}
-#tabs .tab:hover{
-	background-color: #449Dee;
-	color: #000;
-	transition: 0.3s;
-}
-
-#tabs .tab .close:hover{
-	color: #f00;
-	border-color: #f00;
-	transition: 0.3s;
-}
-
-#tabs .tab:first-of-type{
-	margin-left:0;
-}
 
 #views{
 	position:relative;
@@ -120,34 +41,7 @@ body {
 .navButtons :hover{
 	background-color: #00f;
 }
-#tabs #newTab{
-	margin:0;
-	display:inline-block;
-	height:40px;
-	margin-left:-4px;
-	color:#eee;
-	text-align: center;
-	padding: 2px 10px;
-	white-space:nowrap;
-	position:relative;
-	overflow:hidden;
-	text-overflow:ellipsis;
-	cursor:pointer;
-	box-sizing: border-box;
-	border-right:#eee 1px solid;
-	line-height:32px;
-	width: 40px;
-    border: 1px solid #000;
-    border-radius: 10px 10px 0px 0px;
-	background-color: #004D96;
-	text-decoration: none;
-	transition: 0.3s;
-}
-#tabs #newTab:hover{
-	background-color: #449Dee;
-	color: #000;
-	transition: 0.3s;
-}
+
 
 
 #omnibox input{
