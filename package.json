@@ -1,5 +1,5 @@
 {
-  "name": "electronbrowser",
+  "name": "skynetbrowser",
   "version": "1.0.0",
   "description": "Playing with electron",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RobertSchalk/ElectronBrowser.git"
+    "url": "git+https://github.com/RobertSchalk/SkyNet-Electron-Browser.git"
   },
   "author": "Robert Schalk",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RobertSchalk/ElectronBrowser/issues"
+    "url": "https://github.com/RobertSchalk/SkyNet-Electron-Browser/issues"
   },
-  "homepage": "https://github.com/RobertSchalk/ElectronBrowser#readme",
+  "homepage": "https://github.com/RobertSchalk/SkyNet-Electron-Browserr#readme",
   "dependencies": {
     "colors": "^1.3.3",
     "electron": "^1.6.2",
