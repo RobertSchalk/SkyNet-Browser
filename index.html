@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <title>SkyNet Electron Browser</title>
     <link rel="stylesheet" href="css/css/font-awesome.css">
-    <link rel="stylesheet" href="css/main.css">
-	  <link rel="stylesheet" href="index.CSS">
-   	<link rel="stylesheet" href="tabsBar.css">
-  	<link rel="stylesheet" href="lowBar.css">
-  	<link rel="stylesheet" href="ExiledEmpireCSS.css">
+	  <link rel="stylesheet" href="css/index.CSS">
+   	<link rel="stylesheet" href="css/tabsBar.css">
+  	<link rel="stylesheet" href="css/lowBar.css">
     <style>
           webview{
       width: 100%;
@@ -31,15 +29,15 @@
       <div id="omnibox">
         <input type="text" id="url" value="">
       </div>
-      <div id="fave">
+      <div id="fave"  class="navButtons">
         <i class="fa fa-star" aria-hidden="true"></i>
       </div>
       <div id="fave-popup" data-state="closed">
       </div>
-      <div id="list">
+      <div id="list"  class="navButtons">
         <i class="fa fa-list" aria-hidden="true"></i>
       </div>
-      <div id="console">
+      <div id="console"  class="navButtons">
         <i class="fa fa-terminal" aria-hidden="true"></i>
       </div>
     </nav>
