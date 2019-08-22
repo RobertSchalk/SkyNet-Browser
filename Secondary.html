@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+<style>
+body {
+background-color: #00f;
+}
+</style>
+<title> Secondary window</title>
+    </head>
+    <body>
+
+        we are usiing node.js <strong><script>document.write( process.versions.node)</script></strong>
+        and Electron<strong><script>document.write( process.versions.electron)</script></strong>
+
+        <script>
+        require('/renderer.js')
+        </script>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SkyNet Electron Browser</title>
+    <link rel="stylesheet" href="css/css/font-awesome.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.scss">
+    <link rel="stylesheet" href="css/_nav.scss">
+    <link rel="stylesheet" href="css/_reset.scss">
+    <link rel="stylesheet" href="css/_tabs.scss">
+    <link rel="stylesheet" href="css/_vars.scss">
+	<link rel="stylesheet" href="index.CSS">
+	<link rel="stylesheet" href="ExiledEmpireCSS.css">
+    <style>
+          webview{
+      width: 100%;
+      height: 100%;
+    }
+    </style>
+   
+  </head>
+  <body id="browser">
+    <nav id="navigation">
+      <div  class="navButtons">
+        <i id="back" class="fa fa-arrow-left" aria-hidden="true"></i>
+      </div>
+      <div class="navButtons">
+        <i id="forward" class="fa fa-arrow-right" aria-hidden="true"></i>
+      </div>
+      <div class="navButtons">
+        <i id="refresh" class="fa fa-refresh" aria-hidden="true"></i>
+      </div>
+      <div id="omnibox">
+        <input type="text" id="url" value="">
+      </div>
+      <div id="fave">
+        <i class="fa fa-star" aria-hidden="true"></i>
+      </div>
+      <div id="fave-popup" data-state="closed">
+      </div>
+      <div id="list">
+        <i class="fa fa-list" aria-hidden="true"></i>
+      </div>
+      <div id="console">
+        <i class="fa fa-terminal" aria-hidden="true"></i>
+      </div>
+    </nav>
+    <div id="tabs">
+      <a class="tab"> Tab
+        <div class="close">
+          <i class="fa fa-times"></i>
+        </div>
+      </a>
+        <a class="tab"> tab
+        <div class="close">
+          <i class="fa fa-times"></i>
+        </div>
+      </a>
+            <a class="tab">tab
+        <div class="close">
+          <i class="fa fa-times"></i>
+        </div>
+      </a>
+		<a id="newTab">
+        <div class="close">
+          <i class="fa fa-plus-circle"></i>
+        </div>
+      </a>
+    </div>
+      <div id="views">
+        <webview id="view" class="page" src="https://www.bing.com/" partition="persist:googlepluswidgets" autosize="on" allowtransparency></webview>
+      </div>
+      <script>
+        require('./renderer.js');
+        require('./Tabs.js');
+      </script>
+	</body>
+</html>
