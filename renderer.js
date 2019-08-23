@@ -17,7 +17,8 @@ var back = ById('back'),
     fave = ById('fave'),
     list = ById('list'),
     popup = ById('fave-popup'),
-    view = ById('view');
+    view = ById('view'),
+    close = ById('close');
 
 function reloadView () {
     view.reload();
@@ -124,12 +125,22 @@ function updateNav (event) {
     omni.value = view.src;
 }
 
+
+function openSettings() {
+    document.getElementById("SettingsWindow").style.width = "100%";
+}
+
+function closeSettings() {
+    document.getElementById("SettingsWindow").style.width = "0%";
+}
+
 refresh.addEventListener('click', reloadView);
 back.addEventListener('click', backView);
 forward.addEventListener('click', forwardView);
 omni.addEventListener('keydown', updateURL);
 fave.addEventListener('click', addBookmark);
-list.addEventListener('click', openPopUp);
+list.addEventListener('click', openSettings);
 popup.addEventListener('click', handleUrl);
 dev.addEventListener('click', handleDevtools);
 view.addEventListener('did-finish-load', updateNav);
+close.addEventListener('click', closeSettings);

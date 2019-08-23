@@ -8,6 +8,7 @@
 	  <link rel="stylesheet" href="css/index.CSS">
    	<link rel="stylesheet" href="css/tabsBar.css">
   	<link rel="stylesheet" href="css/lowBar.css">
+  	<link rel="stylesheet" href="css/overlay.css">
     <style>
           webview{
       width: 100%;
@@ -17,6 +18,9 @@
    
   </head>
   <body id="browser">
+
+
+
     <nav id="navigation">
       <div  class="navButtons">
         <i id="back" class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -32,8 +36,6 @@
       </div>
       <div id="fave"  class="navButtons">
         <i class="fa fa-star" aria-hidden="true"></i>
-      </div>
-      <div id="fave-popup" data-state="closed">
       </div>
       <div id="list"  class="navButtons">
         <i class="fa fa-list" aria-hidden="true"></i>
@@ -72,6 +74,21 @@
     <div id="views">
         <webview id="view" class="page" src="https://www.bing.com/" partition="persist:googlepluswidgets" autosize="on" allowtransparency></webview>
     </div>
+
+
+    
+    <div id="SettingsWindow" class="overlay"> 
+    <div id="close" class="closebtn" style="width:53px;height:53px;box-shadow: 2px 2px 10px #111;border-radius:100px;">
+    <i class="fa fa-times" a href="#" class="closebtn" style="color: #fff;"></i>
+      </div>
+      <div class="overlay-content">
+        
+      <div id="fave-popup" data-state="open">
+        </div>
+      </div>
+    </div>
+
+
       <script>
         require('./renderer.js');
         require('./Tabs.js');
