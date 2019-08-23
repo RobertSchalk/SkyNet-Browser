@@ -1,3 +1,9 @@
+const {app, BrowserWindow} = require('electron');
+const {colors} = require('colors');
+
+
+
+
 var ById = function (id) {
     return document.getElementById(id);
 }
@@ -17,7 +23,8 @@ var back = ById('back'),
     popup = ById('fave-popup'),
     view = ById('view'),
     close = ById('close'),
-    settings = ById('settings');
+    settings = ById('settings'),
+    skyWrite = ById('textEditor');
 
 
     function openSettings() {
@@ -28,12 +35,21 @@ var back = ById('back'),
         document.getElementById("SettingsWindow").style.width = "0%";
     }
 
-    function ExtrasView () {
+    function settingsView () {
         
             omni.blur();
             view.src = ('Settings.html');
             closeSettings();
     }
     
+    function skyWriteView () {
+        
+        omni.blur();
+        view.src = ('textEditor.html');
+        closeSettings();
+}
 
-    settings.addEventListener('click', ExtrasView);
+    settings.addEventListener('click', settingsView);
+    skyWrite.addEventListener('click', skyWriteView);
+
+    

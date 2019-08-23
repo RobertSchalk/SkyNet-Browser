@@ -6,7 +6,7 @@ const url = require('url');
 
 
 console.log('Checking ready: ' + app.isReady());
-let mainWindow, secondaryWindow;
+let mainWindow, textEditor;
 
 function createWindow (){
     mainWindow = new BrowserWindow({
@@ -22,7 +22,15 @@ function createWindow (){
         //show: false
     })
 
-  /*  secondaryWindow = new BrowserWindow({
+  /*  
+*/
+/*
+    mainWindow.loadURL(url.format({
+        pathname: path.join('index.html'),
+        protocal: 'file:',
+        slashes: true
+    }))*//*
+secondaryWindow = new BrowserWindow({
         width: mainWindow.width,
         height: 700,
         webPreferences: {nodeIntegration: true},
@@ -36,15 +44,7 @@ function createWindow (){
         closable: false,
         bottom: 0
         
-    })
-*/
-/*
-    mainWindow.loadURL(url.format({
-        pathname: path.join('index.html'),
-        protocal: 'file:',
-        slashes: true
-    }))*/
-
+    })*/
     mainWindow.loadFile('index.html');
     //secondaryWindow.loadFile('secondary.html')
 
