@@ -17,8 +17,8 @@
 	outline:none;
 	border:none;
 	height:3px;
-}
 
+}
 #tabs::-webkit-scrollbar-thumb{
 	background:white;
 }
@@ -80,11 +80,7 @@
 }
 
 
-#tabs #newTab:hover{
-	background-color: #449Dee;
-	color: #000;
-	transition: 0.3s;
-}
+
 
 #tabs .tab .active{
 	background-color: #449Dee;

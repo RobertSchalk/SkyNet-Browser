@@ -148,7 +148,6 @@ var newTab = ById('newTab');
 var tabs = tabsBar.childNodes;
 var i = 0;
 var base = document.querySelector('#tabs');
-var tab = '.tab';
 
 function CreateTab(){
     var createTab = document.createElement("div");
@@ -158,11 +157,12 @@ function CreateTab(){
     createView.classList.add("page");
     views.appendChild(createView);
 
+    
 }
 // use tab[i] = view[i]
-function focusTab(i){
+function focusTab(){
     
-    console.log(i);
+    
     console.log('focus tab complete')
     
 }
@@ -183,17 +183,20 @@ view.addEventListener('did-finish-load', updateNav);
 close.addEventListener('click', closeSettings);
 newTab.addEventListener('click', CreateTab);
 
-/*for (i = 0; i < tab.length; i++){
+for (i = 0; i < tab.length; i++){
     tab[i].addEventListener('click', focusTab, false)
-}*/
+}
 
-base.addEventListener('click', function(event){
-    var closest = event.target.closest(tab);
-    if(closest && base.contains(closest)){
-        closest.getAttribute.NodeValue;
-        var i = closest.nodeValue;
-        console.log(i);
-        focusTab.call(event);
+(function() {
+    function scrollHorizontally(e) {
+        e = window.event || e;
+        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+        tabsBar.scrollLeft -= (delta*80); // Multiplied by 40
+        e.preventDefault();
     }
-}) 
+    
+    
+        tabsBar.addEventListener('mousewheel', scrollHorizontally, false);
+})();
+
 
