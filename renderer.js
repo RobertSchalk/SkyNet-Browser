@@ -127,12 +127,15 @@ function updateNav (event) {
 
 
 function openSettings() {
-    document.getElementById("SettingsWindow").style.width = "100%";
+    document.getElementById("SettingsWindow").style.width = "calc(100vw)";
 }
 
 function closeSettings() {
     document.getElementById("SettingsWindow").style.width = "0%";
 }
+
+
+
 
 refresh.addEventListener('click', reloadView);
 back.addEventListener('click', backView);
@@ -140,7 +143,7 @@ forward.addEventListener('click', forwardView);
 omni.addEventListener('keydown', updateURL);
 fave.addEventListener('click', addBookmark);
 list.addEventListener('click', openSettings);
-popup.addEventListener('click', handleUrl);
+//popup.addEventListener('click', handleUrl);
 dev.addEventListener('click', handleDevtools);
 view.addEventListener('did-finish-load', updateNav);
 close.addEventListener('click', closeSettings);
