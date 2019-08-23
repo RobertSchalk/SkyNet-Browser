@@ -1,0 +1,41 @@
+body{
+    background-color: #333;
+}
+
+#settingsList{
+    width: 20vw;
+    height: 100%;
+    border-right: 5px double #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #223;
+}
+
+#settingsList .setting{
+    width: calc(100% - 20px);
+    height: 35px;
+    border: 1px solid #000;
+    list-style-type: none;
+    display: block;
+    color: #cecece;
+    text-align: right;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: monospace;
+    line-height: 35px;
+    cursor: pointer;
+}
+#settingsList .setting:hover{
+background-color: #556;
+}
+
+#settingsView{
+    width: 79.5vw;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 1px solid #fff;
+}
