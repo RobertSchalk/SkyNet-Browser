@@ -40,7 +40,9 @@ var settingsView = ById('settingsView'),
 
     
 
-    
+    /*
     appearance.addEventListener('click', AppearanceView);
     privacy.addEventListener('click', PrivacyView);
-    about.addEventListener('click', AboutView);
+    about.addEventListener('click', AboutView);*/
+
+    var version = app.getVersion();

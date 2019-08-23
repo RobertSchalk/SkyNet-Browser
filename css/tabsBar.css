@@ -85,3 +85,7 @@
 	color: #000;
 	transition: 0.3s;
 }
+
+#tabs .tab .active{
+	background-color: #449Dee;
+}

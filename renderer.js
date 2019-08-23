@@ -8,6 +8,10 @@ var favicon = require('favicon-getter').default;
 var path = require('path');
 var uuid = require('uuid');
 var bookmarks = path.join(__dirname, 'bookmarks.json');
+var tabs = [];
+var tabsIndex;
+var views = [];
+var viewsIndex;
 
 var back = ById('back'),
     forward = ById('forward'),
@@ -18,7 +22,8 @@ var back = ById('back'),
     list = ById('list'),
     popup = ById('fave-popup'),
     view = ById('view'),
-    close = ById('close');
+    close = ById('close'),
+    views = ById('views');
 
 function reloadView () {
     view.reload();
@@ -134,6 +139,35 @@ function closeSettings() {
     document.getElementById("SettingsWindow").style.width = "0%";
 }
 
+//This manages the tabs bar.
+
+var tabsBar = ById('tabs');
+var tab = document.getElementsByClassName('tab');
+//var tab = ById("tab");
+var newTab = ById('newTab');
+var tabs = tabsBar.childNodes;
+var i = 0;
+var base = document.querySelector('#tabs');
+var tab = '.tab';
+
+function CreateTab(){
+    var createTab = document.createElement("div");
+    createTab.classList.add("tab");
+    tabsBar.appendChild(createTab);
+    var createView = document.createElement("webview");
+    createView.classList.add("page");
+    views.appendChild(createView);
+
+}
+// use tab[i] = view[i]
+function focusTab(i){
+    
+    console.log(i);
+    console.log('focus tab complete')
+    
+}
+
+
 
 
 
@@ -147,3 +181,19 @@ list.addEventListener('click', openSettings);
 dev.addEventListener('click', handleDevtools);
 view.addEventListener('did-finish-load', updateNav);
 close.addEventListener('click', closeSettings);
+newTab.addEventListener('click', CreateTab);
+
+/*for (i = 0; i < tab.length; i++){
+    tab[i].addEventListener('click', focusTab, false)
+}*/
+
+base.addEventListener('click', function(event){
+    var closest = event.target.closest(tab);
+    if(closest && base.contains(closest)){
+        closest.getAttribute.NodeValue;
+        var i = closest.nodeValue;
+        console.log(i);
+        focusTab.call(event);
+    }
+}) 
+

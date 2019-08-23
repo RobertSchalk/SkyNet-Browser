@@ -16,12 +16,11 @@ blockquote,q{quotes:none}
 	height: 40px;
 	padding: 7px 15px;
 	background-color: #48b4e0;
-	
-		display:block;
-		top:0;
-		left:0;
-		border-bottom: 2px solid #03061f;
-		box-sizing:border-box;
+	display:block;
+	top:0;
+	left:0;
+	border-bottom: 2px solid #03061f;
+	box-sizing:border-box;
 }
 
 #navigation #fave-popup .link
@@ -55,9 +54,11 @@ blockquote,q{quotes:none}
 	bottom:0;
 	width:100%;
 	/*The height needs to be (100vh - (navigation + tabs)*/
-	height:calc(100vh - 129px)
+	height:calc(100vh - 129px);
 }
-
+.inactive{
+	display: none;
+}
 
 
 .navButtons{
@@ -93,6 +94,8 @@ blockquote,q{quotes:none}
 .active{
 	display: block;
 }
+
+
 /*
 #views{
 	

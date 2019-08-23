@@ -1,5 +1,6 @@
 body{
-    background-color: #333;
+    background-color: #336;
+    font-family: monospace;
 }
 
 #settingsList{
@@ -38,4 +39,21 @@ background-color: #556;
     top: 0;
     right: 0;
     border: 1px solid #fff;
+}
+
+
+.settingsTitle{
+    width: 100%;
+    height: 50px;
+    color: #cecece;
+    font-family: monospace;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px auto;
+}
+
+.aboutSpace{
+    width: 100%;
+    height: auto;
 }
