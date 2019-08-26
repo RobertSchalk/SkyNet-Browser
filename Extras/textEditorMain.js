@@ -1,3 +1,11 @@
+const electron = require('electron')
+const BrowserWindow = electron.remote.BrowserWindow;
+var jsonfile = require('jsonfile');
+var favicon = require('favicon-getter').default;
+var path = require('path');
+var uuid = require('uuid');
+
+
 
 const fs = require('fs')
 const path = require('path')

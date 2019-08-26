@@ -1,0 +1,187 @@
+body{
+    font-family: monospace;
+    text-shadow: 2px 2px 3px #000;
+}
+
+#settingsList{
+    width: 20vw;
+    height:calc(100vh);
+    border-right: 5px double #000;
+    background-color: #223;
+    font-family: monospace;
+    display: block;
+    float: left;
+    position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+}
+
+#mainSettings{
+    width: 80vw;
+    height: calc(100vh);
+    position: fixed;
+    display: none;
+    float: left;
+    position:absolute;
+	top:0;
+	right:0;
+    bottom:0;
+    background-color: #336;
+}
+
+
+#settingsList .setting{
+    width: calc(100% - 20px);
+    height: 35px;
+    border: 1px solid #000;
+    list-style-type: none;
+    display: block;
+    color: #cecece;
+    text-align: right;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: monospace;
+    line-height: 35px;
+    cursor: pointer;
+}
+#settingsList .setting:hover{
+background-color: #556;
+}
+
+.settingsView{
+    width: 80vw;
+    height: calc(100vh);
+    position: fixed;
+    float: left;
+    position:absolute;
+	top:0;
+	right:0;
+    bottom:0;
+    background-color: #336;
+}
+
+.settingsView .settingsTitle{
+    width: 100%;
+    height: 50px;
+    color: #cecece;
+    font-family: monospace;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px auto;
+}
+
+.aboutVersions{
+    width: calc(75%);
+    height: calc(25%);
+    margin: 10px auto;
+    padding: 20px;
+    text-align: left;
+    color: #cecece;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #333;
+    border-radius: 34px;
+    line-height: 10px;
+}
+
+
+.aboutSpace {
+    width: 75%;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px 5px;
+    text-align: center;
+    color: #cecece;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #333;
+    border-radius: 34px;
+    line-height: 10px;
+}
+
+.appearanceSpace{
+    width: 75%;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px 5px;
+    text-align: left;
+    color: #cecece;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #333;
+    border-radius: 34px;
+    line-height: 10px;
+}
+.appearaneSpace tr{
+    margin: 5px 0;
+}
+.appearaneSpace td{
+    margin: 0 5px;
+    width: 50%;
+}
+.apperanceText{
+    margin: 0 5px;
+    text-align: right;
+}
+.theme{
+    margin: 0 5px;
+    text-align: left;
+}
+#themeSelector{
+    width: 100%;
+    height: 50px;
+    margin: auto;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bolder;
+    align-content: center;
+    border-radius: 10px;
+    background-color: #777;
+    padding: 10px;
+
+}
+#themeSelector :hover{
+    background-color: inherit;
+}
+
+#themeSelector #skyNet{
+    background-color: #48b4e0;
+    color: #eee;
+    font-family: monospace;
+    text-align: center;
+}
+#themeSelector #spring{
+    background-color: #94f886;
+    color: #000;
+    text-align: center;
+}
+#themeSelector #sunshine{
+    background-color: #ffcc00;
+    color: #f00;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+#themeSelector #midNightSky{
+    background-color: #000;
+    color: #fff;
+    font-family: monospace;
+    text-align: center;
+}
+#themeSelector #winterSky{
+    background-color: #7de0f7;
+    color: #fff;
+    font-family: monospace;
+    text-align: center;
+    text-shadow: 2px 2px 3px #0ff;
+}
+#themeSelector #autumnSky{
+    background-color: #ff9900;
+    color: #000;
+    font-family: monospace;
+    text-align: center;
+    text-shadow: 2px 2px 3px #0ff;
+}

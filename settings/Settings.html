@@ -1,20 +1,65 @@
 <html>
-<head>
-    <title>Settings</title>
-        <link rel="stylesheet" href="css/settings.css">
-        <script src="settings.js"></script>
-</head>
-<body>
-Test Successful
-<div id="settingsList">
-<div id="about" class="setting">About SkyNet</div>
-<div id="appearance" class="setting">Appearance</div>
-<div id="privacy" class="setting">Privacy</div>
-</div>
-<iframe id="settingsView" class="SettingsPage" src="about.html" partition="persist:googlepluswidgets" autosize="on" allowtransparency></iframe>
+    <head>
+        <title>Settings</title>
+        <link rel="stylesheet" href="../assets/css/settings.css">
+    </head>
+    <body>
+        
+        <div id="settingsList">
+            <div id="about" class="setting">About SkyNet</div>
+            <div id="appearance" class="setting">Appearance</div>
+            <div id="privacy" class="setting">Privacy</div>
+        </div>
+            
+        <div id="aboutView" class="settingsView">
+            <div class="settingsTitle">About SkyNet</div>
+            <div class="aboutVersions">
+                <h2 style="text-align: center;">Version:</h2>
+                    <p>Chrome Version: <script> document.write(process.versions.chrome)</script></p>
+                    <p>Electron Version: <script> document.write(process.versions.electron)</script></p>
+                     <p>Node Version: <script> document.write(process.versions.node)</script></p>
+                     <p> SkyNet Version: <script> document.write(window.require('electron').remote.app.getVersion())</script></p>
+                  </div>
+            <div class="aboutSpace">
+                <p>Author: Robert Schalk</p>
+            </div>
+        </div>
 
+        <div id="appearanceView" class="settingsView">
+            <div class="settingsTitle"> Appearance</div>
+            
+                <table class="appearanceSpace">
+                    <tr>
+                        <td class="apperanceText">
+                                <p>Change theme apperance: </p>
+                        </td>
+                        <td class="theme">
+                                <select id="themeSelector">
+                                    <option id="skyNet" value="skyNet">SkyNet</option>
+                                    <option id="spring" value="spring">Spring</option>
+                                    <option id="sunshine" value="sunshine">Sunshine</option>
+                                    <option id="midNightSky" value="midNightSky">MidNight sky</option>
+                                    <option id="winterSky" value="winterSky">Winter sky</option>
+                                    <option id="autumnSky" value="autumnSky">Autumn sky</option>
+                                </select>
+                        </td>
+                    </tr>
+                    <tr>
 
+                    </tr>
+                </table>
+            
+        </div>
 
-</body>
+        <div id="privacyView" class="settingsView">
+
+        
+        </div>
+
+        <script>
+            require('../settings.js');
+        </script>
+
+    </body>
 
 </html>
