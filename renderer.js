@@ -22,7 +22,7 @@ var back = ById('back'),
     list = ById('list'),
     popup = ById('fave-popup'),
     view = ById('view'),
-    close = ById('close'),
+    closeExtras = ById('closeExtras'),
     views = ById('views');
 
 function reloadView () {
@@ -131,13 +131,14 @@ function updateNav (event) {
 }
 
 
-function openSettings() {
-    document.getElementById("SettingsWindow").style.width = "calc(100vw)";
+function OpenExtras() {
+    document.getElementById("ExtrasWindow").style.width = "calc(100vw)";
 }
 
-function closeSettings() {
-    document.getElementById("SettingsWindow").style.width = "0%";
+function CloseExtras() {
+    document.getElementById("ExtrasWindow").style.width = "0%";
 }
+
 
 //This manages the tabs bar.
 
@@ -176,11 +177,11 @@ back.addEventListener('click', backView);
 forward.addEventListener('click', forwardView);
 omni.addEventListener('keydown', updateURL);
 fave.addEventListener('click', addBookmark);
-list.addEventListener('click', openSettings);
+list.addEventListener('click', OpenExtras);
 //popup.addEventListener('click', handleUrl);
 dev.addEventListener('click', handleDevtools);
 view.addEventListener('did-finish-load', updateNav);
-close.addEventListener('click', closeSettings);
+closeExtras.addEventListener('click', CloseExtras);
 newTab.addEventListener('click', CreateTab);
 
 for (i = 0; i < tab.length; i++){

@@ -1,3 +1,4 @@
+require('electron-reload')
 
 const {app, BrowserWindow} = require('electron')
 const {colors} = require('colors')
@@ -22,6 +23,7 @@ function createWindow (){
         //show: false
     })
 
+    mainWindow.loadFile('src/index.html');
   /*  
 */
 /*
@@ -45,7 +47,6 @@ secondaryWindow = new BrowserWindow({
         bottom: 0
         
     })*/
-    mainWindow.loadFile('index.html');
     //secondaryWindow.loadFile('secondary.html')
 
     //mainWindow.webContents.openDevTools();
@@ -94,4 +95,6 @@ app.on('activate', () => {
 })
 
 
-console.log('Checking ready: ' + app.isReady())
+console.log('Checking ready: ' + app.isReady());
+
+

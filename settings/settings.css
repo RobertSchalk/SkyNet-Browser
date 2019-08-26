@@ -1,17 +1,33 @@
-body{
-    background-color: #336;
-    font-family: monospace;
-}
+
 
 #settingsList{
     width: 20vw;
-    height: 100%;
+    height:calc(100vh - 118px);
     border-right: 5px double #000;
-    position: fixed;
-    top: 0;
-    left: 0;
     background-color: #223;
+    font-family: monospace;
+    display: block;
+    float: left;
+    position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
 }
+
+#mainSettings{
+    width: 80vw;
+    height: calc(100vh - 118px);
+    position: fixed;
+    display: none;
+    float: left;
+    position:absolute;
+	top:0;
+	right:0;
+    bottom:0;
+    background-color: #336;
+}
+
 
 #settingsList .setting{
     width: calc(100% - 20px);
@@ -33,12 +49,13 @@ background-color: #556;
 }
 
 #settingsView{
-    width: 79.5vw;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    right: 0;
-    border: 1px solid #fff;
+    width: 80vw;
+    height: calc(100vh - 118px);
+    float: left;
+    position:absolute;
+	top:0;
+	right:0;
+    bottom:0;
 }
 
 

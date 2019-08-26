@@ -35,10 +35,12 @@
     min-width: 100px;
     min-height: 100px;
     margin: auto;
+    margin-top: 0;
     /*
     border: 1px solid #fff; /* Testing purposes only.*/
     padding-top: 15px;
     text-align: center;
+    display: inline-grid;
 }
 
 .iconContainer .menuIcon{
@@ -49,11 +51,14 @@
 .menuItem .itemName{
     width: 100%;
     height: 20px;
-    display: block;
+    display: inline-grid;
     font-size: 25px;
     font-family: monospace;
     font-weight: bolder;
     position: relative;
-    bottom: 0px;
+    bottom: 0;
+    margin: 0px;
+    /*
+    border: 1px solid #fff;/**/
 
 }

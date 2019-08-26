@@ -1,7 +1,3 @@
-const {app, BrowserWindow} = require('electron');
-const {colors} = require('colors');
-
-
 
 
 var ById = function (id) {
@@ -24,32 +20,49 @@ var back = ById('back'),
     view = ById('view'),
     close = ById('close'),
     settings = ById('settings'),
-    skyWrite = ById('textEditor');
+    skyWrite = ById('skyWrite'),
+    settingsList = ById('settingsList'),
+    mainSettings = ById('mainSettings'),
+    leaveSettings = ById('leaveSettings');
 
 
-    function openSettings() {
-        document.getElementById("SettingsWindow").style.width = "calc(100vw)";
+    function openExtras() {
+        document.getElementById("ExtrasWindow").style.width = "calc(100vw)";
     }
     
-    function closeSettings() {
-        document.getElementById("SettingsWindow").style.width = "0%";
+    function closeExtras() {
+        document.getElementById("ExtrasWindow").style.width = "0%";
     }
 
     function settingsView () {
         
             omni.blur();
-            view.src = ('Settings.html');
-            closeSettings();
+            window.open('settings.html', 'nodeIntegration=yes');
+          /*  settingsList.style.display = "block";
+            mainSettings.style.display = "block";
+            view.style.display = "none";
+            view.style.width = "80vw";
+            view.src = ("About.html"); */
+            closeExtras();
+    }
+
+    function LeaveSettings(){
+        omni.blur();
+        settingsList.style.display = "none";
+        mainSettings.style.display = "none";
+        view.style.display = "";
+        view.style.width = "100vw";
     }
     
     function skyWriteView () {
         
         omni.blur();
-        view.src = ('textEditor.html');
-        closeSettings();
+        view.src = ('Extras/SkyWrite.html');
+        closeExtras();
 }
 
     settings.addEventListener('click', settingsView);
+    leaveSettings.addEventListener('click', LeaveSettings);
     skyWrite.addEventListener('click', skyWriteView);
 
     

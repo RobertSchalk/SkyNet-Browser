@@ -10,14 +10,7 @@ var settingsView = ById('settingsView'),
     privacy = ById('privacy');
 
 
-    function openSettings() {
-        document.getElementById("SettingsWindow").style.width = "calc(100vw)";
-    }
     
-    function closeSettings() {
-        document.getElementById("SettingsWindow").style.width = "0%";
-    }
-
     function AboutView () {
         
             omni.blur();
@@ -45,4 +38,3 @@ var settingsView = ById('settingsView'),
     privacy.addEventListener('click', PrivacyView);
     about.addEventListener('click', AboutView);*/
 
-    var version = app.getVersion();
