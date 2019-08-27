@@ -63,7 +63,6 @@ function backView () {
 function forwardView () {
     view.goForward();
 }
-
 //validates user input when they enter a url or file location.
 function updateURL (event) {
     if (event.keyCode === 13) {
