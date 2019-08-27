@@ -42,6 +42,7 @@ function createWindow (){
     })
     
     //let session = mainWindow.webContents.session;
+    //Saves last state of window.
     winState.manage(mainWindow);
     mainWindow.loadFile('src/index.html');
 

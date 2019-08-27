@@ -1,11 +1,12 @@
-const electron = require('electron')
+const { session } = require('electron');
+const { webview } = require('electron');
+const electron = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow;
 const windowStateKeeper = require('electron-window-state');
 const jsonfile = require('jsonfile');
 const favicon = require('favicon-getter').default;
 const path = require('path');
 const uuid = require('uuid');
-
 
 console.log(process);
 var ById = function (id) {
@@ -14,56 +15,78 @@ var ById = function (id) {
 var bookmarks = path.join(__dirname, 'bookmarks.json');
 var tabs = [];
 var tabsIndex;
-var views = [];
+//var views = [];
 var viewsIndex;
 
 var back = ById('back'),
-    forward = ById('forward'),
-    refresh = ById('refresh'),
-    omni = ById('url'),
-    dev = ById('console'),
-    fave = ById('fave'),
-    list = ById('list'),
-    popup = ById('fave-popup'),
-    view = ById('view'),
-    closeExtras = ById('closeExtras'),
-    views = ById('views');
-    close = ById('close'),
-    settings = ById('settings'),
-    skyWrite = ById('skyWrite'),
-    settingsList = ById('settingsList'),
-    mainSettings = ById('mainSettings'),
-    leaveSettings = ById('leaveSettings');
+forward = ById('forward'),
+refresh = ById('refresh'),
+omni = ById('url'),
+dev = ById('console'),
+fave = ById('fave'),
+list = ById('list'),
+popup = ById('fave-popup'),
+view = ById('view'),
+closeExtras = ById('closeExtras'),
+views = ById('views'),
+close = ById('close'),
+favorites = ById('favorites'),
+settings = ById('settings'),
+skyWrite = ById('skyWrite'),
+settingsList = ById('settingsList'),
+mainSettings = ById('mainSettings'),
+leaveSettings = ById('leaveSettings');
+
+let ses = view.getWebContents().session;
+ses.cookies.get({ url: view.src}, function(error, cookies) {
+    console.log(cookies);
+    let cookieStr = ''
+    for(var i = 0; i < cookies.length; i++){
+        let info = cookies[i];
+        cookieStr += `${info.name}=${info.value};`;
+        console.log(info.value, info.name);
+    }
+    console.log(cookieStr);
+});
+
+//Standard buttons - for controlling the <webview> 
+//refresh button
 
 function reloadView () {
     view.reload();
 }
-
+//back button
 function backView () {
     view.goBack();
 }
-
+// forward button
 function forwardView () {
     view.goForward();
 }
 
+//validates user input when they enter a url or file location.
 function updateURL (event) {
     if (event.keyCode === 13) {
         omni.blur();
         let val = omni.value;
         let https = val.slice(0, 8).toLowerCase();
         let http = val.slice(0, 7).toLowerCase();
+        let c = val.slice(0,2).toLowerCase();
+        let file = val.slice(0,8).toLowerCase();
         if (https === 'https://') {
             view.loadURL(val);
         } else if (http === 'http://') {
             view.loadURL(val);
-        } else {
+        }else if (file === 'file:///'){
+            view.loadURL(val)
+        } else if (c ===  'c:'){
+            view.loadURL('file:///' + val);
+        } 
+        }else {
         view.loadURL('http://'+ val);
         }
-    }
 }
 
-//handles cookies
 
 
 //handles bookmarks
@@ -97,7 +120,9 @@ function addBookmark () {
         })
     })
 }
+
 function openPopUp (event) {
+    CloseExtras();
     let state = popup.getAttribute('data-state');
     if (state === 'closed') {
         popup.innerHTML = '';
@@ -120,9 +145,13 @@ function openPopUp (event) {
         popup.style.display = 'none';
         popup.setAttribute('data-state', 'closed');
     }
+
+    
 }
 
 function handleUrl (event) {
+        popup.style.display = 'none';
+        popup.setAttribute('data-state', 'closed');
     if (event.target.className === 'link') {
         event.preventDefault();
         view.loadURL(event.target.href);
@@ -132,6 +161,7 @@ function handleUrl (event) {
     }
 }
 
+//handles devtools for webview.
 function handleDevtools () {
     if (view.isDevToolsOpened()) {
         view.closeDevTools();
@@ -291,7 +321,8 @@ forward.addEventListener('click', forwardView);
 omni.addEventListener('keydown', updateURL);
 fave.addEventListener('click', addBookmark);
 list.addEventListener('click', OpenExtras);
-//popup.addEventListener('click', handleUrl);
+favorites.addEventListener('click', openPopUp);
+popup.addEventListener('click', handleUrl);
 dev.addEventListener('click', handleDevtools);
 view.addEventListener('did-finish-load', updateNav);
 closeExtras.addEventListener('click', CloseExtras);
