@@ -33,7 +33,8 @@ var back = ById('back'),
     skyWrite = ById('skyWrite'),
     settingsList = ById('settingsList'),
     mainSettings = ById('mainSettings'),
-    leaveSettings = ById('leaveSettings');
+    leaveSettings = ById('leaveSettings'),
+    test = ById('test');
 
 function reloadView () {
     view.reload();
@@ -63,6 +64,10 @@ function updateURL (event) {
     }
 }
 
+//handles cookies
+
+
+//handles bookmarks
 var Bookmark = function (id, url, faviconUrl, title) {
     this.id = id;
     this.url = url;
@@ -277,6 +282,9 @@ function CreateSkyWriteView () {
 }
 
 
+
+
+
 //event listeners
 refresh.addEventListener('click', reloadView);
 back.addEventListener('click', backView);
@@ -291,3 +299,4 @@ closeExtras.addEventListener('click', CloseExtras);
 newTab.addEventListener('click', CreateTab);
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
+test.addEventListener('click', CreateTab);

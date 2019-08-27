@@ -17,11 +17,11 @@ function createWindow (){
     })
 
     let ses = session.defaultSession;
-    let getCookies = () => {
+   /* let getCookies = () => {
     ses.cookies.get({}, (err, cookies) =>{
-
+        console.log(cookies);
     })
-}
+}*/
 
     mainWindow = new BrowserWindow({
         width: winState.width,
@@ -44,44 +44,21 @@ function createWindow (){
     //let session = mainWindow.webContents.session;
     winState.manage(mainWindow);
     mainWindow.loadFile('src/index.html');
-  /*  
-*/
-/*
-    mainWindow.loadURL(url.format({
-        pathname: path.join('index.html'),
-        protocal: 'file:',
-        slashes: true
-    }))*//*
-secondaryWindow = new BrowserWindow({
-        width: mainWindow.width,
-        height: 700,
-        webPreferences: {nodeIntegration: true},
-        parent: mainWindow,
-        modal: false,
-        show: true,
-        resizable: wi,
-        movable: false,
-        frame: false,
-        skipTaskbar: true,
-        closable: false,
-        bottom: 0
-        
+
+  /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
+  ses.cookies.set(cookie, err => {
+      console.log('cookie1 set')
+  })
+    mainWindow.webContents.on('did-finish-load', e =>{
+        getCookies();
     })*/
-    //secondaryWindow.loadFile('secondary.html')
-
-    //mainWindow.webContents.openDevTools();
-
-
-  // mainWindow.once('ready-to-show', mainWindow.show )
 
 
 
     mainWindow.on('closed', ()=> {
         mainWindow = null
     })
-   /* secondaryWindow.on('closed', ()=> {
-        secondarywindow = null
-    })*/
+   
 }
 
 app.on('before-quit', e => {

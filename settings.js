@@ -1,4 +1,4 @@
-const electron = require('electron')
+const electron = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow;
 var jsonfile = require('jsonfile');
 var favicon = require('favicon-getter').default;
@@ -17,7 +17,7 @@ var browserVersion = ById('browserVersion'),
 
 
 var about = ById('about'),
-    appearance = ById('appearance'),
+    personalize = ById('personalize'),
     privacy = ById('privacy'),
     aboutView = ById('aboutView'),
     appearanceView = ById('appearanceView'),
@@ -29,27 +29,27 @@ var about = ById('about'),
     function AboutView () {
         
         aboutView.style.display = "block";
-        appearanceView.style.display = "none";
+        personalizeView.style.display = "none";
         privacyView.style.display = "none";
     }
-    function AppearanceView () {
+    function PersonalizeView () {
         
         aboutView.style.display = "none";
-        appearanceView.style.display = "block";
+        personalizeView.style.display = "block";
         privacyView.style.display = "none";
     }
     
     function PrivacyView () {
         
         aboutView.style.display = "none";
-        appearanceView.style.display = "none";
+        personalizeView.style.display = "none";
         privacyView.style.display = "block";
     }
 
     
 
     
-    appearance.addEventListener('click', AppearanceView);
+    personalize.addEventListener('click', PersonalizeView);
     privacy.addEventListener('click', PrivacyView);
     about.addEventListener('click', AboutView);
 

@@ -7,8 +7,9 @@
         
         <div id="settingsList">
             <div id="about" class="setting">About SkyNet</div>
-            <div id="appearance" class="setting">Appearance</div>
+            <div id="personalize" class="setting">Personalize</div>
             <div id="privacy" class="setting">Privacy</div>
+            <div id="test" class="setting">create tab in other window</div>
         </div>
             
         <div id="aboutView" class="settingsView">
@@ -25,16 +26,16 @@
             </div>
         </div>
 
-        <div id="appearanceView" class="settingsView">
-            <div class="settingsTitle"> Appearance</div>
+        <div id="personalizeView" class="settingsView">
+            <div class="settingsTitle"> Personalize</div>
             
-                <table class="appearanceSpace">
+                <table class="personalizeSpace">
                     <tr>
-                        <td class="apperanceText">
+                        <td class="personalizeText">
                                 <p>Change theme apperance: </p>
                         </td>
                         <td class="theme">
-                                <select id="themeSelector">
+                                <select id="themeSelector" class="selector">
                                     <option id="skyNet" value="skyNet">SkyNet</option>
                                     <option id="spring" value="spring">Spring</option>
                                     <option id="sunshine" value="sunshine">Sunshine</option>
@@ -46,18 +47,41 @@
                     </tr>
                     <tr>
 
+                        <td class="apperanceText">
+                            <p>Change default font on Browser: </p>
+                    </td>
+                    <td class="theme">
+                            <select id="browserFontSelector" class="selector">
+                                <option id="Bmonospace" value="Monospace">Monospace</option>
+                                <option id="BComicSans" value="Comic Sans">Comic Sans</option>
+                            </select>
+                    </td>
+                    </tr>
+                    <tr>
+
+                        <td class="apperanceText">
+                            <p>Change default font on Browser: </p>
+                    </td>
+                    <td class="theme">
+                            <select id="webFontSelector" class="selector">
+                                <option id="Wmonospace" value="Monospace">Monospace</option>
+                                <option id="WComicSans" value="Comic Sans">Comic Sans</option>
+                            </select>
+                    </td>
                     </tr>
                 </table>
             
         </div>
 
         <div id="privacyView" class="settingsView">
+            <div class="settingsTitle"> Privacy</div>
 
         
         </div>
 
         <script>
             require('../settings.js');
+            require('../index.js');
         </script>
 
     </body>
