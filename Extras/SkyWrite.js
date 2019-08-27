@@ -1,4 +1,5 @@
-const { app, BrowserWindow, Menu } = require('electron');
+//const { app, BrowserWindow, Menu } = require('electron');
+const {menu} = require('electron')
 const electron = require('electron');
 var jsonfile = require('jsonfile');
 var favicon = require('favicon-getter').default;
