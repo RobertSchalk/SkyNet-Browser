@@ -33,8 +33,7 @@ var back = ById('back'),
     skyWrite = ById('skyWrite'),
     settingsList = ById('settingsList'),
     mainSettings = ById('mainSettings'),
-    leaveSettings = ById('leaveSettings'),
-    test = ById('test');
+    leaveSettings = ById('leaveSettings');
 
 function reloadView () {
     view.reload();
@@ -299,4 +298,3 @@ closeExtras.addEventListener('click', CloseExtras);
 newTab.addEventListener('click', CreateTab);
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
-test.addEventListener('click', CreateTab);
