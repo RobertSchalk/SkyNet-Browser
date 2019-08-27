@@ -1,6 +1,5 @@
-
-
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, session} = require('electron')
+const windowStateKeeper = require('electron-window-state');
 const {colors} = require('colors');
 const path = require('path');
 const url = require('url');
@@ -10,19 +9,40 @@ console.log('Checking ready: ' + app.isReady());
 let mainWindow, textEditor;
 
 function createWindow (){
+    
+    let winState = windowStateKeeper({
+        defaultWidth: 1000,
+        defaultHeight: 800
+
+    })
+
+    let ses = session.defaultSession;
+    let getCookies = () => {
+    ses.cookies.get({}, (err, cookies) =>{
+
+    })
+}
+
     mainWindow = new BrowserWindow({
-        width: 1000,
-        height: 800,
+        width: winState.width,
+        height: winState.height,
+        x: winState.x,
+        y: winState.y,
         minWidth: 500,
         minHeight: 400,
         //frame: false,
        // titleBarStyle: 'hidden',
       //  autoHideMenuBar: true,
-        webPreferences: {nodeIntegration: true, webviewTag: true},
+        webPreferences: {
+            nodeIntegration: true,
+             webviewTag: true,
+            partition: 'SkyNet',},
         
         //show: false
     })
-
+    
+    //let session = mainWindow.webContents.session;
+    winState.manage(mainWindow);
     mainWindow.loadFile('src/index.html');
   /*  
 */

@@ -1,5 +1,6 @@
 const electron = require('electron')
 const BrowserWindow = electron.remote.BrowserWindow;
+const windowStateKeeper = require('electron-window-state');
 const jsonfile = require('jsonfile');
 const favicon = require('favicon-getter').default;
 const path = require('path');
@@ -198,21 +199,32 @@ for (i = 0; i < tab.length; i++){
         tabsBar.addEventListener('mousewheel', scrollHorizontally, false);
 })();
 
-////////////////////From Extras.js
+
 
 //Creates the setting window when called on.
 function CreateSettingsView () {
         
     omni.blur();
     
+    let winState = windowStateKeeper({
+        defaultWidth: 1000,
+        defaultHeight: 800
+
+    })
+    //let settingsSession = session.fromPartition('settingsWindow')
    // const settingsPath = path.join('file://', _dirname, '../settings/settings.html')
     let settingsWindow = new BrowserWindow({
-        width: 1000, 
-        height: 800,
+        width: winState.width, 
+        height: winState.Height,
         minWidth: 700,
         minHeight: 600,
-        webPreferences: {nodeIntegration: true, webviewTag: true, electron: true},
+        webPreferences: {
+            nodeIntegration: true,
+             webviewTag: true,
+              electron: true},
         })
+        //let session = settingsWindow.webContents.session;
+        winState.manage(settingsWindow);
     settingsWindow.on('close', function(){settingsWindow = null})
     settingsWindow.loadFile('settings/Settings.html')
     settingsWindow.show();
@@ -221,22 +233,37 @@ function CreateSettingsView () {
     view.style.display = "none";
     view.style.width = "80vw";
     view.src = ("About.html"); */
+
     CloseExtras();
 }
 
+//Creates the SkyWriteWindow
 function CreateSkyWriteView () {
 
     omni.blur();
     
+    let winState = windowStateKeeper({
+        defaultWidth: 1000,
+        defaultHeight: 800
+
+    })
+
+   // let skyWriteSession = session.fromPartition('skyWriteWindow')
     // const settingsPath = path.join('file://', _dirname, '../settings/settings.html')
      let skyWriteWindow = new BrowserWindow({
-         width: 1000,
-          height: 800,
+         width: winState.width,
+          height: winState.height,
         minWidth: 700,
         minHeight: 600,
-        webPreferences: {nodeIntegration: true, webviewTag: true, electron: true},
+        webPreferences: {
+            nodeIntegration: true,
+             webviewTag: true,
+              electron: true,
+               },
         
         })
+      //  let session = settingsWindow.webContents.session;
+        winState.manage(skyWriteWindow);
      skyWriteWindow.on('close', function(){skyWriteWindow = null})
      skyWriteWindow.loadFile('Extras/SkyWrite.html');
 
