@@ -272,7 +272,7 @@ function CreateSettingsView () {
     CloseExtras();
 }
 
-//Creates the SkyWriteWindow
+//Creates the SkyWrite Window
 function CreateSkyWriteView () {
 
     omni.blur();
@@ -294,9 +294,12 @@ function CreateSkyWriteView () {
             nodeIntegration: true,
              webviewTag: true,
               electron: true,
+              path: true,
                },
-        
+
         })
+
+
       //  let session = settingsWindow.webContents.session;
         winState.manage(skyWriteWindow);
      skyWriteWindow.on('close', function(){skyWriteWindow = null})

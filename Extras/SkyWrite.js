@@ -1,12 +1,12 @@
 //const { app, BrowserWindow, Menu } = require('electron');
-const {menu} = require('electron')
-const electron = require('electron');
-var jsonfile = require('jsonfile');
-var favicon = require('favicon-getter').default;
+//const {menu} = require('electron')
+//const electron = require('electron');
+//var jsonfile = require('jsonfile');
+//var favicon = require('favicon-getter').default;
 var path = require('path');
 var uuid = require('uuid');
 const fs = require('fs')
-const { readTitles } = require(path.resolve('actions/uiActions'))
+const { readTitles } = require(path.resolve('../actions/uiActions'))
 
 readTitles('./data').map(({title, dir}) => {
     el = document.createElement("li");
@@ -22,5 +22,5 @@ readTitles('./data').map(({title, dir}) => {
     document.getElementById('titles').appendChild(el)
 }) 
 
-window.webContents.setDevToolsWebContents(devtools.webContents);
-window.webContents.openDevTools({mode: 'detach'});
+//window.webContents.setDevToolsWebContents(devtools.webContents);
+//window.webContents.openDevTools({mode: 'detach'});

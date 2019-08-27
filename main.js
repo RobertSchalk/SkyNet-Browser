@@ -5,7 +5,7 @@ const path = require('path');
 const url = require('url');
 
 
-console.log('Checking ready: ' + app.isReady());
+//console.log('Checking ready: ' + app.isReady());
 let mainWindow, textEditor;
 
 function createWindow (){
@@ -93,6 +93,6 @@ app.on('activate', () => {
 })
 
 
-console.log('Checking ready: ' + app.isReady());
+//console.log('Checking ready: ' + app.isReady());
 
 
