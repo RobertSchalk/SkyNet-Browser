@@ -44,7 +44,11 @@ blockquote,q{quotes:none}
     width:32px;
     height:32px;
     float:left;
-    background:#eee;
+	background:#eee;
+	border-radius: 16px;
+	margin: 5px 5px;
+	box-shadow: 1px 1px 3px #000, -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
+	border: 2px solid #fff;
 }
 #views{
 	position:relative;
@@ -82,7 +86,7 @@ blockquote,q{quotes:none}
 #omnibox input{
 	float:left;
 	display:block;
-	width:calc(100% - 250px);
+	width:calc(100% - 260px);
 	height: 18px;
 	color:#333333;
 	border: 1px solid #000;
@@ -99,14 +103,15 @@ blockquote,q{quotes:none}
 }
 
 #fave-popup{
-	width: 500px;
-	height: 600px;
+	width: 200px;
+	height:calc(100vh - 118px);
 	z-index: 20;
 	position: absolute;
 	top: 120px;
 	right: 0;
 	display: none;
 	background-color: #48b4e0;
+	padding: 5px;
 }
 
 /*

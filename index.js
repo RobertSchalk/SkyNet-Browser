@@ -37,6 +37,7 @@ settingsList = ById('settingsList'),
 mainSettings = ById('mainSettings'),
 leaveSettings = ById('leaveSettings');
 
+/*
 let ses = view.getWebContents().session;
 ses.cookies.get({ url: view.src}, function(error, cookies) {
     console.log(cookies);
@@ -47,7 +48,7 @@ ses.cookies.get({ url: view.src}, function(error, cookies) {
         console.log(info.value, info.name);
     }
     console.log(cookieStr);
-});
+}); */
 
 //Standard buttons - for controlling the <webview> 
 //refresh button
@@ -162,6 +163,7 @@ function handleUrl (event) {
 
 //handles devtools for webview.
 function handleDevtools () {
+    CloseExtras();
     if (view.isDevToolsOpened()) {
         view.closeDevTools();
     } else {
