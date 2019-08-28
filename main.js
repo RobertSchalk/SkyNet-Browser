@@ -45,6 +45,7 @@ function createWindow (){
     //Saves last state of window.
     winState.manage(mainWindow);
     mainWindow.loadFile('src/index.html');
+   //mainWindow.loadFile('node_modules/electron-tabs/demo/electron-tabs.html');
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
   ses.cookies.set(cookie, err => {

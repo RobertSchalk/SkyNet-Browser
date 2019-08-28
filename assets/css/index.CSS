@@ -28,7 +28,7 @@ blockquote,q{quotes:none}
 }
 
 #navigation #fave-popup .link
-{width:100%;
+{	width:100%;
     height:32px;
     color:#eee;
     font-family:monospace;
@@ -50,13 +50,11 @@ blockquote,q{quotes:none}
 	box-shadow: 1px 1px 3px #000, -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
 	border: 2px solid #fff;
 }
-#views{
-	position:relative;
-}
+
 
 .page{
 	position:absolute;
-	top:0;
+	/*top:0;*/
 	right:0;
 	bottom:0;
 	width:100%;

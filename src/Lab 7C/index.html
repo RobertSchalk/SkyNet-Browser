@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="Index.CSS"/>
+	<link rel="stylesheet" href="overlay.CSS"/>
+<meta charset="utf-8">
+<title>DC Heros</title>
+</head>
+
+<body>
+	
+	  <div id="myNav" class="overlay"> <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><img src="globe.png" style="width:53px;height:53px;box-shadow: 2px 2px 10px #111;border-radius:100px;" alt="Close OverLay"></a>
+		<div class="overlay-content">
+			<iframe id="frame" name="frame"></iframe>
+		</div>
+	</div>
+	 
+	<!--    <span style="font-size:30px;cursor:pointer" onclick="openNav()"><img src="globe.png" style="width:53px;height:53px;box-shadow: 2px 2px 10px #111;border-radius:100px;"></a> 
+	    </span> -->
+	    <script>
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+      </script>
+	<div id="title">
+	
+		<h1 style="width: auto; display: inline; vertical-align: middle;"><u>DC Comics Info</u></h1>
+		<img src="dc logo.png" style="height: 100%; display: inline; vertical-align: middle; margin: 0px 25px;" alt="dc logo"/>
+	
+	</div>
+	<div id="mainContent">
+		<h1><b>DC Characters</b></h1>
+		<table id="superHeros" border="1px">
+		<thead>
+			<tr>
+				<th width="20%"><h3 style="color: #09c; text-shadow: 2px 2px 3px #aaa;">Hero Name</h3></th>
+			 	<th class="logoCell"><h3>Hero logo</h3></th>
+				<th width="20%"><h3>DC wiki Link</h3></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="nameCell">Flash</td>
+				<td class="logoCell"><img src="Flash Logo.jpg" alt="Flash Logo"/></td>
+				<td class="linkCell"><a name="link" href="https://dc.fandom.com/wiki/Flash" target="frame" onclick="openNav()">Flash Wiki</a></td>
+			</tr>
+			<tr>
+				<td class="nameCell">Green Arrow</td>
+				<td class="logoCell"><img src="Green Arrow Logo.jpg" alt="Flash Logo"/></td>
+				<td class="linkCell"><a name="link" href="https://dc.fandom.com/wiki/Oliver_Queen_(New_Earth)" target="frame" onclick="openNav()">Green Arrow Wiki</a></td>
+			</tr>
+			<tr>
+				<td class="nameCell">Batman</td>
+				<td class="logoCell"><img src="Batman logo.jpg"  alt="Flash Logo"/></td>
+				<td class="linkCell"><a name="link" href="https://dc.fandom.com/wiki/Batman"  target="frame" onclick="openNav()">BatMan Wiki</a></td>
+			</tr>
+			<tr>
+				<td class="nameCell">Super Man</td>
+				<td class="logoCell"><img src="Superman logo.jpg" alt="Flash Logo"/></td>
+				<td class="linkCell"><a name="link" href="https://dc.fandom.com/wiki/Superman"  target="frame" onclick="openNav()">Superman Wiki</a></td>
+			</tr>
+			<tr>
+				<td class="nameCell">Green Lantern</td>
+				<td class="logoCell"><img src="Green Lantern logo.jpg" alt="Flash Logo"/></td>
+				<td class="linkCell"><a name="link"  href="https://dc.fandom.com/wiki/Green_Lantern_Corps" target="frame" onclick="openNav()">Green Lantern Wiki</a></td>
+			</tr>
+		</tbody>
+		</table>
+	
+		<h2> <em>Short list of popular Cities in the DC Universe</em></h2>
+		
+		<ol style="display: inline-grid; vertical-align: middle; height: auto;">
+			<li><b>Central City</b></li>
+			<li><b>Star City</b></li>
+			<li><strong>Gotham</strong></li>
+			<li><strong>Metropolis</strong></li>
+		</ol>
+		<img src="Star City.jpg" style="display: inline-grid; vertical-align: middle; float: right; margin: 5px 55px; max-width: 250px;"/>
+		
+		<h2> Secret Identities</h2>
+		<ul style="display: inline-grid; vertical-align: middle; height: auto;">
+			<li>Barry Allen</li>
+			<li>Oliver Queen</li>
+			<li>Bruce Wayne</li>
+			<li>Clark Kent</li>
+		</ul>
+		<ul style="display: inline-grid; vertical-align: middle; height: auto; list-style-type: none;">
+			<li>The Flash</li>
+			<li>Green Arrow</li>
+			<li>Batman</li>
+			<li>Superman</li>
+		</ul>
+	</div>
+	
+</body>
+</html>

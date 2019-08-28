@@ -1,23 +1,25 @@
 const { session } = require('electron');
-const { webview } = require('electron');
+//const { webview } = require('electron');
 const electron = require('electron');
+const {ipcRenderer} = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow;
 const windowStateKeeper = require('electron-window-state');
 const jsonfile = require('jsonfile');
 const favicon = require('favicon-getter').default;
 const path = require('path');
 const uuid = require('uuid');
+const TabGroup = require("electron-tabs");
+const enav = new (require('electron-navigation'));
+const dragula = require("dragula");
 
-console.log(process);
 var ById = function (id) {
     return document.getElementById(id);
 }
 var bookmarks = path.join(__dirname, 'bookmarks.json');
-var tabs = [];
+//var tabs = [];
 var tabsIndex;
 //var views = [];
 var viewsIndex;
-
 var back = ById('back'),
 forward = ById('forward'),
 refresh = ById('refresh'),
@@ -26,7 +28,7 @@ dev = ById('console'),
 fave = ById('fave'),
 list = ById('list'),
 popup = ById('fave-popup'),
-view = ById('view'),
+//activeView = ById('activeView'),
 closeExtras = ById('closeExtras'),
 views = ById('views'),
 close = ById('close'),
@@ -35,7 +37,13 @@ settings = ById('settings'),
 skyWrite = ById('skyWrite'),
 settingsList = ById('settingsList'),
 mainSettings = ById('mainSettings'),
-leaveSettings = ById('leaveSettings');
+leaveSettings = ById('leaveSettings'),
+tabs = ById("tabs"),
+activeView = ById("activeView");
+
+console.log(process);
+
+
 
 /*
 let ses = view.getWebContents().session;
@@ -53,19 +61,103 @@ ses.cookies.get({ url: view.src}, function(error, cookies) {
 //Standard buttons - for controlling the <webview> 
 //refresh button
 
+let tabGroup = new TabGroup({
+   
+    Tab:{
+        title: 'New Tab',
+        src: 'src/defaultHome.html',
+        visible: true,
+        webviewAttributes:{
+            nodeintegration: true
+        }
+    }
+})
+    
+
+
+
+    let defaultTab = tabGroup.addTab({
+        title: "Our Code World",
+        src: "https://ourcodeworld.com",
+        visible: true
+    });
+    
+    let webview = tabGroup.getActiveTab().webview;
+    
+        ipcRenderer.on('request', function(){
+            ipcRenderer.sendToHost(getScripts());
+        })
+        
+        ipcRenderer.on("change-text-element",function(event,data){
+            // the document references to the document of the <webview>
+            webview.innerHTML = data.text;
+        });
+        
+        /** 
+        @returns {String}
+         **/
+        function getScripts(){
+            var items = [];
+            
+            for(var i = 0;i < document.scripts.length;i++){
+                items.push(document.scripts[i].src);
+            }
+            
+            return JSON.stringify(items);
+        }
+
+        webview.addEventListener("dom-ready", function() {
+            // Show devTools if you want
+            //webview.openDevTools();
+            console.log("DOM-Ready, triggering events !");
+            
+            // Aler the scripts src of the website from the <webview>
+            webview.send("request");
+            
+            // alert-something
+            webview.send("alert-something", "Hey, i'm alerting this.");
+            
+            // change-text-element manipulating the DOM
+            webview.send("change-text-element",{
+                id: "activeView",
+                text: "My text"
+            });
+        });
+        
+        // Process the data from the webview
+        webview.addEventListener('ipc-message',function(event){
+            console.log(event);
+            console.info(event.channel);
+        });
+    
+    function CreateTab(){
+        
+        let newTab = tabGroup.addTab({
+            title: 'test',
+            src: "https://www.Bing.com",
+            visible: true,
+            active: true,
+        });
+        var title = newTab.webview.getTitle();
+        newTab.setTitle(title);
+    }
+    //tabGroup.getActiveTab()
+        
+
 function reloadView () {
-    view.reload();
+    webview.reload();
 }
 //back button
 function backView () {
-    view.goBack();
+    webview.goBack();
 }
 // forward button
 function forwardView () {
-    view.goForward();
+    webview.goForward();
 }
 //validates user input when they enter a url or file location.
 function updateURL (event) {
+
     if (event.keyCode === 13) {
         omni.blur();
         let val = omni.value;
@@ -74,18 +166,18 @@ function updateURL (event) {
         let c = val.slice(0,2).toLowerCase();
         let file = val.slice(0,8).toLowerCase();
         if (https === 'https://') {
-            view.loadURL(val);
+            webview.loadURL(val);
         } else if (http === 'http://') {
-            view.loadURL(val);
+            webview.loadURL(val);
         }else if (file === 'file:///'){
-            view.loadURL(val)
+            webview.loadURL(val)
         } else if (c ===  'c:'){
-            view.loadURL('file:///' + val);
+            webview.loadURL('file:///' + val);
         } 
-        }else {
-        view.loadURL('http://'+ val);
+        else {
+            webview.loadURL('http://'+ val);
         }
-}
+}}
 
 
 
@@ -154,25 +246,27 @@ function handleUrl (event) {
         popup.setAttribute('data-state', 'closed');
     if (event.target.className === 'link') {
         event.preventDefault();
-        view.loadURL(event.target.href);
+        webview.loadURL(event.target.href);
     } else if (event.target.className === 'favicon') {
         event.preventDefault();
-        view.loadURL(event.target.parentElement.href);
+        webview.loadURL(event.target.parentElement.href);
     }
 }
+
 
 //handles devtools for webview.
 function handleDevtools () {
     CloseExtras();
-    if (view.isDevToolsOpened()) {
-        view.closeDevTools();
+    if (webview.isDevToolsOpened()) {
+        webview.closeDevTools();
     } else {
-        view.openDevTools();
+        
+        webview.openDevTools();
     }
 }
 
 function updateNav (event) {
-    omni.value = view.src;
+    omni.value = webview.src;
 }
 
 
@@ -187,24 +281,17 @@ function CloseExtras() {
 
 //This manages the tabs bar.
 
-var tabsBar = ById('tabs');
-var tab = document.getElementsByClassName('tab');
+//var tabsBar = ById('tabs');
+//var tab = document.getElementsByClassName('tab');
 //var tab = ById("tab");
-var newTab = ById('newTab');
-var tabs = tabsBar.childNodes;
-var i = 0;
-var base = document.querySelector('#tabs');
+var NewTab = ById('newTab');
 
-function CreateTab(){
-    var createTab = document.createElement("div");
-    createTab.classList.add("tab");
-    tabsBar.appendChild(createTab);
-    var createView = document.createElement("webview");
-    createView.classList.add("page");
-    views.appendChild(createView);
+//var tabs = tabsBar.childNodes;
+//var i = 0;
+//var base = document.querySelector('#tabs');
 
     
-}
+
 // use tab[i] = view[i]
 function focusTab(){
     
@@ -215,24 +302,19 @@ function focusTab(){
 
 
 
-
-
-
-for (i = 0; i < tab.length; i++){
-    tab[i].addEventListener('click', focusTab, false)
-}
-
 (function() {
     function scrollHorizontally(e) {
         e = window.event || e;
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        tabsBar.scrollLeft -= (delta*80); // Multiplied by 40
+        tabs.scrollLeft -= (delta*80); // Multiplied by 40
         e.preventDefault();
     }
     
     
-        tabsBar.addEventListener('mousewheel', scrollHorizontally, false);
+        tabs.addEventListener('mousewheel', scrollHorizontally, false);
 })();
+
+
 
 
 
@@ -317,7 +399,6 @@ function CreateSkyWriteView () {
 
 
 
-
 //event listeners
 refresh.addEventListener('click', reloadView);
 back.addEventListener('click', backView);
@@ -328,8 +409,11 @@ list.addEventListener('click', OpenExtras);
 favorites.addEventListener('click', openPopUp);
 popup.addEventListener('click', handleUrl);
 dev.addEventListener('click', handleDevtools);
-view.addEventListener('did-finish-load', updateNav);
+webview.addEventListener('did-finish-load', updateNav);
 closeExtras.addEventListener('click', CloseExtras);
-newTab.addEventListener('click', CreateTab);
+NewTab.addEventListener('click', CreateTab);
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
+
+// When everything is ready, trigger the events without problems
+

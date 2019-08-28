@@ -1,5 +1,8 @@
 # SkyNet Browser
 
+Todo:
+tie URL bar to the individual tabs. Currently getting a DOM warning. Url bar and controls only work with the first tab so far.
+
 
 A browser I decided to challenge myself to create using the electron framework.
 

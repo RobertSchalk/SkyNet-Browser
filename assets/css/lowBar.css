@@ -5,9 +5,10 @@
 	display: block;
 	float:left;
 	background-color: #48b4e0;
+	margin: 0;
 }
 
-#lowBar #newTab{
+.etabs-button{
 	margin:0;
 	display:inline-block;
 	height:35px;

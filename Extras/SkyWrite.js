@@ -6,7 +6,7 @@
 var path = require('path');
 var uuid = require('uuid');
 const fs = require('fs')
-const { readTitles } = require(path.resolve('../actions/uiActions'))
+const { readTitles } = require(path.resolve('../actions/uiActions/'))
 
 readTitles('./data').map(({title, dir}) => {
     el = document.createElement("li");
