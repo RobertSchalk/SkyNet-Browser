@@ -45,7 +45,7 @@ function createWindow (){
     //Saves last state of window.
     winState.manage(mainWindow);
     mainWindow.loadFile('src/index.html');
-    //mainWindow.setMenuBarVisibility(false);
+    mainWindow.setMenuBarVisibility(false);
    //mainWindow.loadFile('node_modules/electron-tabs/demo/electron-tabs.html');
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
@@ -56,7 +56,7 @@ function createWindow (){
         getCookies();
     })*/
 
-
+    console.log(typeof(42));
 
     mainWindow.on('closed', ()=> {
         mainWindow = null

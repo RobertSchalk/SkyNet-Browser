@@ -1,12 +1,14 @@
 {
-  "name": "skynetbrowser",
+  "name": "skynet",
   "version": "1.0.0",
   "description": "SkyNet Browser",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "reset": "git reset --hard"
+    "reset": "git reset --hard",
+    "build": "electron-builder --w",
+    "release": "electron-builder --mwl --p onTagOrDraft"
   },
   "repository": {
     "type": "git",
@@ -64,19 +66,34 @@
   },
   "build": {
     "appId": "com.RobertSchalk.SkyNet",
+    
+    
+    "extraFiles": [
+      "build/**/",
+      "node_modules/**/*",
+      "assets/**/*",
+      "src/**/*",
+      "settings/**/*",
+      "Extras/**/*",
+      "bookmarks.json"
+    ],
     "copyright": "Copyright 2019 Robert Schalk",
+    "publish": {
+      "provider": "github"
+    },
     "mac":{
       "category": "public.app-category.productivity",
       "target": "dmg",
       "icon": "build/skynet.icns"
     },
     "win": {
-      "target": "zip",
-      "certificateFile": "",
+      "target": "NSIS",
+      "certificateFile": "private/RobertSchalk.pfx",
       "certificatePassword": "",
       "verifyUpdateCodeSignature": "false",
       "publisherName":"RobertSchalk",
-      "icon": "build/skynet.ico"
+      "icon": "build/skynet.ico",
+      "publish": ["github", "bintray"]
     },
     "linux":{
       "category": "Network",

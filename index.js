@@ -748,7 +748,7 @@ navigation = new Navigation();
 
 
 
-
+navigation.newTab('https://www.bing.com');
 
 
 
