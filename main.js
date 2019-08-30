@@ -28,13 +28,16 @@ function createWindow (){
         y: winState.y,
         minWidth: 500,
         minHeight: 400,
+        icon: 'assets/Icon/skynet.png',
         //frame: false,
        // titleBarStyle: 'hidden',
       //  autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
              webviewTag: true,
-            partition: 'SkyNet',},
+            partition: 'SkyNet',
+        devTools: false},
+        
         
         //show: false
     })
@@ -43,6 +46,7 @@ function createWindow (){
     //Saves last state of window.
     winState.manage(mainWindow);
     mainWindow.loadFile('src/index.html');
+    //mainWindow.setMenuBarVisibility(false);
    //mainWindow.loadFile('node_modules/electron-tabs/demo/electron-tabs.html');
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
