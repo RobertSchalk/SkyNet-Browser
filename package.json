@@ -1,7 +1,7 @@
 {
   "name": "skynetbrowser",
   "version": "1.0.0",
-  "description": "Playing with electron",
+  "description": "SkyNet Browser",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -61,5 +61,27 @@
         ]
       }
     ]
+  },
+  "build": {
+    "appId": "com.RobertSchalk.SkyNet",
+    "copyright": "Copyright 2019 Robert Schalk",
+    "mac":{
+      "category": "public.app-category.productivity",
+      "target": "dmg",
+      "icon": "build/skynet.icns"
+    },
+    "win": {
+      "target": "zip",
+      "certificateFile": "",
+      "certificatePassword": "",
+      "verifyUpdateCodeSignature": "false",
+      "publisherName":"RobertSchalk",
+      "icon": "build/skynet.ico"
+    },
+    "linux":{
+      "category": "Network",
+      "icon": "build/skynet.png"
+    }
   }
+
 }

@@ -52,12 +52,11 @@
 	text-overflow: ellipsis;
 	cursor:pointer;
 	box-sizing: border-box;
-	border-right:#eee 1px solid;
+	border-right:rgb(53, 107, 158) 1px solid;
+	border-left:rgb(53, 107, 158) 1px solid;
 	line-height:15px;
 	width: 30%;
     max-width: 150px;
-    border: 1px solid #000;
-    
 	background-color: #004D96;
 	text-decoration: none;
 	transition: 0.3s;
@@ -176,8 +175,8 @@
 	overflow:hidden;
 	text-overflow:ellipsis; 
     display: inline-block;
-	margin-left: 10px;
-	margin-bottom: 2px;
+	margin-left: 1px;
+	margin-bottom: 4px;
 }
 
 .etabs-tab-buttons {
