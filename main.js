@@ -28,7 +28,6 @@ function createWindow (){
         y: winState.y,
         minWidth: 500,
         minHeight: 400,
-        icon: 'assets/Icon/skynet.png',
         //frame: false,
        // titleBarStyle: 'hidden',
       //  autoHideMenuBar: true,
