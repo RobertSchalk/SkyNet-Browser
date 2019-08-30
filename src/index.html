@@ -24,26 +24,26 @@
 
     <nav id="navigation">
       <div  class="navButtons">
-        <i id="back" class="fa fa-arrow-left" aria-hidden="true"></i>
+        <i id="back" class="fa fa-arrow-left" aria-hidden="false" title="back"></i>
       </div>
       <div class="navButtons">
-        <i id="forward" class="fa fa-arrow-right" aria-hidden="true"></i>
+        <i id="forward" class="fa fa-arrow-right" aria-hidden="true" title="forward"></i>
       </div>
       <div class="navButtons">
-        <i id="refresh" class="fa fa-refresh" aria-hidden="true"></i>
+        <i id="refresh" class="fa fa-refresh" aria-hidden="false" title="refresh page"></i>
       </div>
       <div id="omnibox">
-        <input type="text" id="url" value="">
+        <input type="text" id="url" title="Enter an address or search term" value="">
       </div>
       <div id="fave"  class="navButtons">
-        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true" title="add to favorites"></i>
       </div>
       <!-- fa-list| -->
-      <div id="list"  class="navButtons">
-        <i class="fa fa-table" aria-hidden="true"></i>
+      <div id="list"  class="navButtons" title="Open Extras">
+        <i class="fa fa-table" aria-hidden="true" ></i>
       </div>
       
-      <div id="favorites"  class="navButtons">
+      <div id="favorites"  class="navButtons" title="Open/close Favorites">
         <i class="fa fa-folder-open" aria-hidden="true"></i>
       </div>
       <div id="fave-popup" data-state="closed">
@@ -65,7 +65,7 @@
    
     
     <div class="page">
-      <div class="etabs-views"></div>
+      <div id ="etabs-views" ></div>
     </div>
      <!-- <webview id="view" class="page" src="https://www.bing.com/" partition="electron" autosize="on" allowtransparency plugins></webview>
       -->
@@ -107,16 +107,16 @@
               <div class="itemName">SkyWrite</div>
            </div>
           <div class="menuItem">
-            
+              
           </div>
           <div class="menuItem">
-            
+              
           </div>
           <div class="menuItem">
-            
+              
           </div>
           <div class="menuItem">
-            
+              
           </div>
         </div>
       

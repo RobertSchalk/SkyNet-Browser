@@ -9,58 +9,49 @@ body {
 	padding: 0;
 	font-family: monospace;
 }
-webview {
-	width: 100%;
-	height: 100%;
-  }
+
 ol,ul{list-style:none}
 blockquote,q{quotes:none}
 #navigation{
 	width: 100%;
-	height: 40px;
-	padding: 7px 15px;
+	height: 30px;
+	padding: 1px 15px 0px 0px;
 	background-color: #48b4e0;
 	display:block;
 	top:0;
 	left:0;
 	border-bottom: 2px solid #03061f;
 	box-sizing:border-box;
+	line-height: 30px;
 }
 
 #navigation #fave-popup .link
 {	width:100%;
-    height:32px;
+    height:30px;
     color:#eee;
     font-family:monospace;
     font-size:13px;
     text-decoration: none;
     text-align: left;
     display:block;
-	line-height:32px;
+	line-height:30px;
 }
 	
 	
 #navigation #fave-popup .link .favicon{
     width:32px;
-    height:32px;
+    height:30px;
     float:left;
 	background:#eee;
 	border-radius: 16px;
-	margin: 5px 5px;
+	margin: 2px 5px;
 	box-shadow: 1px 1px 3px #000, -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
 	border: 2px solid #fff;
+	line-height: 30px;
 }
 
 
-.page{
-	position:absolute;
-	/*top:0;*/
-	right:0;
-	bottom:0;
-	width:100%;
-	/*The height needs to be (100vh - (navigation + tabs)*/
-	height:calc(100vh - 118px);
-}
+
 .inactive{
 	display: none;
 }
@@ -70,9 +61,12 @@ blockquote,q{quotes:none}
 	float:left;
 	display:block;
 	width: 35px;
+	height: 30px;
 	font-size:20px;
 	color: #eee;
 	cursor: pointer;
+	line-height: 30px;
+	margin-top: 2px;
 }
 
 .navButtons :hover{
@@ -93,16 +87,13 @@ blockquote,q{quotes:none}
 	padding: 1px 10px;
 	color: #000;
 	font-family: monospace;
-	margin: 1px 33px 0px 0px;
+	margin: 2px 33px 0px 0px;
 	
-}
-.active{
-	display: block;
 }
 
 #fave-popup{
 	width: 200px;
-	height:calc(100vh - 118px);
+	height:100%;
 	z-index: 20;
 	position: absolute;
 	top: 120px;
@@ -112,12 +103,3 @@ blockquote,q{quotes:none}
 	padding: 5px;
 }
 
-/*
-#views{
-	
-	width: 100%;
-	height: calc(100% - 130px);
-	position: absolute;
-	bottom: 0;
-	background-color: #333;
-}*/

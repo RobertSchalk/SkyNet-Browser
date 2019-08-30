@@ -1,8 +1,6 @@
 const {app, BrowserWindow, session} = require('electron')
 const windowStateKeeper = require('electron-window-state');
-const {colors} = require('colors');
 const path = require('path');
-const url = require('url');
 
 
 //console.log('Checking ready: ' + app.isReady());
