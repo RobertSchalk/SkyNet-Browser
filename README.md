@@ -1,7 +1,14 @@
 # SkyNet Browser
 
-Todo:
-tie URL bar to the individual tabs. Currently getting a DOM warning. Url bar and controls only work with the first tab so far.
+V1.0.0
+
+Updates to come for V1.1.0: 
+ -Favorites bar
+ -SkyWrite
+ -SkySheets
+ -browser history
+ -personalization
+
 
 
 A browser I decided to challenge myself to create using the electron framework.
