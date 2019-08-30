@@ -122,7 +122,7 @@ blockquote,q{quotes:none}
 	border-left: 2px solid #008;
 	box-shadow: inset 0px 3px 5px #000;
 	overflow: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
 	text-align: left;
 	transition: 0.5s;
 }

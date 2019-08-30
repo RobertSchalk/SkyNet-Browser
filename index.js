@@ -1,24 +1,26 @@
 const { session } = require('electron');
 const electron = require('electron');
 const {ipcRenderer} = require('electron');
-const BrowserWindow = electron.remote.BrowserWindow;
-const windowStateKeeper = require('electron-window-state');
-const jsonfile = require('jsonfile');
-const favicon = require('favicon-getter').default;
-const path = require('path');
-const urlRegex = require('url-regex');
-const contextMenu = require('electron-context-menu');
-const dragula = require("dragula");
-var $ = require('jquery');
-var Color = require('color.js');
+const BrowserWindow = electron.remote.BrowserWindow; // To allow the creation of more windows from this page.
+const windowStateKeeper = require('electron-window-state'); //Helps save the previous window state of the browser. 
+const jsonfile = require('jsonfile'); // To allow the communication between the .json files.
+const favicon = require('favicon-getter').default; // Helps retrieve favicons from other websites.
+const path = require('path'); // Used for book marks. Joins a path and file location
+const urlRegex = require('url-regex'); // checks a url and tells the browser what to do with it. It's a bit better than my original method.
+const contextMenu = require('electron-context-menu'); // This is needed for the right-click menus.
+const dragula = require("dragula"); // This helps drag tabs around. (Not implemented yet).
+const uuid= require("uuid"); // Helps create ids for bookmarks.
+var $ = require('jquery'); //allows jquery to be used
+var Color = require('color.js'); // Currently helps color the tab icons
 var globalCloseableTabsOverride;
 
+//this is so I don't have to write "getElementById" so many times.
 var ById = function (id) {
     return document.getElementById(id);
 }
-var bookmarks = path.join(__dirname, 'bookmarks.json');
+var bookmarks = path.join(__dirname, 'bookmarks.json'); // setting bookmarks to the file pathway.
 
-
+//declaring all of my elements that I need the most here.
 var omni = ById('url'),
 dev = ById('console'),
 fave = ById('fave'),
@@ -27,17 +29,16 @@ popup = ById('fave-popup'),
 closeExtras = ById('closeExtras'),
 favorites = ById('favorites'),
 settings = ById('settings'),
-skyWrite = ById('skyWrite');
-
-console.log(process);
-
-
+skyWrite = ById('skyWrite'),
+print = ById('print'),
+newWindow = ById('newWindow');
 
 
+//////////////////////---   ---   Navigation configs  ---   ---////////////////////////////////////
     function Navigation(options){
         var defaults = {
             closableTabs: true,
-            defaultFavicons: false,
+            defaultFavicons: true,
             newTabCallback: null,
             changeTabCallback: null,
             newTabParams: null
@@ -750,9 +751,29 @@ navigation = new Navigation();
 
 navigation.newTab('https://www.bing.com');
 
+//This allows you to scroll through the tabs horizontally instead of the usual virtical scroll.
+(function() {
+    function scrollHorizontally(e) {
+        e = window.event || e;
+        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+        tabs.scrollLeft -= (delta*80); // Multiplied by 40
+        e.preventDefault();
+    }
+    
+    
+        tabs.addEventListener('mousewheel', scrollHorizontally, false);
+})();
 
+
+//This takes the url bar and updates it everytime the webview changes.
+function updateNav (event) {
+    omni.value = webview.src;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 //handles bookmarks
+//creating the Bookmark class
 var Bookmark = function (id, url, faviconUrl, title) {
     this.id = id;
     this.url = url;
@@ -771,14 +792,13 @@ Bookmark.prototype.ELEMENT = function () {
     a_tag.insertBefore(favimage, a_tag.childNodes[0]);
     return a_tag;
 }
+
 //This adds the bookmark information to Bookmarks.json
 function addBookmark () {
-
-    let url = webview.src;
+    let  url = $('.etabs-view.active')[0].getURL(); //Retrieves the active view's url
     let title = webview.getTitle();
     favicon(url).then(function(fav) {
         let book = new Bookmark(uuid.v1(), url, fav, title);
-        
         jsonfile.readFile(bookmarks, function(err, curr) {
             curr.push(book);
             jsonfile.writeFile(bookmarks, curr, function (err) {
@@ -788,6 +808,7 @@ function addBookmark () {
 }
 
 //This controls the opening and closing of the Bookmarks screen.
+//Favorites will slide up and down from the navigation bar.
 function openPopUp (event) {
     let state = popup.getAttribute('data-state');
     if (state === 'closed') {
@@ -827,59 +848,27 @@ function handleUrl (event) {
     }
 }
 
+///////////////////////////////---   --- Extras ---   ---//////////////////////////////////////////////////////
 
 //handles devtools for webview.
 function handleDevtools () {
-    CloseExtras();
+    ExtrasWindow();
     navigation.openDevTools();
 }
-//This takes the omni bar to update everytime the webview changes.
-function updateNav (event) {
-    omni.value = webview.src;
-}
 
-//These two functions open and close the extras overlay.
-function OpenExtras() {
-    document.getElementById("ExtrasWindow").style.width = "calc(100vw)";
-}
+//This controls the Extras overlay.
+function ExtrasWindow() {
+    var extrasWindow = ById("ExtrasWindow");
 
-function CloseExtras() {
-    document.getElementById("ExtrasWindow").style.width = "0%";
-}
-
-
-//This manages the tabs bar.
-
-var NewTab = ById('newTab');
-
-
-    
-
-// use tab[i] = view[i]
-function focusTab(){
-    
-    
-    console.log('focus tab complete')
-    
-}
-
-
-//This allows you to scroll through the tabs horizontally instead of the usual virtical scroll.
-(function() {
-    function scrollHorizontally(e) {
-        e = window.event || e;
-        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        tabs.scrollLeft -= (delta*80); // Multiplied by 40
-        e.preventDefault();
+    if(extrasWindow.style.width == "calc(100vw)"){
+        document.getElementById("ExtrasWindow").style.width = "0%";
+    } else {
+        document.getElementById("ExtrasWindow").style.width = "calc(100vw)";
     }
-    
-    
-        tabs.addEventListener('mousewheel', scrollHorizontally, false);
-})();
 
+}
 
-
-
+////////////////////////////////---   --- Extras ---   ---///////////////////////////////////////////////
 
 //Creates the setting window when called on. Settings is currently handled in a different window.
 function CreateSettingsView () {
@@ -910,7 +899,7 @@ function CreateSettingsView () {
     settingsWindow.show();
  
 
-    CloseExtras();
+    ExtrasWindow();
 }
 
 //Creates the SkyWrite Window. All extras will be opened in a new window for now.
@@ -949,19 +938,24 @@ function CreateSkyWriteView () {
 
      skyWriteWindow.show();
    
-     CloseExtras();
+     ExtrasWindow();
 }
 
-
+function Print(){
+    ExtrasWindow();
+    navigation.printTab();
+}
 
 
 //event listeners
 
 fave.addEventListener('click', addBookmark);
-list.addEventListener('click', OpenExtras);
+list.addEventListener('click', ExtrasWindow);
+closeExtras.addEventListener('click', ExtrasWindow);
 favorites.addEventListener('click', openPopUp);
 popup.addEventListener('click', handleUrl);
 dev.addEventListener('click', handleDevtools);
-closeExtras.addEventListener('click', CloseExtras);
+print.addEventListener('click', Print)
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
+

@@ -33,7 +33,9 @@
 	color: #000;
 	transition: 0.3s;
 }
-#lowBar #favoritesBar{
+#favoritesBar{
 	width: calc(100% - 400px);
-	border-left: 1px solid #fff;
+	height: 25px;
+	border-right: 1px solid #fff;
+	display: inline-block;
 }

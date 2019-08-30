@@ -1,6 +1,6 @@
-private/RobertSchalk.pfx
+bookmarks.json
 node_modules
+private
+private/RobertSchalk.pfx
 dist
-release
-package.json
-package-lock.json
+
