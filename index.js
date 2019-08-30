@@ -773,21 +773,22 @@ Bookmark.prototype.ELEMENT = function () {
 }
 //This adds the bookmark information to Bookmarks.json
 function addBookmark () {
+
     let url = webview.src;
     let title = webview.getTitle();
     favicon(url).then(function(fav) {
         let book = new Bookmark(uuid.v1(), url, fav, title);
+        
         jsonfile.readFile(bookmarks, function(err, curr) {
             curr.push(book);
             jsonfile.writeFile(bookmarks, curr, function (err) {
             })
-        })
-    })
+        });
+    });
 }
 
 //This controls the opening and closing of the Bookmarks screen.
 function openPopUp (event) {
-    CloseExtras();
     let state = popup.getAttribute('data-state');
     if (state === 'closed') {
         popup.innerHTML = '';
@@ -803,19 +804,19 @@ function openPopUp (event) {
                     popup.appendChild(el);
                 }
             }
-                popup.style.display = 'block';
+                popup.style.height = 'calc(100vh - 55px)';
                 popup.setAttribute('data-state', 'open');
         });
     } else {
-        popup.style.display = 'none';
+        popup.style.height = '0px';
         popup.setAttribute('data-state', 'closed');
     }
-
+    
     
 }
 //This handles the url transation from the bookmarks to omni.
 function handleUrl (event) {
-        popup.style.display = 'none';
+        popup.style.height = '0px';
         popup.setAttribute('data-state', 'closed');
     if (event.target.className === 'link') {
         event.preventDefault();
@@ -944,7 +945,7 @@ function CreateSkyWriteView () {
       //  let session = settingsWindow.webContents.session;
         winState.manage(skyWriteWindow);
      skyWriteWindow.on('close', function(){skyWriteWindow = null})
-     skyWriteWindow.loadFile('Extras/SkyWrite.html');
+     skyWriteWindow.loadFile('src/SkyWrite.html');
 
      skyWriteWindow.show();
    
@@ -964,4 +965,3 @@ dev.addEventListener('click', handleDevtools);
 closeExtras.addEventListener('click', CloseExtras);
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
-

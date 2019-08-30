@@ -1,6 +1,8 @@
 const {app, BrowserWindow, session} = require('electron')
 const windowStateKeeper = require('electron-window-state');
 const path = require('path');
+const fs = require('fs');
+
 
 
 //console.log('Checking ready: ' + app.isReady());
@@ -34,8 +36,7 @@ function createWindow (){
         webPreferences: {
             nodeIntegration: true,
              webviewTag: true,
-            partition: 'SkyNet',
-        devTools: false},
+            partition: 'SkyNet'},
         
         
         //show: false
@@ -45,8 +46,7 @@ function createWindow (){
     //Saves last state of window.
     winState.manage(mainWindow);
     mainWindow.loadFile('src/index.html');
-    mainWindow.setMenuBarVisibility(false);
-   //mainWindow.loadFile('node_modules/electron-tabs/demo/electron-tabs.html');
+    //mainWindow.setMenuBarVisibility(false);
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
   ses.cookies.set(cookie, err => {
@@ -56,7 +56,7 @@ function createWindow (){
         getCookies();
     })*/
 
-    console.log(typeof(42));
+    
 
     mainWindow.on('closed', ()=> {
         mainWindow = null
@@ -94,7 +94,5 @@ app.on('activate', () => {
     if (mainWindow === null) createWindow()
 })
 
-
-//console.log('Checking ready: ' + app.isReady());
 
 

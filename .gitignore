@@ -2,4 +2,5 @@ private/RobertSchalk.pfx
 node_modules
 dist
 release
-
+package.json
+package-lock.json
