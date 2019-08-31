@@ -25,7 +25,7 @@
 }
 
 .etabs-tabs{
-	width: calc(100% - 10px);
+	width: calc(100% - 20px);
 	height:27px;
 	left:0;
 	display:block;
@@ -33,7 +33,7 @@
 	overflow-x:auto;
 	white-space:nowrap;
 	padding: 0px 5px 0px 5px;
-	margin:0;
+	margin: 0 auto;
 	background: linear-gradient( #48b4e0, #1864b0);
 	border-top: 1px outset #00a;
 }

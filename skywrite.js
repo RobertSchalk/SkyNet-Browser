@@ -1,3 +1,4 @@
+//this file controls the skywrite app
 //const { app, BrowserWindow, Menu } = require('electron');
 //const {menu} = require('electron')
 //const electron = require('electron');
@@ -6,9 +7,9 @@
 var path = require('path');
 var uuid = require('uuid');
 const fs = require('fs')
-const { readTitles } = require(path.resolve('../actions/uiActions/'))
+const { readTitles } = require(path.resolve('data'))
 
-readTitles('./data').map(({title, dir}) => {
+readTitles('data').map(({title, dir}) => {
     el = document.createElement("li");
     text = document.createTextNode(`${title.split('.md')[0]}`);
     el.appendChild(text)

@@ -1,6 +1,9 @@
 #appMenu{
     width: 100%;
     height: 100%;
+    align-content: center;
+    text-align: center;
+    position: absolute;
     /*
     border: 1px solid #fff;/* Testing only*/
 }
@@ -46,6 +49,8 @@
 .iconContainer .menuIcon{
     width: calc(90% - 10px);
     height: calc(90% - 10px);
+    max-width: 150px;
+    max-height: 150px;
     margin: auto;
 }
 .menuItem .itemName{

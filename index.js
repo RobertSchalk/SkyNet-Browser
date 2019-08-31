@@ -31,14 +31,30 @@ favorites = ById('favorites'),
 settings = ById('settings'),
 skyWrite = ById('skyWrite'),
 print = ById('print'),
-newWindow = ById('newWindow');
+newWindow = ById('newWindow'),
+zoom = ById('zoom'),
 
+// This will be used to count total tabs current in session.
+//Will return value on the NewTab Button Title. (hover)
+//total = total opened during session.
+//current = tabs currently open.
+totalTabs = 0;  
+currentTabs = 0;
+
+function CountTabs(){
+    
+var nt = ById('newTab');
+
+
+    nt.title = 'Create New Tab :\nTabs currently open: ' + currentTabs + '\nTotal tabs opened during this session: ' + totalTabs;
+
+}
 
 //////////////////////---   ---   Navigation configs  ---   ---////////////////////////////////////
     function Navigation(options){
         var defaults = {
             closableTabs: true,
-            defaultFavicons: true,
+            defaultFavicons: false,
             newTabCallback: null,
             changeTabCallback: null,
             newTabParams: null
@@ -76,10 +92,14 @@ newWindow = ById('newWindow');
         var session = $('.etabs-view[data-session="' + sessionID + '"]')[0];
         (NAV.changeTabCallBack || (() => {}))(session);
         NAV._updateUrl(session.getURL());  
+        //NAV._updateFile( 'SkyNet: ' + session.getTitle());
         NAV._updateCtrls();
 
         // close tab and view
     }).on('click', '.etabs-tab-buttons', function(){
+        currentTabs--;
+        CountTabs();
+        console.log(currentTabs);
         var sessionID = $(this).parent('.etabs-tab').data('session');
         var session = $('.etabs-tab, .etabs-view').filter('[data-session="' + sessionID + '"]');
 
@@ -237,14 +257,23 @@ newWindow = ById('newWindow');
 
     this._purifyUrl = function(url){
         
+        let c = url.slice(0,2).toLowerCase()
+        let file = url.slice(0,8).toLowerCase()
+        if(c ==='c:'){
+            url
+        } else if(file === 'file:///'){
+            url
+        } else{
             if (urlRegex({
                 strict: false,
-                exact: true
+                exact: true,
+                file: true
             }).test(url)) {
             url = (url.match(/^https?:\/\/.*/)) ? url : 'http://' + url;
-        } else {
+        }else {
             url = (!url.match(/^[a-zA-Z]+:\/\//)) ? 'https://www.bing.com/search?q=' + url.replace(' ', '+') : url;
         }
+    }
         return url;
     
     }//:_purifyUrl()
@@ -275,9 +304,15 @@ newWindow = ById('newWindow');
                         copy: 'Copy',
                         paste: 'Paste',
                         save: 'Save',
+                        saveImage: 'Save Image',
                         copyLink: 'Copy Link',
-                        inspect: 'Inspect'
-                    }
+                        copyImageAddress: 'Copy Image Address',
+                        select: "select all",
+                        inspect: 'Inspect',
+
+                    },
+                    setZoomFactor: 1,
+                    
                 });
             }
         });
@@ -330,7 +365,7 @@ newWindow = ById('newWindow');
 
         webview[0].addEventListener('did-fail-load', (res) => {
             if (res.validatedURL == $('#url').val() && res.errorCode != -3) {
-                this.executeJavaScript('document.body.innerHTML=' +
+                this.executeJavaScript = ('document.body.innerHTML=' +
                     '<div style="background-color:whitesmoke;padding:40px;margin:20px;">' +
                     '<h2 align=center>This page failed to load correctly.</h2>' +
                     '<p align=center><i>ERROR [ ' + res.errorCode + ', ' + res.errorDescription + ' ]</i></p>' +
@@ -376,6 +411,8 @@ newWindow = ById('newWindow');
 
 } //:Navigation()
 
+
+  
 
 Navigation.prototype.newTab = function(url, options){
     
@@ -474,6 +511,11 @@ Navigation.prototype.newTab = function(url, options){
         options.postTabOpenCallback(newWebview)
     }
     (this.changeTabCallback || (() => {}))(newWebview);
+    
+    totalTabs++;
+    currentTabs++;
+    console.log(currentTabs);
+    CountTabs();
     return newWebview;
 } // :newTab()
 
@@ -496,7 +538,7 @@ Navigation.prototype.changeTab = function(url, id){
 
 Navigation.prototype.closeTab = function(id) {
     id = id || null;
-
+    
     var session;
     if(id == null){
         session = $('.etabs-tab.active, .etabs-view.active');
@@ -517,9 +559,12 @@ Navigation.prototype.closeTab = function(id) {
         (this.changeTabCallback || (() => {}))(session.prev()[1]);
     }
 
+    
     session.remove();
     this._updateUrl();
     this._updateCtrls();
+    
+    
 } //:closeTab()
 
 
@@ -574,6 +619,7 @@ Navigation.prototype.reload = function (id) {
 
 Navigation.prototype.stop = function (id) {
     id = id || null;
+    
     if (id == null) {
         $('.etabs-view.active')[0].stop();
     } else {
@@ -764,12 +810,37 @@ navigation.newTab('https://www.bing.com');
         tabs.addEventListener('mousewheel', scrollHorizontally, false);
 })();
 
+//Counts total tabs user has open and prints to screen next to tab button.
+
 
 //This takes the url bar and updates it everytime the webview changes.
 function updateNav (event) {
+    if(webview.src.ToLowerCase().includes('/skynet/')){
+        omni.value = webview.GetTitle;
+    } else{
     omni.value = webview.src;
+    }
 }
 
+
+//magnifies the current webview.
+function Zoom(){
+    let  webview = $('.etabs-view.active')[0];
+    
+    if(webview.getZoomFactor() == "null"){
+        webview.setZoomFactor(1)
+    }
+
+    if(webview.getZoomFactor() == 1){
+        webview.setZoomFactor(2)
+    } else if (webview.getZoomFactor() == 2){
+        webview.setZoomFactor(3)
+    } else {
+        webview.setZoomFactor(1)
+    }
+}
+
+      
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 //handles bookmarks
@@ -874,11 +945,26 @@ function ExtrasWindow() {
 function CreateSettingsView () {
         
     omni.blur();
+   
+
     
+navigation.newTab(path.join(__dirname, 'settings/Settings.html'), {
+        
+        node: true,
+        webviewAttributes: {
+            nodeIntegration: true,
+            electron: true,
+            devtools: false,
+            openDevTools: false
+        },
+        readonlyUrl: true
+});
+    /*
     let winState = windowStateKeeper({
         defaultWidth: 1000,
         defaultHeight: 800
 
+        
     })
     //let settingsSession = session.fromPartition('settingsWindow')
    // const settingsPath = path.join('file://', _dirname, '../settings/settings.html')
@@ -898,7 +984,7 @@ function CreateSettingsView () {
     settingsWindow.loadFile('settings/Settings.html')
     settingsWindow.show();
  
-
+*/
     ExtrasWindow();
 }
 
@@ -926,8 +1012,28 @@ function CreateSkyWriteView () {
              webviewTag: true,
               electron: true,
               path: true,
-               },
+               }
+               
 
+        })
+
+        skyWriteWindow.on('ready', function(){
+            devtools = new BrowserWindow()
+            window = new BrowserWindow({ x: 0, y: 0, width:800, height:600})
+            window.loadURL(path.join('file://', __dirname, 'static/index.html'))
+            window.setTitle('Texty')
+            Menu.setApplicationMenu(Menu.buildFromTemplate([
+                {
+                    label: app.getName(),
+                    submenu: [
+                        {
+                            label: `Hello`,
+                            click: () => console.log("Hello world")
+                        }
+                    ]
+                }
+            ]))
+        
         })
 
 
@@ -948,7 +1054,6 @@ function Print(){
 
 
 //event listeners
-
 fave.addEventListener('click', addBookmark);
 list.addEventListener('click', ExtrasWindow);
 closeExtras.addEventListener('click', ExtrasWindow);
@@ -958,4 +1063,4 @@ dev.addEventListener('click', handleDevtools);
 print.addEventListener('click', Print)
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
-
+zoom.addEventListener('click', Zoom);

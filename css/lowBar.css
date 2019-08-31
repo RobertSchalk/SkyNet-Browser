@@ -10,9 +10,10 @@
 
 .etabs-button{
 	margin:0;
-	display:inline-block;
+	display:inline-grid;
 	height:25px;
 	margin-left:-4px;
+	margin-bottom: 3px;
 	color:#eee;
 	text-align: center;
 	padding: 2px 10px;
@@ -27,6 +28,7 @@
 	width: 35px;
 	text-decoration: none;
 	transition: 0.3s;
+	vertical-align: top;
 }
 #lowBar #newTab:hover{
 	background-color: #449Dee;
@@ -34,8 +36,50 @@
 	transition: 0.3s;
 }
 #favoritesBar{
-	width: calc(100% - 400px);
+	width: calc(100% - 180px);
 	height: 25px;
 	border-right: 1px solid #fff;
-	display: inline-block;
+	display: inline-grid;
+	padding: 0;
+	vertical-align: top;
+	margin-right: 23px;
+}
+.placeholder{
+	width: 50%;
+	height: 15px;
+	margin: 0, auto;
+	padding: 0;
+	font-size: 15px;
+	line-height: 25px;
+	display: inline-grid;
+	position: relative;
+	top: 0;
+
+}
+
+
+.lowButtons{
+	display: inline-grid;
+	width: 25px;
+	height: 25px;
+	font-size:25px;
+	color: #eee;
+	cursor: pointer;
+	line-height: 20px;
+	vertical-align: top;
+}
+
+
+.lowButtons :hover{
+	background-color: #00f;
+}
+
+.zoom{
+	width: 25px;
+	height: 19px;
+	color: #eee;
+	font-size: 18px;
+	line-height: 15px;
+	text-align: center;
+	padding-top: 6px;
 }
