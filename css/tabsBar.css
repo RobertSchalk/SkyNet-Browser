@@ -25,7 +25,7 @@
 }
 
 .etabs-tabs{
-	width: calc(100% - 20px);
+	width: calc(100% - 10px);
 	height:27px;
 	left:0;
 	display:block;
