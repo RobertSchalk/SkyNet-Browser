@@ -1,21 +1,16 @@
 # SkyNet Browser
 
-V1.0.0
+V0.0.6
 
-Updates to come for V1.1.0: 
- -Favorites bar
- -SkyWrite
- -SkySheets
- -browser history
- -personalization
+Recent updates: 
+    -Themes 
+    -version downgrade
 
-
+Updates to come:
+    -Favorites bar
+    -browser history
+    -personalization
 
 A browser I decided to challenge myself to create using the electron framework.
 
-Basics are working, currently building tabs, and having them communicate with the tag.
-After that, I will be working on creating a window for the bookmarks.
-
-
-
-BootStraps provided by: https://getbootstrap.com/
+Basics are working, currently building tabs, and having them communicate with the tag. After that, I will be working on creating a window for the bookmarks.

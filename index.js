@@ -246,11 +246,10 @@ GetTheme();
             $('#forward').addClass('disabled');
         } 
         if(webview.isLoading()){
+            console.log('webview loading.')
             this._loading();
-            //console.log('webview loading.')
         } else {
             this._stopLoading();
-            //console.log('webview stopped loading.')
         }
         if (webview.getAttribute('data-readonly') == 'true'){
             $('#url').attr('readonly', 'readonly');
@@ -268,7 +267,8 @@ GetTheme();
         if(tab == null) {
             tab = $('.etabs-tab.active');
         }
-        tab.find('.etabs-tab-icon').css('animation', 'nav-spin 2s linear infinate');
+        tab.find('.etabs-tab-icon').css('animation', 'navSpin 0.5s linear infinite normal forwards running');
+        //animation:     play-state;
         $('#refresh').html(this.SVG_CLEAR);
     } //:_loading()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,11 +358,11 @@ GetTheme();
         });
         webview.on('did-start-loading', function() {
             NAV._loading(currTab);
-          //  console.log('started loading.')
+            console.log('started loading.')
         });
         webview.on('did-stop-loading', function(){
             NAV._stopLoading(currTab);
-           // console.log('stopped loading.')
+            console.log('stopped loading.')
         });
         webview.on('enter-html-full-screen', function(){
             $('.etabs-view.active').siblings().not('script').hide();
