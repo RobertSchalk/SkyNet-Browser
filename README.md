@@ -1,16 +1,11 @@
 # SkyNet Browser
 
+
 V0.0.6
 
-Recent updates: 
-    -Themes 
-    -version downgrade
+SkyNet is a cross-platform browser that I've decided to create as a personal project. My goal is to create a browser that people can enjoy. It has a relatively classic, but modern-fun appeal.  
 
-Updates to come:
-    -Favorites bar
-    -browser history
-    -personalization
+#What I am currently working on:
+I'm currently working on creating the Favorites bar, and folders for favorites. I'm still working on implementing a fully functional settings page. Once I have the favorites bar and the themes portion complete, I will be looking at implementing browser history. Once I complete this, I should be able to release the browser for a full release.  
 
-A browser I decided to challenge myself to create using the electron framework.
-
-Basics are working, currently building tabs, and having them communicate with the tag. After that, I will be working on creating a window for the bookmarks.
+I plan on adding apps to the browser one it's finished. 
