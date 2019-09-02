@@ -10,8 +10,11 @@ const urlRegex = require('url-regex'); // checks a url and tells the browser wha
 const contextMenu = require('electron-context-menu'); // This is needed for the right-click menus.
 const dragula = require("dragula"); // This helps drag tabs around. (Not implemented yet).
 const uuid= require("uuid"); // Helps create ids for bookmarks.
+const Bookmark = require("./bookmarks.js");
+const Theme = require("./themes.js")
 var $ = require('jquery'); //allows jquery to be used
 var Color = require('color.js'); // Currently helps color the tab icons
+
 var globalCloseableTabsOverride;
 
 //this is so I don't have to write "getElementById" so many times.
@@ -19,7 +22,7 @@ var ById = function (id) {
     return document.getElementById(id);
 }
 var bookmarks = path.join(__dirname, 'bookmarks.json'); // setting bookmarks to the file pathway.
-
+var themes = path.join(__dirname, 'themes.json');
 //declaring all of my elements that I need the most here.
 var omni = ById('url'),
 dev = ById('console'),
@@ -33,7 +36,7 @@ skyWrite = ById('skyWrite'),
 print = ById('print'),
 newWindow = ById('newWindow'),
 zoom = ById('zoom'),
-
+currentTheme = ById('Theme');
 // This will be used to count total tabs current in session.
 //Will return value on the NewTab Button Title. (hover)
 //total = total opened during session.
@@ -49,6 +52,34 @@ var nt = ById('newTab');
     nt.title = 'Create New Tab :\nTabs currently open: ' + currentTabs + '\nTotal tabs opened during this session: ' + totalTabs;
 
 }
+
+//Gets the active theme for the browser.
+function GetTheme(){
+    var head = ById('head')
+    var _head = document.getElementsByTagName('head');
+    jsonfile.readFile(themes, function(err, obj){
+    
+    for(var i = 0; i < obj.length; i++){
+        let id = obj[i].id;
+        let title = obj[i].title;
+        let active = obj[i].active;
+        let css = obj[i].css
+        theme = new Theme(id, title, active, css);
+        if(active === 'true'){
+            let el = theme.Apply();
+            if(currentTheme){
+            currentTheme.remove();
+            _head[0].appendChild(el);
+            } else{
+                _head[0].appendChild(el);
+            }
+        }
+    }
+    console.log("Theme function ran.");
+});
+}
+
+GetTheme();
 
 //////////////////////---   ---   Navigation configs  ---   ---////////////////////////////////////
     function Navigation(options){
@@ -71,7 +102,7 @@ var nt = ById('newTab');
         } else {
             this.TAB_ICON = "clean";
         }
-        this.SVG_RELOAD = '<svg height="100%" viewBox="0 0 24 24" id="nav-ready"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/><path d="M0 0h24v24H0z" fill="none"/></svg>';
+        this.SVG_RELOAD = '<svg height="100%" viewBox="0 0 24 24" id="nav-ready"> </svg>';
         this.SVG_CLEAR = '<svg height="100%" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>';
         this.SVG_FAVICON = '<svg height="100%" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>';
     
@@ -294,27 +325,29 @@ var nt = ById('newTab');
     this._addEvents = function (sessionID,options) {
         let currTab = $('.etabs-tab[data-session="' + sessionID + '"]');
         let webview = $('.etabs-view[data-session="' + sessionID + '"]');
-
         webview.on('dom-ready', function(){
-            if(options.contextMenu) {
+            
                 contextMenu({
                     window: webview[0],
                     labels: {
                         cut: 'Cut',
                         copy: 'Copy',
                         paste: 'Paste',
-                        save: 'Save',
-                        saveImage: 'Save Image',
                         copyLink: 'Copy Link',
+                        copyImage: 'Copy image',
+                        copyImageAddress: 'Copy image address',
+                        saveImageAs: "Save image as...",
                         copyImageAddress: 'Copy Image Address',
-                        select: "select all",
                         inspect: 'Inspect',
+                        services: "Services"
 
-                    },
-                    setZoomFactor: 1,
+                    }
+                    
+                    
+                    
                     
                 });
-            }
+         
         });
         webview.on('page-title-updated', function(){
             if(options.title == 'default'){
@@ -338,6 +371,9 @@ var nt = ById('newTab');
         webview.on('load-commit', function(){
             NAV._updateCtrls();
         });
+//////////
+//\\\\\\\\\
+///////////
         webview[0].addEventListener('did-navigate', (res) =>{
             NAV._updateUrl(res.url);
         });
@@ -793,8 +829,6 @@ module.exports = Navigation;
 
 navigation = new Navigation();
 
-
-
 navigation.newTab('https://www.bing.com');
 
 //This allows you to scroll through the tabs horizontally instead of the usual virtical scroll.
@@ -814,6 +848,7 @@ navigation.newTab('https://www.bing.com');
 
 
 //This takes the url bar and updates it everytime the webview changes.
+
 function updateNav (event) {
     if(webview.src.ToLowerCase().includes('/skynet/')){
         omni.value = webview.GetTitle;
@@ -844,39 +879,31 @@ function Zoom(){
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 //handles bookmarks
-//creating the Bookmark class
-var Bookmark = function (id, url, faviconUrl, title) {
-    this.id = id;
-    this.url = url;
-    this.icon = faviconUrl;
-    this.title = title;
-}
-
-Bookmark.prototype.ELEMENT = function () {
-    var a_tag = document.createElement('a');
-    a_tag.href = this.url;
-    a_tag.className = 'link';
-    a_tag.textContent = this.title;
-    var favimage = document.createElement('img');
-    favimage.src = this.icon;
-    favimage.className = 'favicon';
-    a_tag.insertBefore(favimage, a_tag.childNodes[0]);
-    return a_tag;
-}
 
 //This adds the bookmark information to Bookmarks.json
 function addBookmark () {
     let  url = $('.etabs-view.active')[0].getURL(); //Retrieves the active view's url
     let title = webview.getTitle();
     favicon(url).then(function(fav) {
-        let book = new Bookmark(uuid.v1(), url, fav, title);
+    let book = new Bookmark(uuid.v1(), url, fav, title);
         jsonfile.readFile(bookmarks, function(err, curr) {
             curr.push(book);
             jsonfile.writeFile(bookmarks, curr, function (err) {
-            })
+            },2);
+            let url = curr[curr.length-1].url;
+            let icon = curr[curr.length-1].icon;
+            let id = curr[curr.length-1].id;
+            let title = curr[curr.length-1].title;
+            let bookmark = new Bookmark(id, url, icon, title);
+            let el = bookmark.ELEMENT();
+            popup.appendChild(el);
         });
+        
     });
 }
+
+
+
 
 //This controls the opening and closing of the Bookmarks screen.
 //Favorites will slide up and down from the navigation bar.
@@ -896,7 +923,7 @@ function openPopUp (event) {
                     popup.appendChild(el);
                 }
             }
-                popup.style.height = 'calc(100vh - 55px)';
+                popup.style.height = 'calc(100vh - 58px)';
                 popup.setAttribute('data-state', 'open');
         });
     } else {
@@ -918,6 +945,11 @@ function handleUrl (event) {
         webview.loadURL(event.target.parentElement.href);
     }
 }
+
+//Space for favorites bar functions
+
+
+
 
 ///////////////////////////////---   --- Extras ---   ---//////////////////////////////////////////////////////
 

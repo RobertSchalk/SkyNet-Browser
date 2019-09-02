@@ -85,5 +85,8 @@
       "icon": "build/skynet.png",
       "target": "zip"
     }
+  },
+  "devDependencies": {
+    "electron": "^6.0.7"
   }
 }

@@ -1,0 +1,142 @@
+body {
+    width: 100%;
+    height: 100%;
+	display: block;
+	line-height:1;
+	margin: 0;
+	padding: 0;
+	font-family: monospace;
+}
+
+ol,ul{list-style:none}
+blockquote,q{quotes:none}
+#navigation, #lowBar, #fave-popup{
+	background-color: #000;
+	border-color: #fff;
+	
+}
+
+.navButtons, #newTab, .lowButtons, .fa, .fa-refresh, .fa-arrow-right, #refresh, #forward, .navButtons i{
+    color: #fff;
+    
+}
+
+
+#navigation #fave-popup .link{	
+    color:#0f0;
+	border-color: #fff;
+}
+#navigation #fave-popup .link:first-of-type{
+	margin-top: 10px;
+}
+
+#navigation #fave-popup .link:hover
+{	
+    color:#fff;
+    background-color: rgba(150,250,300,0.7);
+	border-bottom: 2px solid #fff;
+}
+	
+	
+#navigation #fave-popup .link .favicon{
+   
+	background:#000;
+	
+	box-shadow: 1px 1px 3px #000, -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
+	border: 2px solid #fff;
+	
+}
+
+ .lowButtons :hover, #lowBar #newTab:hover{
+	background-color: #222;
+    /*449dee*/
+	color: #ff5;
+}
+.navButtons :hover, #refresh :hover, #forward :hover{
+	color: #ff5;
+}
+#omnibox input{
+	background-color: #000;
+	border-color:  #fff;
+	color: #0f0;
+	
+}
+
+#fave-popup{
+	background-color: #000;
+	border-left: 2px solid #fff;
+}
+
+/*  LowBar  */
+
+.etabs-button{
+	border-color:#000;
+}
+#favoritesBar{
+	border-right: 1px solid #fff;
+}
+
+.lowButtons{
+	color: #fff;
+}
+
+/* Tabs bar*/
+
+
+.etabs-tabgroup, .etabs-tabs{
+	background: linear-gradient( #000, #111);
+	border-top: 1px outset #fff;
+}
+
+.etabs-tabs::-webkit-scrollbar{
+	background:red;
+
+}
+.etabs-tabs::-webkit-scrollbar-thumb{
+	background:white;
+}
+
+
+.etabs-tab{
+	color:#fff;
+    border-color: #fff;
+    background-color: #000;
+    text-shadow: 1px 1px 3px #fff;
+    font-weight: bold;
+}
+
+
+.etabs-tab:hover{
+	background-color: #333;
+	color: #fff;
+}
+
+.etabs-tab.active{
+	background-color: #333;
+	color: #fff;
+}
+
+
+.etabs-buttons button:hover {
+    color: #eee;
+    background-color: #aaa;
+}
+
+.etabs-tab-badge {
+    background: red;
+}
+
+.etabs-tab-icon {
+    fill:#000;
+}
+
+
+.etabs-tab-buttons button {
+    color: #f00;
+}
+
+.etabs-tab-buttons button:hover {
+    color: #eee;
+    background-color: #aaa;
+}
+

@@ -1,0 +1,8 @@
+[   
+    {"id": "skyNet", "title": "SkyNet", "active": "true", "css": "../css/index.CSS"},
+    {"id": "spring", "title": "Spring", "active": "false", "css": "../themes/spring.css"},
+    {"id": "sunshine", "title": "Sunshine", "active": "false", "css": "../themes/sunshine.css"},
+    {"id": "midNightSky", "title": "MidNight Sky", "active": "false", "css": "../themes/midnightsky.css"},
+    {"id": "winterSky", "title": "Winter Sky", "active": "false", "css": "../themes/wintersky.css"},
+    {"id": "autumnSky", "title": "Autumn Sky", "active": "false", "css": "../themes/autumnsky.css"}
+]

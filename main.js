@@ -2,11 +2,20 @@ const {app, BrowserWindow, session} = require('electron')
 const windowStateKeeper = require('electron-window-state');
 const path = require('path');
 const fs = require('fs');
+const Store = require('./store.js');
 
 
 
 //console.log('Checking ready: ' + app.isReady());
-let mainWindow, textEditor;
+let mainWindow;
+
+    const store = new Store({
+        configName: 'SkyNet-Configs',
+        defaults: {
+            windowBounds: { width: 1000, defaultHeight: 800}
+        }
+    });
+
 
 function createWindow (){
     
@@ -23,9 +32,11 @@ function createWindow (){
     })
 }*/
 
+    let {width, height} = store.get('windowBounds');
+
     mainWindow = new BrowserWindow({
-        width: winState.width,
-        height: winState.height,
+        width: width,
+        height: height,
         x: winState.x,
         y: winState.y,
         minWidth: 300,
@@ -45,7 +56,6 @@ function createWindow (){
     //let session = mainWindow.webContents.session;
     //Saves last state of window.
     winState.manage(mainWindow);
-    mainWindow.loadFile('src/index.html');
     //mainWindow.setMenuBarVisibility(false);
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
@@ -56,7 +66,13 @@ function createWindow (){
         getCookies();
     })*/
 
+    mainWindow.on('resize', () => {
+        let{ width, height} = mainWindow.getBounds();
+        store.set('windowBounds', {width, height});
+    });
+
     
+    mainWindow.loadFile(path.join(__dirname, 'src/index.html'));
 
     mainWindow.on('closed', ()=> {
         mainWindow = null

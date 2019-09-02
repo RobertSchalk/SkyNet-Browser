@@ -4,8 +4,11 @@ var jsonfile = require('jsonfile');
 var favicon = require('favicon-getter').default;
 var path = require('path');
 var uuid = require('uuid');
+const Theme = require("./themes.js")
 const version = electron.remote.app.getVersion();
+const fs = require('fs');
 
+var themes = path.join(__dirname, 'themes.json');
 
 
 var ById = function (id) {
@@ -13,7 +16,8 @@ var ById = function (id) {
 }
 
 var browserVersion = ById('browserVersion'),
-    electronVersion = ById('electronVersion');
+    electronVersion = ById('electronVersion'),
+    themeSelector = ById('themeSelector');
 
 
 var about = ById('about'),
@@ -37,6 +41,7 @@ var about = ById('about'),
         aboutView.style.display = "none";
         personalizeView.style.display = "block";
         privacyView.style.display = "none";
+        CreateThemes();
     }
     
     function PrivacyView () {
@@ -48,8 +53,71 @@ var about = ById('about'),
 
     
 
+/// Personalize:
+
+//Display Themes list.
+
+function CreateThemes(){
+    let state = themeSelector.getAttribute('data-state');
+    if(state === 'closed'){
+        themeSelector.innerHTML = '';
+        jsonfile.readFile(themes, function(err, obj){
+            if(obj.length !== 0){
+                for (var i =0; i < obj.length; i++){
+                    let id = obj[i].id;
+                    let title = obj[i].title;
+                    let active = obj[i].active;
+                    let css = obj[i].css;
+                    let theme = new Theme(id, title, active, css);
+                    let el = theme.ELEMENT();
+                    themeSelector.appendChild(el);
+                }
+            }
+            themeSelector.setAttribute('data-state', 'open');
+        })
+    } else{
+        themeSelector.setAttribute('data-state', 'open');
+    }
+}
+
+
+
+
+//sets the theme for the browser.
+//The index.js will write the configs to index.js.
+function ChangeTheme(event){
+    var target = event.target || event.srcElement
+    var targetElement = target.getAttribute;
+    var targetId = target.id;
+if(targetElement !== 'open' && targetElement !== 'close'){
+    jsonfile.readFile(themes, function(err, obj){
+    
+        for(var i = 0; i < obj.length; i++){
+            let id = obj[i].id;
+            let title = obj[i].title;
+            let active = obj[i].active;
+            let css = obj[i].css
+            theme = new Theme(id, title, active, css);
+            if(targetId === id){
+                jsonfile.writeFile(themes, obj, function (err){
+                    active = 'true'
+                }, 2);
+                console.log(id + ' set to ' + active);
+                } else{
+                    jsonfile.writeFile(themes, obj, function (err){
+                        active = 'false'
+                    });
+                    console.log(id + ' set to ' + active);
+                }
+            }
+        }, 2);
+    }
+}
+
+
     
     personalize.addEventListener('click', PersonalizeView);
     privacy.addEventListener('click', PrivacyView);
     about.addEventListener('click', AboutView);
+    themeSelector.addEventListener('click', ChangeTheme)
 
