@@ -37,12 +37,18 @@ print = ById('print'),
 newWindow = ById('newWindow'),
 zoom = ById('zoom'),
 currentTheme = ById('Theme');
+menu = document.getElementsByClassName('menu');
 // This will be used to count total tabs current in session.
 //Will return value on the NewTab Button Title. (hover)
 //total = total opened during session.
 //current = tabs currently open.
 totalTabs = 0;  
 currentTabs = 0;
+let rightClickPosition = null;
+//Handles the ability to rightclick on the interface.
+
+
+
 
 function CountTabs(){
     
@@ -365,13 +371,14 @@ GetTheme();
            //if statement tests if webview source is a website.
            //If it returns that it's not a website, then it will not pass an icon
            //and the icon will remain default. (sun.png)\
-           if(webview[0].getURL().toLowerCase().includes('http')){
-           try{
-           favicon(webview[0].getURL()).then(function(fav){
-            currTab.find('.etabs-tab-icon').attr('src', fav)
-        });} catch{
-            console.log('Website does not have favicon. OR \n SkyNet cannot find favicon.')
-        }}
+           if(webview[0].getURL().toLowerCase().includes('http')){try{
+            favicon(webview[0].getURL()).then(function(fav){
+             currTab.find('.etabs-tab-icon').attr('src', fav)
+         });} catch{
+             console.log('Website does not have favicon. OR \n SkyNet cannot find favicon.')
+         }
+           
+    }
 
 
 
@@ -412,6 +419,7 @@ GetTheme();
         });
         webview[0].addEventListener('did-navigate-in-page', (res) =>{
             NAV._updateUrl(res.url);
+            
         });
         webview[0].addEventListener("new-window", (res) =>{
             if(!(options.newWindowFrameNameBlacklistExpression instanceof RegExp && options.newWindowFrameNameBlacklistExpression.test(res.frameName))) {
@@ -488,7 +496,7 @@ Navigation.prototype.newTab = function(url, options){
         node: false,
         webviewAttributes: {},
         icon: 'default', // 'default', 'clean', 'c:\location\to\image.png'
-        title: "default", // 'default', 'your title here'
+        title: 'default', // 'default', 'your title here'
         close: true,
         readonlyUrl: false,
         contextMenu: true,
@@ -1122,3 +1130,4 @@ print.addEventListener('click', Print)
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
 zoom.addEventListener('click', Zoom);
+

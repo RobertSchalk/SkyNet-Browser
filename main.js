@@ -56,7 +56,9 @@ function createWindow (){
     //let session = mainWindow.webContents.session;
     //Saves last state of window.
     winState.manage(mainWindow);
-    mainWindow.setMenuBarVisibility(false);
+
+    //Uncomment this for release ----------------------------------------
+    //mainWindow.setMenuBarVisibility(false);
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
   ses.cookies.set(cookie, err => {
