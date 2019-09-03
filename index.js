@@ -364,7 +364,7 @@ GetTheme();
            //retrieves website favicon and displays it on the tab.
            //if statement tests if webview source is a website.
            //If it returns that it's not a website, then it will not pass an icon
-           //and the icon will remain default. (sun.png)
+           //and the icon will remain default. (sun.png)\
            if(webview[0].getURL().toLowerCase().includes('http')){
            try{
            favicon(webview[0].getURL()).then(function(fav){
