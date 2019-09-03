@@ -85,10 +85,12 @@ function CreateThemes(){
 
 //sets the theme for the browser.
 //The index.js will write the configs to index.js.
+
 function ChangeTheme(event){
-    var target = event.target || event.srcElement
-    var targetElement = target.getAttribute;
-    var targetId = target.id;
+    
+    
+        console.log('target id = ' + event.target.id);
+    /*
 if(targetElement !== 'open' && targetElement !== 'close'){
     jsonfile.readFile(themes, function(err, obj){
     
@@ -98,20 +100,15 @@ if(targetElement !== 'open' && targetElement !== 'close'){
             let active = obj[i].active;
             let css = obj[i].css
             theme = new Theme(id, title, active, css);
-            if(targetId === id){
+            /*
                 jsonfile.writeFile(themes, obj, function (err){
+                    id = targetId;
                     active = 'true'
-                }, 2);
-                console.log(id + ' set to ' + active);
-                } else{
-                    jsonfile.writeFile(themes, obj, function (err){
-                        active = 'false'
-                    });
-                    console.log(id + ' set to ' + active);
+                }, 2);*//*
+                console.log('target id = ' + targetId);
                 }
-            }
-        }, 2);
-    }
+            });
+}*/
 }
 
 
