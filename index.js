@@ -16,13 +16,13 @@ var $ = require('jquery'); //allows jquery to be used
 var Color = require('color.js'); // Currently helps color the tab icons
 
 var globalCloseableTabsOverride;
-
 //this is so I don't have to write "getElementById" so many times.
 var ById = function (id) {
     return document.getElementById(id);
 }
 var bookmarks = path.join(__dirname, 'bookmarks.json'); // setting bookmarks to the file pathway.
-var themes = path.join(__dirname, 'themes.json');
+var themes = path.join(__dirname, 'themes.json');// setting bookmarks to the file pathway.
+var history = path.join(__dirname, 'history.json');
 //declaring all of my elements that I need the most here.
 var omni = ById('url'),
 dev = ById('console'),
@@ -246,7 +246,7 @@ GetTheme();
             $('#forward').addClass('disabled');
         } 
         if(webview.isLoading()){
-            console.log('webview loading.')
+            //console.log('webview loading.')
             this._loading();
         } else {
             this._stopLoading();
@@ -342,10 +342,6 @@ GetTheme();
                         services: "Services"
 
                     }
-                    
-                    
-                    
-                    
                 });
          
         });
@@ -358,11 +354,45 @@ GetTheme();
         });
         webview.on('did-start-loading', function() {
             NAV._loading(currTab);
-            console.log('started loading.')
+            //console.log('started loading.')
+            
         });
         webview.on('did-stop-loading', function(){
-            NAV._stopLoading(currTab);
             console.log('stopped loading.')
+            NAV._stopLoading(currTab);
+           // var currURL = favicon(webview[0].getURL());
+           //retrieves website favicon and displays it on the tab.
+           //if statement tests if webview source is a website.
+           //If it returns that it's not a website, then it will not pass an icon
+           //and the icon will remain default. (sun.png)
+           if(webview[0].getURL().toLowerCase().includes('http')){
+           try{
+           favicon(webview[0].getURL()).then(function(fav){
+            currTab.find('.etabs-tab-icon').attr('src', fav)
+        });} catch{
+            console.log('Website does not have favicon. OR \n SkyNet cannot find favicon.')
+        }}
+
+
+
+
+
+
+          /*
+            let  currentUrl = webview[0].getURL(); //Retrieves the active view's url
+            let currentTitle = webview[0].getTitle();
+            let fav = null;
+            let hist = new Bookmark(uuid.v1(), currentUrl, fav, currentTitle);
+                jsonfile.readFile(history, function(err, curr) {
+                    curr.push(hist);
+                    jsonfile.writeFile(history, curr, function (err) {
+                    },2);
+                });
+                
+           */
+
+
+
         });
         webview.on('enter-html-full-screen', function(){
             $('.etabs-view.active').siblings().not('script').hide();
@@ -457,7 +487,7 @@ Navigation.prototype.newTab = function(url, options){
         id: null, // null, 'yourIdHere'
         node: false,
         webviewAttributes: {},
-        icon: "clean", // 'default', 'clean', 'c:\location\to\image.png'
+        icon: 'default', // 'default', 'clean', 'c:\location\to\image.png'
         title: "default", // 'default', 'your title here'
         close: true,
         readonlyUrl: false,
@@ -494,11 +524,12 @@ Navigation.prototype.newTab = function(url, options){
     }
     //build tab
     var tab = '<div class="etabs-tab active" data-session="' + this.SESSION_ID + '">';
+    
     //favicon
     if (options.icon == 'clean') {
         tab += '<i class="etabs-tab-icon">' + this.SVG_FAVICON + '</i>';
     } else if (options.icon === 'default') {
-        tab += '<img class="etabs-tab-icon" src=""/>';
+        tab += '<img class="etabs-tab-icon" src="../Icon/sun.png"/>';
     } else {
         tab += '<img class="etabs-tab-icon" src="' + options.icon + '"/>';
     }
@@ -548,6 +579,8 @@ Navigation.prototype.newTab = function(url, options){
     }
     (this.changeTabCallback || (() => {}))(newWebview);
     
+
+
     totalTabs++;
     currentTabs++;
     console.log(currentTabs);
@@ -902,9 +935,6 @@ function addBookmark () {
     });
 }
 
-
-
-
 //This controls the opening and closing of the Bookmarks screen.
 //Favorites will slide up and down from the navigation bar.
 function openPopUp (event) {
@@ -934,6 +964,7 @@ function openPopUp (event) {
     
 }
 //This handles the url transation from the bookmarks to omni.
+//This is a very important function. Without it, the whole app will change.
 function handleUrl (event) {
         popup.style.height = '0px';
         popup.setAttribute('data-state', 'closed');
@@ -949,6 +980,27 @@ function handleUrl (event) {
 //Space for favorites bar functions
 
 
+//Controls the History.Json file.
+function AddToHistory(){
+    let  url = $('.etabs-view.active')[0].getURL(); //Retrieves the active view's url
+    let title = webview.getTitle();
+    favicon(url).then(function(fav) {
+    let book = new Bookmark(uuid.v1(), url, fav, title);
+        jsonfile.readFile(history, function(err, curr) {
+            curr.push(book);
+            jsonfile.writeFile(bookmarks, curr, function (err) {
+            },2);
+            let url = curr[curr.length-1].url;
+            let icon = curr[curr.length-1].icon;
+            let id = curr[curr.length-1].id;
+            let title = curr[curr.length-1].title;
+            let bookmark = new Bookmark(id, url, icon, title);
+            let el = bookmark.ELEMENT();
+            popup.appendChild(el);
+        });
+        
+    });
+}
 
 
 ///////////////////////////////---   --- Extras ---   ---//////////////////////////////////////////////////////
@@ -978,45 +1030,19 @@ function CreateSettingsView () {
         
     omni.blur();
    
-
-    
 navigation.newTab(path.join(__dirname, 'settings/Settings.html'), {
         
         node: true,
         webviewAttributes: {
             nodeIntegration: true,
+            icon: 'clean',
             electron: true,
             devtools: false,
             openDevTools: false
         },
         readonlyUrl: true
 });
-    /*
-    let winState = windowStateKeeper({
-        defaultWidth: 1000,
-        defaultHeight: 800
-
-        
-    })
-    //let settingsSession = session.fromPartition('settingsWindow')
-   // const settingsPath = path.join('file://', _dirname, '../settings/settings.html')
-    let settingsWindow = new BrowserWindow({
-        width: winState.width, 
-        height: winState.Height,
-        minWidth: 700,
-        minHeight: 600,
-        webPreferences: {
-            nodeIntegration: true,
-             webviewTag: true,
-              electron: true},
-        })
-        //let session = settingsWindow.webContents.session;
-        winState.manage(settingsWindow);
-    settingsWindow.on('close', function(){settingsWindow = null})
-    settingsWindow.loadFile('settings/Settings.html')
-    settingsWindow.show();
- 
-*/
+    
     ExtrasWindow();
 }
 

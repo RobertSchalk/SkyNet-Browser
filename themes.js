@@ -10,8 +10,10 @@ var Theme = function( id, title, active,css){
 Theme.prototype.ELEMENT = function(){
     var option_tag = document.createElement('option');
     option_tag.id = this.id;
+    option_tag.className = 'theme'
     option_tag.value = this.title;
     option_tag.textContent = this.title;
+    
     return option_tag;
 }
 
