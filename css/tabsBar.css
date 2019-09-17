@@ -2,7 +2,7 @@
 
 
 
-.etabs-tabgroup{
+.sky-tabgroup{
 	width:100%;
 	height: 27px;
 	position: relative;
@@ -16,18 +16,18 @@
 	border-top: 1px outset #00a;
 }
 
-.etabs-tabs::-webkit-scrollbar{
+.sky-tabs::-webkit-scrollbar{
 	background:red;
 	outline:none;
 	border:none;
 	height:3px;
 
 }
-.etabs-tabs::-webkit-scrollbar-thumb{
+.sky-tabs::-webkit-scrollbar-thumb{
 	background:white;
 }
 
-.etabs-tabs{
+.sky-tabs{
 	width: calc(100% - 10px);
 	height:27px;
 	left:0;
@@ -41,7 +41,7 @@
 	border-top: 1px outset #00a;
 }
 
-.etabs-tab{
+.sky-tab{
 	margin: 0px 0px 0px;
 	display:inline-block;
 	height: 100%;
@@ -70,7 +70,7 @@
 
 
 /*
-.etabs-tab-button-close{
+.sky-tab-button-close{
 	position:absolute;
 	right:0;
 	top: 12px;
@@ -86,7 +86,7 @@
 	cursor: pointer;
 	color: #f00;
 } */
-.etabs-tab:hover{
+.sky-tab:hover{
 	background-color: #449Dee;
 	color: #000;
 	transition: 0.3s;
@@ -94,17 +94,17 @@
 
 
 
-.etabs-tabgroup #nav-body-tabs:first-of-type{
+.sky-tabgroup #nav-body-tabs:first-of-type{
 	margin-left:0;
 }
 
 
 
-.etabs-tabgroup .etabs-tab .active{
+.sky-tabgroup .sky-tab .active{
 	background-color: #449Dee;
 }
 
-.etabs-tab-buttons button {
+.sky-tab-buttons button {
     float: left;
    /* color: #333; */
     background: none;
@@ -123,12 +123,12 @@
 	color: #f00;
 }
 
-.etabs-buttons button:hover {
+.sky-buttons button:hover {
     color: #eee;
     background-color: #aaa;
 }
 
-.etabs-tab-badge {
+.sky-tab-badge {
     position: absolute;
     right: 0;
     top: -7px;
@@ -139,11 +139,11 @@
     padding: 0 5px;
 }
 
-.etabs-tab-badge.hidden {
+.sky-tab-badge.hidden {
     display: none;
 }
 
-.etabs-tab-icon {
+.sky-tab-icon {
     fill:#000;
 	align-content: flex-start;
     width: 24px;
@@ -154,7 +154,7 @@
 }
 
 
-.etabs-tab-title {
+.sky-tab-title {
 	flex:1;
 	width: 65%;
 	white-space:nowrap;
@@ -165,12 +165,12 @@
 	margin-bottom: 4px;
 }
 
-.etabs-tab-buttons {
+.sky-tab-buttons {
     display: inline-block;
     margin-left: 10px;
 }
 
-.etabs-tab-buttons button {
+.sky-tab-buttons button {
     display: inline-block;
     color: #333;
     background: none;
@@ -180,7 +180,7 @@
     border-radius: 2px;
 }
 
-.etabs-tab-buttons button:hover {
+.sky-tab-buttons button:hover {
     color: #eee;
     background-color: #aaa;
 }
@@ -195,7 +195,7 @@
 	/*The height needs to be (100vh - (navigation + tabs)*/
 	height:calc(100vh - 84px);
 }
-#etabs-views {
+#sky-views {
 	/*border-top: 1px solid #aaa;*/
 	width: 100vw;
 	height: 100%;
@@ -204,19 +204,19 @@
 	align-items: center;
 }
 
-.etabs-view {
+.sky-view {
 	/*border-top: 1px solid #aaa;*/
 	flex: 0;
 	width: 0;
 	height: 0;
 }
 
-.etabs-view.active{
+.sky-view.active{
 	width: 100%;
 	height: 100%;
 	flex: 1;
 }
-.etabs-tab.active {
+.sky-tab.active {
 	background-color: #449Dee;
 	color: #fff;
 }

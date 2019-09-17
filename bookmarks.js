@@ -16,11 +16,14 @@ Bookmark.prototype.ELEMENT = function () {
     a_tag.href = this.url;
     a_tag.className = 'link';
     a_tag.textContent = this.title;
+    a_tag.title = this.title + '\n' + this.url;
     var favimage = document.createElement('img');
     favimage.src = this.icon;
     favimage.className = 'favicon';
     a_tag.insertBefore(favimage, a_tag.childNodes[0]);
     return a_tag;
 }
+
+
 
 module.exports = Bookmark;

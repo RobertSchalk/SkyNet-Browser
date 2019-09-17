@@ -1,6 +1,4 @@
-const { session } = require('electron');
 const electron = require('electron');
-const {ipcRenderer} = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow; // To allow the creation of more windows from this page.
 const windowStateKeeper = require('electron-window-state'); //Helps save the previous window state of the browser. 
 const jsonfile = require('jsonfile'); // To allow the communication between the .json files.
@@ -15,7 +13,7 @@ const Theme = require("./themes.js")
 var $ = require('jquery'); //allows jquery to be used
 var Color = require('color.js'); // Currently helps color the tab icons
 
-var globalCloseableTabsOverride;
+var globalCloseablskyOverride;
 //this is so I don't have to write "getElementById" so many times.
 var ById = function (id) {
     return document.getElementById(id);
@@ -23,12 +21,13 @@ var ById = function (id) {
 var bookmarks = path.join(__dirname, 'bookmarks.json'); // setting bookmarks to the file pathway.
 var themes = path.join(__dirname, 'themes.json');// setting bookmarks to the file pathway.
 var history = path.join(__dirname, 'history.json');
+
 //declaring all of my elements that I need the most here.
 var omni = ById('url'),
 dev = ById('console'),
 fave = ById('fave'),
 list = ById('list'),
-popup = ById('fave-popup'),
+popup = ById('sky-popup'),
 closeExtras = ById('closeExtras'),
 favorites = ById('favorites'),
 settings = ById('settings'),
@@ -36,8 +35,9 @@ skyWrite = ById('skyWrite'),
 print = ById('print'),
 newWindow = ById('newWindow'),
 zoom = ById('zoom'),
-currentTheme = ById('Theme');
+currentTheme = ById('Theme'),
 menu = document.getElementsByClassName('menu');
+
 // This will be used to count total tabs current in session.
 //Will return value on the NewTab Button Title. (hover)
 //total = total opened during session.
@@ -90,7 +90,7 @@ GetTheme();
 //////////////////////---   ---   Navigation configs  ---   ---////////////////////////////////////
     function Navigation(options){
         var defaults = {
-            closableTabs: true,
+            closablsky: true,
             defaultFavicons: false,
             newTabCallback: null,
             changeTabCallback: null,
@@ -98,7 +98,7 @@ GetTheme();
         };
         options = options ? Object.assign(defaults, options) : defaults;
 
-        globalCloseableTabsOverride = options.closableTabs;
+        globalCloseablskyOverride = options.closablsky;
         const NAV = this;
         this.newTabCallback = options.newTabCallback;
         this.changeTabCallback = options.changeTabCallback;
@@ -118,30 +118,30 @@ GetTheme();
     // switch active view and tab on click
     //
 
-        $('#tabs').on('click', '.etabs-tab', function(){
-            $('.etabs-tab, .etabs-view').removeClass('active');
+        $('#tabs').on('click', '.sky-tab', function(){
+            $('.sky-tab, .sky-view').removeClass('active');
    
        
         var sessionID = $(this).data('session');
-        $('.etabs-tab, .etabs-view')
+        $('.sky-tab, .sky-view')
             .filter('[data-session="' + sessionID + '"]')
             .addClass('active');
-        var session = $('.etabs-view[data-session="' + sessionID + '"]')[0];
+        var session = $('.sky-view[data-session="' + sessionID + '"]')[0];
         (NAV.changeTabCallBack || (() => {}))(session);
         NAV._updateUrl(session.getURL());  
         //NAV._updateFile( 'SkyNet: ' + session.getTitle());
         NAV._updateCtrls();
 
         // close tab and view
-    }).on('click', '.etabs-tab-buttons', function(){
+    }).on('click', '.sky-tab-buttons', function(){
         currentTabs--;
         CountTabs();
         console.log(currentTabs);
-        var sessionID = $(this).parent('.etabs-tab').data('session');
-        var session = $('.etabs-tab, .etabs-view').filter('[data-session="' + sessionID + '"]');
+        var sessionID = $(this).parent('.sky-tab').data('session');
+        var session = $('.sky-tab, .sky-view').filter('[data-session="' + sessionID + '"]');
 
         if(session.hasClass('active')){
-            if(session.next('etabs-tab').length){
+            if(session.next('sky-tab').length){
                 session.next().addClass('active');
                 (NAV.changeTabCallBack || (() => {}))(session.next()[1]);
             } else{
@@ -165,7 +165,7 @@ GetTheme();
             params = options.newTabParams
         } else{
             params = ['http://www.bing.com/', {
-                close: options.closableTabs,
+                close: options.closablsky,
                 icon: NAV.TAB_ICON
             }];
         }
@@ -214,15 +214,15 @@ GetTheme();
         if(e.keyCode == 13) {
             if(e.shiftKey) {
                 NAV.newTab(this.value, {
-                    close: options.closableTabs,
+                    close: options.closablsky,
                     icon: NAV.TAB_ICON
                 });
             } else {
-                if($('.etabs-tab').length){
+                if($('.sky-tab').length){
                     NAV.changeTab(this.value);
                 } else{
                     NAV.newTab(this.value, {
-                        close: options.closableTabs,
+                        close: options.closablsky,
                         icon: NAV.TAB_ICON
                     });
                 }
@@ -234,7 +234,7 @@ GetTheme();
 //Updates controls
 
     this._updateCtrls = function(){
-        webview = $('.etabs-view.active')[0];
+        webview = $('.sky-view.active')[0];
         if(!webview) {
             $('#back').addClass('disabled');
             $('#foward').addClass('disabled');
@@ -271,9 +271,9 @@ GetTheme();
         tab = tab || null;
 
         if(tab == null) {
-            tab = $('.etabs-tab.active');
+            tab = $('.sky-tab.active');
         }
-        tab.find('.etabs-tab-icon').css('animation', 'navSpin 0.5s linear infinite normal forwards running');
+        tab.find('.sky-tab-icon').css('animation', 'navSpin 0.5s linear infinite normal forwards running');
         //animation:     play-state;
         $('#refresh').html(this.SVG_CLEAR);
     } //:_loading()
@@ -285,10 +285,10 @@ GetTheme();
         tab = tab || null;
 
         if(tab == null){
-            tab = $('.etabs-tab.active');
+            tab = $('.sky-tab.active');
         }
 
-        tab.find('.etabs-tab-icon').css('animation', '');
+        tab.find('.sky-tab-icon').css('animation', '');
         $('#refresh').html(this.SVG_RELOAD);
     } //:_stopLoading();
 
@@ -321,7 +321,7 @@ GetTheme();
             format: 'hex'
         });
         getHexColor.mostUsed(result => {
-            currTab.find('.etabs-tab-icon svg').attr('fill', result);
+            currTab.find('.sky-tab-icon svg').attr('fill', result);
         });
     } //:_setTabColor()
     
@@ -329,8 +329,8 @@ GetTheme();
     //add event listeners to current webview
 
     this._addEvents = function (sessionID,options) {
-        let currTab = $('.etabs-tab[data-session="' + sessionID + '"]');
-        let webview = $('.etabs-view[data-session="' + sessionID + '"]');
+        let currTab = $('.sky-tab[data-session="' + sessionID + '"]');
+        let webview = $('.sky-view[data-session="' + sessionID + '"]');
         webview.on('dom-ready', function(){
             
                 contextMenu({
@@ -353,8 +353,8 @@ GetTheme();
         });
         webview.on('page-title-updated', function(){
             if(options.title == 'default'){
-                currTab.find('.etabs-tab-title').text(webview[0].getTitle());
-                currTab.find('.etabs-tab-title').attr('title', webview[0].getTitle());
+                currTab.find('.sky-tab-title').text(webview[0].getTitle());
+                currTab.find('.sky-tab-title').attr('title', webview[0].getTitle());
                
             }
         });
@@ -373,7 +373,7 @@ GetTheme();
            //and the icon will remain default. (sun.png)\
            if(webview[0].getURL().toLowerCase().includes('http')){try{
             favicon(webview[0].getURL()).then(function(fav){
-             currTab.find('.etabs-tab-icon').attr('src', fav)
+             currTab.find('.sky-tab-icon').attr('src', fav)
          });} catch{
              console.log('Website does not have favicon. OR \n SkyNet cannot find favicon.')
          }
@@ -402,15 +402,15 @@ GetTheme();
 
         });
         webview.on('enter-html-full-screen', function(){
-            $('.etabs-view.active').siblings().not('script').hide();
-            $('.etabs-view.active').parents().not('script').siblings().hide();
+            $('.sky-view.active').siblings().not('script').hide();
+            $('.sky-view.active').parents().not('script').siblings().hide();
         });
         webview.on('load-commit', function(){
             NAV._updateCtrls();
         });
-//////////
-//\\\\\\\\\
-///////////
+////\/\/\/\/
+///\/\/\/\/\
+//\/\/\/\/\/
         webview[0].addEventListener('did-navigate', (res) =>{
             NAV._updateUrl(res.url);
         });
@@ -433,7 +433,7 @@ GetTheme();
                 NAV._setTabColor(res.favicons[0], currTab);
                 
             } else if (options.icon == 'default') {
-                currTab.find('etabs-tab-icon').attr('src', res.favicons[0]);
+                currTab.find('sky-tab-icon').attr('src', res.favicons[0]);
             }
         });
 
@@ -461,8 +461,8 @@ GetTheme();
         url = url || null;
         urlInput = $('#url');
         if(url == null){
-            if($('.etabs-view').length){
-                url = $('.etabs-view.active')[0].getURL();
+            if($('.sky-view').length){
+                url = $('.sky-view.active')[0].getURL();
             } else{
                 url = '';
             }
@@ -521,7 +521,7 @@ Navigation.prototype.newTab = function(url, options){
     }
     
     //validate options.id
-    $('.etabs-tab, .etabs-view').removeClass('active');
+    $('.sky-tab, .sky-view').removeClass('active');
     if($('#' + options.id).length) {
         console.log('ERROR[electron-navigation][func "newTab();"]: The ID "' + options.id + '" already exists. Please use another one.');
         return false;
@@ -531,25 +531,25 @@ Navigation.prototype.newTab = function(url, options){
         return false;
     }
     //build tab
-    var tab = '<div class="etabs-tab active" data-session="' + this.SESSION_ID + '">';
+    var tab = '<div class="sky-tab active" data-session="' + this.SESSION_ID + '">';
     
     //favicon
     if (options.icon == 'clean') {
-        tab += '<i class="etabs-tab-icon">' + this.SVG_FAVICON + '</i>';
+        tab += '<i class="sky-tab-icon">' + this.SVG_FAVICON + '</i>';
     } else if (options.icon === 'default') {
-        tab += '<img class="etabs-tab-icon" src="../Icon/sun.png"/>';
+        tab += '<img class="sky-tab-icon" src="../Icon/sun.png"/>';
     } else {
-        tab += '<img class="etabs-tab-icon" src="' + options.icon + '"/>';
+        tab += '<img class="sky-tab-icon" src="' + options.icon + '"/>';
     }
     //title
     if(options.title == 'default'){
-        tab += '<span class="etabs-tab-title"> . . . </span>';
+        tab += '<span class="sky-tab-title"> . . . </span>';
     } else {
-        tab += '<span class="etabs-tab-title">' + options.title + '</span';
+        tab += '<span class="sky-tab-title">' + options.title + '</span';
     }
     //close
-    if(options.close && globalCloseableTabsOverride){
-        tab+= '<span class="etabs-tab-buttons"> <button class="etabs-tab-button-close">✖</button></span> '
+    if(options.close && globalCloseablskyOverride){
+        tab+= '<span class="sky-tab-buttons"> <button class="sky-tab-button-close">✖</button></span> '
     }
 
     //finish tab
@@ -559,7 +559,7 @@ Navigation.prototype.newTab = function(url, options){
 
     //add webview
 
-    let composedWebviewTag = `<webview class="etabs-view active" data-session="${this.SESSION_ID}" src="${this._purifyUrl(url)}"`;
+    let composedWebviewTag = `<webview class="sky-view active" data-session="${this.SESSION_ID}" src="${this._purifyUrl(url)}"`;
     
     composedWebviewTag += ` data-readonly="${((options.readonlyUrl) ? 'true': 'false')}"`;
     if (options.id) {
@@ -575,7 +575,7 @@ Navigation.prototype.newTab = function(url, options){
     }
 
 
-    $('#etabs-views').append(`${composedWebviewTag}></webview>`);    
+    $('#sky-views').append(`${composedWebviewTag}></webview>`);    
     // enable reload button
     $('#refresh').removeClass('disabled');
 
@@ -601,7 +601,7 @@ Navigation.prototype.newTab = function(url, options){
 Navigation.prototype.changeTab = function(url, id){
     id = id || null;
     if(id == null){
-        $('.etabs-view.active').attr('src', this._purifyUrl(url));
+        $('.sky-view.active').attr('src', this._purifyUrl(url));
     } else {
         if($('#' + id).length){
             $('#' + id).attr('src', this._purifyUrl(url));
@@ -618,17 +618,17 @@ Navigation.prototype.closeTab = function(id) {
     
     var session;
     if(id == null){
-        session = $('.etabs-tab.active, .etabs-view.active');
+        session = $('.sky-tab.active, .sky-view.active');
     } else {
         if($('#' + id).length){
             var sessionID = $('#' + id).data('session');
-            session = $('.etabs-tab, .etabs-view').filter('[data-session="' + sessionID + '"]');
+            session = $('.sky-tab, .sky-view').filter('[data-session="' + sessionID + '"]');
         } else{
             console.log('ERROR[electron-navigation][func "closeTab();"]: Cannot find the ID "' + id + '"');
             return false;
         }
     }
-    if(session.next('.etabs-tab').length){
+    if(session.next('.sky-tab').length){
         session.next().addClass('active');
         (this.changeTabCallback || (() => {}))(session.next()[1]);
     } else{
@@ -650,7 +650,7 @@ Navigation.prototype.closeTab = function(id) {
 Navigation.prototype.back = function(id){
     id = id || null;
     if(id == null){
-        $('.etabs-view.active')[0].goBack();
+        $('.sky-view.active')[0].goBack();
     } else{
         if($('#' + id).length) {
             $('#' + id)[0].goBack();
@@ -665,7 +665,7 @@ Navigation.prototype.back = function(id){
 Navigation.prototype.forward = function (id) {
     id = id || null;
     if (id == null) {
-        $('.etabs-view.active')[0].goForward();
+        $('.sky-view.active')[0].goForward();
     } else {
         if ($('#' + id).length) {
             $('#' + id)[0].goForward();
@@ -681,7 +681,7 @@ Navigation.prototype.forward = function (id) {
 Navigation.prototype.reload = function (id) {
     id = id || null;
     if (id == null) {
-        $('.etabs-view.active')[0].reload();
+        $('.sky-view.active')[0].reload();
     } else {
         if ($('#' + id).length) {
             $('#' + id)[0].reload();
@@ -698,7 +698,7 @@ Navigation.prototype.stop = function (id) {
     id = id || null;
     
     if (id == null) {
-        $('.etabs-view.active')[0].stop();
+        $('.sky-view.active')[0].stop();
     } else {
         if ($('#' + id).length) {
             $('#' + id)[0].stop();
@@ -773,7 +773,7 @@ Navigation.prototype.openDevTools = function (id) {
 
     // check id
     if (id == null) {
-        webview = $('.etabs-view.active')[0];
+        webview = $('.sky-view.active')[0];
     } else {
         if ($('#' + id).length) {
             webview = document.getElementById(id);
@@ -803,7 +803,7 @@ Navigation.prototype.printTab = function (id, opts) {
 
     // check id
     if (id == null) {
-        webview = $('.etabs-view.active')[0]
+        webview = $('.sky-view.active')[0]
     } else {
         if ($('#' + id).length) {
             webview = document.getElementById(id)
@@ -822,38 +822,38 @@ Navigation.prototype.printTab = function (id, opts) {
 
 
 Navigation.prototype.nextTab = function () {
-    var tabs = $('.etabs-tab').toArray();
-    var activeTabIndex = tabs.indexOf($('.etabs-tab.active')[0]);
+    var tabs = $('.sky-tab').toArray();
+    var activeTabIndex = tabs.indexOf($('.sky-tab.active')[0]);
     var nexti = activeTabIndex + 1;
     if (nexti > tabs.length - 1) nexti = 0;
-    $($('.etabs-tab')[nexti]).trigger('click');
+    $($('.sky-tab')[nexti]).trigger('click');
     return false
 } //:nextTab()
 
 // toggle previous available tab
 
 Navigation.prototype.prevTab = function () {
-    var tabs = $('.etabs-tab').toArray();
-    var activeTabIndex = tabs.indexOf($('.etabs-tab.active')[0]);
+    var tabs = $('.sky-tab').toArray();
+    var activeTabIndex = tabs.indexOf($('.sky-tab.active')[0]);
     var nexti = activeTabIndex - 1;
     if (nexti < 0) nexti = tabs.length - 1;
-    $($('.etabs-tab')[nexti]).trigger('click');
+    $($('.sky-tab')[nexti]).trigger('click');
     return false
 } //:prevTab()
 
 // go to a tab by index or keyword
 
 Navigation.prototype.goToTab = function (index) {
-    $activeTabAndView = $('#tabs .etabs-tab.active, #etabs-views .etabs-view.active');
+    $activeTabAndView = $('#tabs .sky-tab.active, #sky-views .sky-view.active');
 
     if (index == 'previous') {
-        $tabAndViewToActivate = $activeTabAndView.prev('#tabs .etabs-tab, #etabs-views .etabs-view');
+        $tabAndViewToActivate = $activeTabAndView.prev('#tabs .sky-tab, #sky-views .sky-view');
     } else if (index == 'next') {
-        $tabAndViewToActivate = $activeTabAndView.next('#tabs .etabs-tab, #etabs-views .etabs-view');
+        $tabAndViewToActivate = $activeTabAndView.next('#tabs .sky-tab, #sky-views .sky-view');
     } else if (index == 'last') {
-        $tabAndViewToActivate = $('#tabs .etabs-tab:last-of-type, #etabs-views .etabs-view:last-of-type');
+        $tabAndViewToActivate = $('#tabs .sky-tab:last-of-type, #sky-views .sky-view:last-of-type');
     } else {
-        $tabAndViewToActivate = $('#tabs .etabs-tab:nth-of-type(' + index + '), #etabs-views .etabs-view:nth-of-type(' + index + ')');
+        $tabAndViewToActivate = $('#tabs .sky-tab:nth-of-type(' + index + '), #sky-views .sky-view:nth-of-type(' + index + ')');
     }
 
     if ($tabAndViewToActivate.length) {
@@ -901,7 +901,7 @@ function updateNav (event) {
 
 //magnifies the current webview.
 function Zoom(){
-    let  webview = $('.etabs-view.active')[0];
+    let  webview = $('.sky-view.active')[0];
     
     if(webview.getZoomFactor() == "null"){
         webview.setZoomFactor(1)
@@ -923,7 +923,7 @@ function Zoom(){
 
 //This adds the bookmark information to Bookmarks.json
 function addBookmark () {
-    let  url = $('.etabs-view.active')[0].getURL(); //Retrieves the active view's url
+    let  url = $('.sky-view.active')[0].getURL(); //Retrieves the active view's url
     let title = webview.getTitle();
     favicon(url).then(function(fav) {
     let book = new Bookmark(uuid.v1(), url, fav, title);
@@ -942,10 +942,10 @@ function addBookmark () {
         
     });
 }
-
 //This controls the opening and closing of the Bookmarks screen.
 //Favorites will slide up and down from the navigation bar.
 function openPopUp (event) {
+    console.log('OpenPopUp');
     let state = popup.getAttribute('data-state');
     if (state === 'closed') {
         popup.innerHTML = '';
@@ -990,7 +990,7 @@ function handleUrl (event) {
 
 //Controls the History.Json file.
 function AddToHistory(){
-    let  url = $('.etabs-view.active')[0].getURL(); //Retrieves the active view's url
+    let  url = $('.sky-view.active')[0].getURL(); //Retrieves the active view's url
     let title = webview.getTitle();
     favicon(url).then(function(fav) {
     let book = new Bookmark(uuid.v1(), url, fav, title);
@@ -1130,4 +1130,3 @@ print.addEventListener('click', Print)
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
 zoom.addEventListener('click', Zoom);
-

@@ -74,6 +74,8 @@ background-color: #556;
     margin: 30px auto;
 }
 
+/* About section */
+
 .aboutVersions{
     width: calc(75%);
     height: calc(25%);
@@ -102,6 +104,14 @@ background-color: #556;
     border-radius: 34px;
     line-height: 10px;
 }
+
+/*Bookmarks*/
+
+
+
+
+
+/* Personalize section */
 
 .personalizeSpace{
     width: 75%;
@@ -185,3 +195,4 @@ background-color: #556;
     text-align: center;
     text-shadow: 2px 2px 3px #0ff;
 }
+

@@ -1,4 +1,5 @@
 const electron = require('electron');
+const app = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow;
 var jsonfile = require('jsonfile');
 var favicon = require('favicon-getter').default;
@@ -24,10 +25,13 @@ var about = ById('about'),
     personalize = ById('personalize'),
     privacy = ById('privacy'),
     aboutView = ById('aboutView'),
+    bookmark = ById('bookmark'),
     appearanceView = ById('appearanceView'),
-    privacyView = ById('privacyView');
+    privacyView = ById('privacyView'),
+    bookmarksView = ById('bookmarksView');
 
     
+       AboutView();
        
     
     function AboutView () {
@@ -35,12 +39,14 @@ var about = ById('about'),
         aboutView.style.display = "block";
         personalizeView.style.display = "none";
         privacyView.style.display = "none";
+        bookmarksView.style.display = "none";
     }
     function PersonalizeView () {
         
         aboutView.style.display = "none";
         personalizeView.style.display = "block";
         privacyView.style.display = "none";
+        bookmarksView.style.display = "none";
         CreateThemes();
     }
     
@@ -49,6 +55,14 @@ var about = ById('about'),
         aboutView.style.display = "none";
         personalizeView.style.display = "none";
         privacyView.style.display = "block";
+        bookmarksView.style.display = "none";
+    }
+    function BookmarksView () {
+        
+        aboutView.style.display = "none";
+        personalizeView.style.display = "none";
+        privacyView.style.display = "none";
+        bookmarksView.style.display = "block";
     }
 
     
@@ -116,5 +130,6 @@ if(targetElement !== 'open' && targetElement !== 'close'){
     personalize.addEventListener('click', PersonalizeView);
     privacy.addEventListener('click', PrivacyView);
     about.addEventListener('click', AboutView);
+    bookmark.addEventListener('click', BookmarksView);
     themeSelector.addEventListener('click', ChangeTheme)
 
