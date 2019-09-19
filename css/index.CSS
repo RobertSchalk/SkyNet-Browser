@@ -343,3 +343,8 @@ z-index: 25;
 	animation: animatedCloud 34s linear infinite normal forwards running;
 	transform: scale(0.1);
 }
+
+@media only screen and (max-width: 600px){
+
+	
+}
