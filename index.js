@@ -408,6 +408,8 @@ GetTheme();
         webview.on('load-commit', function(){
             NAV._updateCtrls();
         });
+
+        
 ////\/\/\/\/
 ///\/\/\/\/\
 //\/\/\/\/\/
@@ -421,6 +423,7 @@ GetTheme();
             NAV._updateUrl(res.url);
             
         });
+        
         webview[0].addEventListener("new-window", (res) =>{
             if(!(options.newWindowFrameNameBlacklistExpression instanceof RegExp && options.newWindowFrameNameBlacklistExpression.test(res.frameName))) {
                 NAV.newTab(res.url, {
@@ -945,7 +948,7 @@ function addBookmark () {
 //This controls the opening and closing of the Bookmarks screen.
 //Favorites will slide up and down from the navigation bar.
 function openPopUp (event) {
-    console.log('OpenPopUp');
+    //console.log('OpenPopUp');
     let state = popup.getAttribute('data-state');
     if (state === 'closed') {
         popup.innerHTML = '';
