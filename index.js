@@ -166,7 +166,7 @@ GetTheme();
         } else{
             params = ['http://www.bing.com/', {
                 close: options.closablsky,
-                icon: NAV.TAB_ICON
+                icon: "default"  //Sets the icon to hold Skynet's default icon. Once the first website of that tag has been loaded, it will replace the default icon.
             }];
         }
         NAV.newTab(...params);
@@ -893,13 +893,7 @@ navigation.newTab('https://www.bing.com');
 
 //This takes the url bar and updates it everytime the webview changes.
 
-function updateNav (event) {
-    if(webview.src.ToLowerCase().includes('/skynet/')){
-        omni.value = webview.GetTitle;
-    } else{
-    omni.value = webview.src;
-    }
-}
+
 
 
 //magnifies the current webview.
@@ -1043,6 +1037,7 @@ function CreateSettingsView () {
    
 navigation.newTab(path.join(__dirname, 'settings/Settings.html'), {
         
+        
         node: true,
         webviewAttributes: {
             nodeIntegration: true,
@@ -1051,9 +1046,8 @@ navigation.newTab(path.join(__dirname, 'settings/Settings.html'), {
             devtools: false,
             openDevTools: false
         },
-        readonlyUrl: true
+        readonlyUrl: false
 });
-    
     ExtrasWindow();
 }
 
