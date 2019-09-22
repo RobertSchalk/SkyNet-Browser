@@ -37,7 +37,7 @@ function createWindow (){
     mainWindow = new BrowserWindow({
         width: width,
         height: height,
-        minWidth: 1200,
+        minWidth: 800,
         minHeight: 317,
         x: winState.x,
         y: winState.y,
@@ -58,7 +58,7 @@ function createWindow (){
     winState.manage(mainWindow);
 
     //Uncomment this for release ----------------------------------------
-    //mainWindow.setMenuBarVisibility(false);
+    mainWindow.setMenuBarVisibility(false);
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
   ses.cookies.set(cookie, err => {
@@ -90,17 +90,7 @@ app.on('before-quit', e => {
     
 });
 
-//lets you know if user is actively looking at another window.
-//for testing.------------------------
-/*
-app.on('browser-window-blur', e =>{
-    console.log('App unfocus')
-    setTimeout(app.quit, 3000)
-    })
-//Lets you know if user is actively looking at window.
-app.on('browser-window-focus', e =>{
-    console.log('App focused')
-})*/
+
 
 app.on('ready', createWindow);
 
