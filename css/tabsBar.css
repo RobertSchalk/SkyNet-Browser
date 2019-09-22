@@ -10,6 +10,7 @@
 	left:0;
 	padding: 0;
 	display:block;
+	float: left;
 	margin: 0;
 /**/	margin-top: -3px; /**/
 	background: linear-gradient( #48b4e0, #1864b0);
