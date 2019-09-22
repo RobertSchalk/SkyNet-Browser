@@ -1,4 +1,4 @@
-const {app, BrowserWindow, session} = require('electron')
+const {app, BrowserWindow, session} = require('electron');
 const windowStateKeeper = require('electron-window-state');
 const path = require('path');
 const fs = require('fs');
@@ -12,7 +12,7 @@ let mainWindow;
     const store = new Store({
         configName: 'SkyNet-Configs',
         defaults: {
-            windowBounds: { width: 1000, defaultHeight: 800}
+            windowBounds: { width: 1000, Height: 800}
         }
     });
 
@@ -37,10 +37,10 @@ function createWindow (){
     mainWindow = new BrowserWindow({
         width: width,
         height: height,
+        minWidth: 1200,
+        minHeight: 317,
         x: winState.x,
         y: winState.y,
-        minWidth: 300,
-        minHeight: 400,
         //frame: false,
        // titleBarStyle: 'hidden',
       //  autoHideMenuBar: true,
@@ -88,7 +88,7 @@ app.on('before-quit', e => {
     storeUserData()
     app.quit()
     
-})
+});
 
 //lets you know if user is actively looking at another window.
 //for testing.------------------------
@@ -110,7 +110,4 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
     if (mainWindow === null) createWindow()
-})
-
-
-
+});

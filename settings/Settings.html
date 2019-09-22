@@ -4,23 +4,32 @@
         <link rel="stylesheet" href="../css/settings.css">
     </head>
     <body>
-        
+        <div id="settings-wrap">
+            <div class="x1"><div class="cloud"></div></div>
+            <div class="x2"><div class="cloud"></div></div>
+            <div class="x3"><div class="cloud"></div></div>
+            <div class="x4"><div class="cloud"></div></div>
+            <div class="x5"><div class="cloud"></div></div>
+            <div class="x6"><div class="cloud"></div></div>
+            <div class="x7"><div class="cloud"></div></div>
+        </div>
         <div id="settingsList">
             <div id="about" class="setting">About SkyNet</div>
+            <div id="bookmark" class="setting">Bookmarks config</div>
             <div id="personalize" class="setting">Personalize</div>
             <div id="privacy" class="setting">Privacy</div>
         </div>
             
         <div id="aboutView" class="settingsView">
             <div class="settingsTitle">About SkyNet</div>
-            <div class="aboutVersions">
+            <div class="aboutVersions settingsBox">
                 <h2 style="text-align: center;">Version:</h2>
                     <p>Chrome Version: <script> document.write(process.versions.chrome)</script></p>
                     <p>Electron Version: <script> document.write(process.versions.electron)</script></p>
                      <p>Node Version: <script> document.write(process.versions.node)</script></p>
                      <p> SkyNet Version: <script> document.write(window.require('electron').remote.app.getVersion())</script></p>
                   </div>
-            <div class="aboutSpace">
+            <div class="aboutSpace settingsBox">
                 <p>Author: Robert Schalk</p>
                 <p>SkyNet is made possible by Chromium and other open source software. </p>
             </div>
@@ -29,7 +38,7 @@
         <div id="personalizeView" class="settingsView">
             <div class="settingsTitle"> Personalize</div>
             
-                <table class="personalizeSpace">
+                <table class="personalizeSpace settingsBox">
                     <tr>
                         <td class="personalizeText">
                                 <p>Change theme apperance: </p>
@@ -71,6 +80,53 @@
         <div id="privacyView" class="settingsView">
             <div class="settingsTitle"> Privacy</div>
 
+        
+        </div>
+
+        <div id="bookmarksView" class="settingsView">
+            <div class="settingsTitle"> Bookmarks configuration</div>
+            <div class="bookmarksSettingsBox settingsBox"> <h1>Config</h1>
+            <div class="bookmarksSettingsList">
+            <div  id="createBookmark" class="setting">Create Bookmark</div>
+            <div  id="removeBookmark" class="setting">Remove Bookmarks</div>
+            <div  id="createFolder" class="setting">Create Folder</div>
+            <div  id="removeFolder" class="setting">Remove Folder</div>
+            <div  id="favoritesBar" class="setting">Favorites Bar</div>
+            </div>
+            <div id="createBookmarkView" class="BookmarkSettingsView">
+                <h1>Create Bookmarks</h1>
+                <form class="bookmarkForm">
+                    <div class="section">
+                    <label>Bookmark Title:</label>
+                    <input class="input" type="text" title="Enter the title for your bookmark here.">
+                   </div>
+                   <div class="section"></div>
+                    <label>Bookmark Url:</label>
+                    <input class="input" type="text" title="Enter the title for your bookmark here.">
+                </div>
+                </form>
+
+                </Form>
+            </div>
+            <div id="removeBookmarkView" class="BookmarkSettingsView">
+                <h1>Remove Bookmarks</h1>
+
+            </div>
+            <div id="createFolderView" class="BookmarkSettingsView">
+                <h1>Create Folders</h1>
+
+            </div>
+            <div id="removeFolderView" class="BookmarkSettingsView">
+                <h1>Remove Folders</h1>
+
+            </div>
+            <div id="favoritesBarView" class="BookmarkSettingsView">
+                <h1>Favorites Bar Settings</h1>
+
+            </div>
+            
+            </div>
+            <div id="bookmarksList" class="settingsBox"> <h1>Bookmarks</h1></div>
         
         </div>
 

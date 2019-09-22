@@ -12,7 +12,7 @@ const contextMenu = require('electron-context-menu'); // This is needed for the 
 const dragula = require("dragula"); // This helps drag tabs around. (Not implemented yet).
 const uuid= require("uuid"); // Helps create ids for bookmarks.
 const Bookmark = require("./bookmarks.js");
-const totalTabs = require("./index.js");
+const totalTabs = require("../index.js");
 var $ = require('jquery'); //allows jquery to be used
 var Color = require('color.js'); // Currently helps color the tab icons
 var globalCloseableTabsOverride;

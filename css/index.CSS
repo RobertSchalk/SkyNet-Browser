@@ -25,7 +25,7 @@ blockquote,q{quotes:none}
 	line-height: 30px;
 }
 
-#navigation #fave-popup .link
+#navigation #sky-popup .link
 {	width:100%;
     height:30px;
     color:#eee;
@@ -39,11 +39,11 @@ blockquote,q{quotes:none}
 	border-bottom: 2px solid #003;
 	text-overflow: ellipsis;
 }
-#navigation #fave-popup .link:first-of-type{
+#navigation #sky-popup .link:first-of-type{
 	margin-top: 10px;
 }
 
-#navigation #fave-popup .link:hover
+#navigation #sky-popup .link:hover
 {	
     color:#fff;
     background-color: rgba(150,250,300,0.7);
@@ -51,7 +51,7 @@ blockquote,q{quotes:none}
 }
 	
 	
-#navigation #fave-popup .link .favicon{
+#navigation #sky-popup .link .favicon{
     width:15px;
     height:15px;
     float:left;
@@ -105,7 +105,7 @@ blockquote,q{quotes:none}
 	
 }
 
-#fave-popup{
+#sky-popup{
 	width: 300px;
 	height: 0%;
 	z-index: 20;
@@ -124,3 +124,227 @@ blockquote,q{quotes:none}
 	transition: 0.5s;
 }
 
+/*Controls the overlay design*/
+
+.overlay body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+	z-index: 40;
+}
+.overlay {
+   
+	height: calc(100vh);
+    width: 0;
+    position: fixed;
+    z-index: 40;
+    top: 0;
+    left: 0;
+	/*background-color: rgba(0,0,0, 0.9);*/
+	background: #00b4ff;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlay-title{
+	width: 600px;
+	height: 50px;
+	display: block;
+	margin: auto;
+	color: #f1f1f1;
+	text-shadow: 2px 2px 3px #333;
+	text-align: center;
+	z-index: 2;
+	font-size: 50px;
+	font-weight: bolder;
+	position: absolute;
+	top: 5%;
+	left: 0;
+	right: 0;
+}
+.overlay-content {
+    
+	position: absolute;
+	top: 10%;
+	left: 0;
+	right: 0;
+    width: calc(90vw);
+	height: calc(80vh - 50px);
+    text-align: center;
+    margin: auto;
+    margin-top: 35px;
+    Font-Family: Arial;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px #000;
+    z-index: 40;
+    overflow: show;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+	background-color: rgba(0,0,0,0.3);
+}
+.closebtn {
+    position: absolute;
+    top: 35px;
+    right: 55px;
+    font-size: 60px;
+    z-index: 2;
+    color: #fff;
+    border: 1px solid rgb(255, 238, 0);
+    padding: 4px;
+    line-height: 60px;
+    cursor: pointer;
+    width:52.1px;
+    height:52.1px;
+	box-shadow: 
+	4px 4px 10px rgb(255, 238, 0), -4px -4px 10px rgb(255, 238, 0), -4px 4px 10px rgb(255, 238, 0), 4px -4px 10px rgb(255, 238, 0), 
+	8px 8px 10px rgb(255, 238, 0), -8px -8px 10px rgb(255, 238, 0), -8px 8px 10px rgb(255, 238, 0), 8px -8px 10px rgb(255, 238, 0), 
+	12px 12px 35px rgb(255, 238, 0), -12px -12px 35px rgb(255, 238, 0), -12px 12px 35px rgb(255, 238, 0), 12px -12px 35px rgb(255, 238, 0), 
+	inset 4px 4px 10px rgb(255, 238, 0), inset -4px -4px 10px rgb(255, 238, 0), inset 4px -4px 10px rgb(255, 238, 0), inset -4px 4px 10px rgb(255, 238, 0),
+	inset 8px 8px 10px rgb(255, 242, 0), inset -8px -8px 10px rgb(255, 242, 0), inset 8px -8px 10px rgb(255, 242, 0), inset -8px 8px 10px rgb(255, 242, 0),
+	inset 12px 12px 10px rgb(255, 249, 0), inset -12px -12px 10px rgb(255, 249, 0), inset 12px -12px 10px rgb(255, 249, 0), inset -12px 12px 10px rgb(255, 249, 0),
+	inset 16px 16px 10px rgb(255, 255, 0), inset -16px -16px 10px rgb(255, 255, 0), inset 16px -16px 10px rgb(255, 255, 0), inset -16px 16px 10px rgb(255, 255, 0),
+	inset 20px 20px 10px rgb(255, 255, 0), inset -20px -20px 10px rgb(255, 255, 0), inset 20px -20px 10px rgb(255, 255, 0), inset -20px 20px 10px rgb(255, 255, 0);
+	border-radius:100px;
+	
+	display: flex;
+	align-items: center;
+	animation: animatedSun 0.3s linear infinite normal forwards running;
+}
+
+@keyframes animatedSun{
+	
+	0%{
+		border: 1px solid rgb(255, 238, 0);
+		box-shadow: 
+		4px 4px 10px rgb(255, 238, 0), -4px -4px 10px rgb(255, 238, 0), -4px 4px 10px rgb(255, 238, 0), 4px -4px 10px rgb(255, 238, 0), 
+		8px 8px 10px rgb(255, 238, 0), -8px -8px 10px rgb(255, 238, 0), -8px 8px 10px rgb(255, 238, 0), 8px -8px 10px rgb(255, 238, 0), 
+		12px 12px 35px rgb(255, 238, 0), -12px -12px 35px rgb(255, 238, 0), -12px 12px 35px rgb(255, 238, 0), 12px -12px 35px rgb(255, 238, 0), 
+		inset 4px 4px 10px rgb(255, 238, 0), inset -4px -4px 10px rgb(255, 238, 0), inset 4px -4px 10px rgb(255, 238, 0), inset -4px 4px 10px rgb(255, 238, 0),
+		inset 8px 8px 10px rgb(255, 242, 0), inset -8px -8px 10px rgb(255, 242, 0), inset 8px -8px 10px rgb(255, 242, 0), inset -8px 8px 10px rgb(255, 242, 0),
+		inset 12px 12px 10px rgb(255, 249, 0), inset -12px -12px 10px rgb(255, 249, 0), inset 12px -12px 10px rgb(255, 249, 0), inset -12px 12px 10px rgb(255, 249, 0),
+		inset 16px 16px 10px rgb(255, 255, 0), inset -16px -16px 10px rgb(255, 255, 0), inset 16px -16px 10px rgb(255, 255, 0), inset -16px 16px 10px rgb(255, 255, 0),
+		inset 20px 20px 10px rgb(255, 255, 0), inset -20px -20px 10px rgb(255, 255, 0), inset 20px -20px 10px rgb(255, 255, 0), inset -20px 20px 10px rgb(255, 255, 0);}
+	
+	100%{border: 1px solid rgb(255, 242, 40);
+	box-shadow: 
+	4px 4px 10px rgb(255, 242, 40), -4px -4px 10px rgb(255, 242, 40), -4px 4px 10px rgb(255, 242, 40), 4px -4px 10px rgb(255, 242, 40), 
+	8px 8px 10px rgb(255, 242, 40), -8px -8px 10px rgb(255, 242, 40), -8px 8px 10px rgb(255, 242, 40), 8px -8px 10px rgb(255, 242, 40), 
+	12px 12px 35px rgb(255, 242, 40), -12px -12px 35px rgb(255, 242, 40), -12px 12px 35px rgb(255, 242, 40), 12px -12px 35px rgb(255, 242, 40), 
+	inset 4px 4px 10px rgb(255, 242, 40), inset -4px -4px 10px rgb(255, 242, 40), inset 4px -4px 10px rgb(255, 242, 40), inset -4px 4px 10px rgb(255, 242, 40),
+	inset 8px 8px 10px rgb(255, 249, 40), inset -8px -8px 10px rgb(255, 249, 40), inset 8px -8px 10px rgb(255, 249, 40), inset -8px 8px 10px rgb(255, 249, 40),
+	inset 12px 12px 10px rgb(255, 255, 40), inset -12px -12px 10px rgb(255, 255, 40), inset 12px -12px 10px rgb(255, 255, 40), inset -12px 12px 10px rgb(255, 255, 40),
+	inset 16px 16px 10px rgb(255, 255, 80), inset -16px -16px 10px rgb(255, 255, 80), inset 16px -16px 10px rgb(255, 255, 80), inset -16px 16px 10px rgb(255, 255, 80),
+	inset 20px 20px 10px rgb(255, 255, 120), inset -20px -20px 10px rgb(255, 255, 120), inset 20px -20px 10px rgb(255, 255, 120), inset -20px 20px 10px rgb(255, 255, 120);
+	}
+}
+
+.sun{
+	height: 102px;
+	width: 102px;
+	background-image: url('../Icon/sun closebtn.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	position: absolute;
+    top: 15px;
+    right: 35px;
+    font-size: 60px;
+    z-index: -2;
+    color: #fff;
+	border-radius:100px;
+	transition: 0.2s;
+	display: flex;
+	align-items: center;
+}
+
+#overlay-wrap{
+	position: absolute;
+	padding-top: 50px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 5;
+}
+
+.cloud{
+background: white;
+background: linear-gradient(top, white 5%, #f1f1f1 100%);
+border-radius: 100px;
+box-shadow: 0 8px 5px rgba(0,0,0,0.1);
+height: 120px;
+position: relative;
+width: 350px;
+z-index: 25;
+}
+
+
+.cloud:after, .cloud:before{
+	background: white;
+	content: '';
+	position: absolute;
+	z-index: 25;
+}
+
+.cloud:after{
+	border-radius: 120px;
+	height: 120px;
+	left: 40px; /*50 */
+	top: -65px; /*-50*/
+	width: 120px;
+}
+
+.cloud:before{
+	border-radius: 200px;
+	height: 180px;
+	width: 180px;
+	right: 50px; /*-50*/
+	top: -80px; /*-90*/
+}
+
+@keyframes animatedCloud{
+	0%{margin-left: -1000px;}
+	100%{margin-left: 100%;}
+}
+
+.x1,.x2,.x3,.x4,.x5,.x6,.x7,.x8{
+	z-index: 25;
+}
+
+.x1{
+	animation: animatedCloud 35s linear infinite normal forwards running;
+	transform: scale(0.35);
+}
+.x2{
+	animation: animatedCloud 30s linear infinite normal forwards running;
+	transform: scale(0.65);
+}
+.x3{
+	animation: animatedCloud 25s linear infinite normal forwards running;
+	transform: scale(0.5);
+}
+.x4{
+	animation: animatedCloud 15s linear infinite normal forwards running;
+	transform: scale(0.2);
+}
+.x5{
+	animation: animatedCloud 30s linear infinite normal forwards running;
+	transform: scale(0.4);
+}
+.x6{
+	animation: animatedCloud 27s linear infinite normal forwards running;
+	transform: scale(0.3);
+}
+.x7{
+	animation: animatedCloud 80s linear infinite normal forwards running;
+	transform: scale(0.8);
+}
+.x8{
+	animation: animatedCloud 34s linear infinite normal forwards running;
+	transform: scale(0.1);
+}
+
+@media only screen and (max-width: 600px){
+
+	
+}

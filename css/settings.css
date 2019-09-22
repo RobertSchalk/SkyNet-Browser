@@ -1,13 +1,18 @@
 body{
     font-family: monospace;
     text-shadow: 2px 2px 3px #000;
+   /* background-color: #1864b0;*/
+    background-color: #00b4ff;
 }
 
+
+
+
 #settingsList{
-    width: 20vw;
-    height:calc(100vh);
-    border-right: 5px double #000;
-    background-color: #223;
+    width: calc(20vw - 5px);
+    height: calc(100vh);
+    border-right: 5px solid rgba(0,200,250,0.7);
+    background-color: rgba(0,0,0,0.3);
     font-family: monospace;
     display: block;
     float: left;
@@ -19,7 +24,7 @@ body{
 }
 
 #mainSettings{
-    width: 80vw;
+    width: calc(80vw - 15px);
     height: calc(100vh);
     position: fixed;
     display: none;
@@ -35,7 +40,7 @@ body{
 #settingsList .setting{
     width: calc(100% - 20px);
     height: 35px;
-    border: 1px solid #000;
+    border-bottom: 1px solid rgba(0,200,250,0.7);
     list-style-type: none;
     display: block;
     color: #cecece;
@@ -47,12 +52,12 @@ body{
     line-height: 35px;
     cursor: pointer;
 }
-#settingsList .setting:hover{
-background-color: #556;
+#settingsList .setting:hover, .bookmarksSettingsList .setting:hover{
+background-color: rgba(63, 63, 205, 0.6);
 }
 
 .settingsView{
-    width: 80vw;
+    width: calc(80vw);
     height: calc(100vh);
     position: fixed;
     float: left;
@@ -60,7 +65,8 @@ background-color: #556;
 	top:0;
 	right:0;
     bottom:0;
-    background-color: #336;
+    background-color: #1864b01f;
+    display: none;
 }
 
 .settingsView .settingsTitle{
@@ -74,6 +80,12 @@ background-color: #556;
     margin: 30px auto;
 }
 
+.settingsBox{
+    background-color: #33333f4f;
+    border: 1px solid #55555f5f;
+}
+/* About section */
+
 .aboutVersions{
     width: calc(75%);
     height: calc(25%);
@@ -83,7 +95,7 @@ background-color: #556;
     color: #cecece;
     font-size: 15px;
     font-weight: bold;
-    background-color: #333;
+    /*background-color: #333;*/
     border-radius: 34px;
     line-height: 10px;
 }
@@ -98,10 +110,151 @@ background-color: #556;
     color: #cecece;
     font-size: 15px;
     font-weight: bold;
-    background-color: #333;
     border-radius: 34px;
     line-height: 10px;
 }
+
+/*Bookmarks*/
+
+.bookmarksSettingsBox{
+    width: calc(100% - 302px);
+    height: calc(100% - 80px);
+    color: #cecece;
+    position: relative;
+    top: -35px;
+    left:0;
+    bottom:0;
+    right:0;
+    overflow-y: auto;
+}
+
+.bookmarksSettingsList{
+    width: 140px;
+    height: calc(100% - 25px);
+    display: block;
+    color: #cecece;
+    background-color: #5555555f;
+    border-right: 2px solid #444444ff;
+    position: absolute;
+    top: 25px;
+    left:0;
+    bottom:0;
+    right:0;
+    overflow-y: auto;
+}
+
+.bookmarksSettingsList .setting{
+    width: calc(100% - 10px);
+    height: 35px;
+    border-bottom: 1px solid rgba(0,200,250,0.7);
+    list-style-type: none;
+    display: block;
+    color: #cecece;
+    text-align: right;
+    padding: 5px 5px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: monospace;
+    line-height: 35px;
+    cursor: pointer;
+}
+
+.BookmarkSettingsView{
+    width: calc(100% - 140px);
+    height: calc(100% - 27px);
+    background-color: #0000003f;
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    float: right;
+    display: none;
+    overflow-y: auto;
+}
+
+.bookmarkForm{
+    width: calc(100% - 30px);
+    height: calc(50% - 5px);
+    margin-top: 5px;
+    padding: 15px;
+    display: block;
+}
+
+.bookmarkForm .section{
+    width: 300px;
+    margin: 5px auto;
+    text-align: right;
+    display: block;
+}
+
+.input{
+    width: calc(180px - 5px);
+    height: 20px;
+    padding-left: 5px;
+    display: inline-block;
+    background-color: #0044448a;
+    border: 1px solid #009999aa;
+    border-radius: 10px;
+    color: #cecece;
+}
+#bookmarksList{
+    width: calc(300px - 2px);
+    height: calc(100% - 80px);
+    overflow-y: auto;
+    position: absolute;
+    top: 75px;
+    right: 0;
+    color: #cecece;
+    text-decoration: none;
+    box-shadow: 2px 2px 3px #5555553f;
+}
+#bookmarksList h1, .bookmarksSettingsBox h1{
+    width: 100%;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    text-align: center;
+    position: sticky;
+    background-color: inherit;
+    border-bottom: 2px solid #5555554f;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+#bookmarksList .link{
+    width:100%;
+    height:30px;
+    color:#eee;
+    font-family:monospace;
+    font-size:13px;
+    text-decoration: none;
+    text-align: left;
+    display: inline-block;
+	line-height:30px;
+    margin: 0;
+    padding: 3px 0;
+	border-bottom: 2px solid #5555554f;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#bookmarksList .link .favicon{
+    width:15px;
+    height:15px;
+    float:left;
+	background:#eee;
+	border-radius: 16px;
+	margin: 2px 5px;
+	box-shadow: 1px 1px 3px #000, -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
+	border: 2px solid #fff;
+	line-height: 15px;
+}
+
+
+/* Personalize section */
 
 .personalizeSpace{
     width: 75%;
@@ -112,7 +265,6 @@ background-color: #556;
     color: #cecece;
     font-size: 15px;
     font-weight: bold;
-    background-color: #333;
     border-radius: 34px;
     line-height: 10px;
 }
@@ -140,7 +292,7 @@ background-color: #556;
     font-weight: bolder;
     align-content: center;
     border-radius: 10px;
-    background-color: #777;
+    background-color: #0000002f;
     padding: 10px;
 
 }
@@ -184,4 +336,99 @@ background-color: #556;
     font-family: monospace;
     text-align: center;
     text-shadow: 2px 2px 3px #0ff;
+}
+
+/*handles the sky background.*/
+
+
+#settings-wrap{
+    box-shadow: inset 2px 0 10px #000000af;
+	position: absolute;
+	padding-top: 50px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.cloud{
+background: white;
+background: linear-gradient(top, white 5%, #f1f1f1 100%);
+border-radius: 100px;
+border: 1px solid #ccc;
+box-shadow: 0 8px 5px rgba(0,0,0,0.1);
+height: 120px;
+position: relative;
+width: 350px;
+z-index: 25;
+}
+
+
+.cloud:after, .cloud:before{
+	background: white;
+	content: '';
+	position: absolute;
+    z-index: 25;
+}
+
+.cloud:after{
+	border-radius: 120px;
+	height: 120px;
+	left: 40px; /*50 */
+	top: -65px; /*-50*/
+    width: 120px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cloud:before{
+	border-radius: 200px;
+	height: 180px;
+	width: 180px;
+	right: 50px; /*-50*/
+	top: -80px; /*-90*/
+    border-bottom: 1px solid #ddd;
+}
+
+@keyframes animatedCloud{
+	0%{margin-left: -1000px;}
+	100%{margin-left: 100%;}
+}
+
+.x1,.x2,.x3,.x4,.x5,.x6,.x7,.x8{
+	z-index: 25;
+}
+
+.x1{
+	animation: animatedCloud 35s linear infinite normal forwards running;
+	transform: scale(0.35);
+}
+.x2{
+	animation: animatedCloud 30s linear infinite normal forwards running;
+	transform: scale(0.65);
+}
+.x3{
+	animation: animatedCloud 25s linear infinite normal forwards running;
+	transform: scale(0.5);
+}
+.x4{
+	animation: animatedCloud 15s linear infinite normal forwards running;
+	transform: scale(0.2);
+}
+.x5{
+	animation: animatedCloud 30s linear infinite normal forwards running;
+	transform: scale(0.4);
+}
+.x6{
+	animation: animatedCloud 27s linear infinite normal forwards running;
+	transform: scale(0.3);
+}
+.x7{
+	animation: animatedCloud 80s linear infinite normal forwards running;
+	transform: scale(0.8);
+}
+.x8{
+	animation: animatedCloud 34s linear infinite normal forwards running;
+	transform: scale(0.1);
 }

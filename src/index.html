@@ -43,13 +43,13 @@
       <div id="favorites"  class="navButtons" title="Open/close Favorites">
         <i class="fa fa-folder-open" aria-hidden="true"></i>
       </div>
-      <div id="fave-popup" data-state="closed">
+      <div id="sky-popup" data-state="closed">
 
       </div>
     </nav>
     
     <div id="lowBar">
-        <a id="newTab" class="etabs-button">
+        <a id="newTab" class="sky-button">
             <div class="close">
               <i class="fa fa-plus-circle"></i>
             </div>
@@ -59,15 +59,15 @@
         </div>
         <div id="home" class="lowButtons" title="Go to your HomePage"><i class="fa fa-home" aria-hidden = "true"></i></div>
         <div id="zoom" class="lowButtons" title="Zoom-in/out 100% / 200% / 300%"><i class="zoom" aria-hidden = "true">&#x1f50d;</i></div>
-          <div class="etabs-tabgroup">
-            <div id="tabs" class="etabs-tabs"></div>
+          <div class="sky-tabgroup">
+            <div id="tabs" class="sky-tabs"></div>
         </div>
     </div>
     
    
     
     <div class="page">
-      <div id ="etabs-views" ></div>
+      <div id ="sky-views" ></div>
     </div>
      <!-- <webview id="view" class="page" src="https://www.bing.com/" partition="electron" autosize="on" allowtransparency plugins></webview>
       -->
@@ -76,13 +76,36 @@
    
     
     <div id="ExtrasWindow" class="overlay"> 
+      
+        <h1 class="overlay-title">Sky Apps & Controls</h1>
     <div id="closeExtras" class="closebtn">
-    <i class="fa fa-times" class="closebtn" style="color: #fff;"></i>
+     <!--fa fa-times (original)-->
       </div>
+      <div class="sun" style="color: #fff;"></div>
+    <!--  <div id="overlay-wrap" >-->
+        <div class="x1" >
+          <div class="cloud"></div>
+        </div>
+        <div class="x2">
+          <div class="cloud"></div>
+        </div>
+        <div class="x3">
+          <div class="cloud"></div>
+        </div>
+        <div class="x4">
+          <div class="cloud"></div>
+        </div>
+        <div class="x5">
+          <div class="cloud"></div>
+        </div>
+        <div class="x6">
+          <div class="cloud"></div>
+        </div>
+     <!-- </div>-->
+      
       <div class="overlay-content">
-          
         <div id="appMenu">
-          <div id="console" class="menuItem ">
+          <div id="console" class="menuItem">
              <div class="iconContainer">
             <img src="../Icon/Console.png" class="menuIcon"/>
           </div>
