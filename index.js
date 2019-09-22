@@ -24,7 +24,7 @@ var history = path.join(__dirname, 'history.json');
 
 //declaring all of my elements that I need the most here.
 var omni = ById('url'),
-dev = ById('console'),
+devConsole = ById('console'),
 fave = ById('fave'),
 list = ById('list'),
 popup = ById('sky-popup'),
@@ -36,7 +36,8 @@ print = ById('print'),
 newWindow = ById('newWindow'),
 zoom = ById('zoom'),
 currentTheme = ById('Theme'),
-menu = document.getElementsByClassName('menu');
+menu = document.getElementsByClassName('menu'),
+newWindow = ById('newWindow');
 
 // This will be used to count total tabs current in session.
 //Will return value on the NewTab Button Title. (hover)
@@ -1008,6 +1009,7 @@ function AddToHistory(){
 }
 
 
+
 ///////////////////////////////---   --- Extras ---   ---//////////////////////////////////////////////////////
 
 //handles devtools for webview.
@@ -1110,6 +1112,41 @@ function CreateSkyWriteView () {
      ExtrasWindow();
 }
 
+function CreateNewWindow(){
+    let winState = windowStateKeeper({
+        defaultWidth: 1000,
+        defaultHeight: 800
+
+    })
+
+    //let skyWriteSession = session.fromPartition('skyWriteWindow')
+    // const settingsPath = path.join('file://', _dirname, '../settings/settings.html')
+     let browserWindow = new BrowserWindow({
+         width: winState.width,
+          height: winState.height,
+        minWidth: 700,
+        minHeight: 600,
+        webPreferences: {
+            nodeIntegration: true,
+             webviewTag: true,
+              electron: true,
+              path: true,
+               }
+        })
+
+        
+
+
+      //  let session = settingsWindow.webContents.session;
+        winState.manage(browserWindow);
+        browserWindow.on('close', function(){browserWindow = null})
+        browserWindow.loadFile('src/Index.html');
+
+        browserWindow.show();
+   
+     ExtrasWindow();
+}
+
 function Print(){
     ExtrasWindow();
     navigation.printTab();
@@ -1122,8 +1159,9 @@ list.addEventListener('click', ExtrasWindow);
 closeExtras.addEventListener('click', ExtrasWindow);
 favorites.addEventListener('click', openPopUp);
 popup.addEventListener('click', handleUrl);
-dev.addEventListener('click', handleDevtools);
+devConsole.addEventListener('click', handleDevtools);
 print.addEventListener('click', Print)
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
 zoom.addEventListener('click', Zoom);
+newWindow.addEventListener('click', CreateNewWindow);
