@@ -451,3 +451,62 @@ z-index: 25;
 	animation: animatedCloud 34s linear infinite normal forwards running;
 	transform: scale(0.1);
 }
+
+.sun{
+	position: absolute;
+    top: 35px;
+    right: 55px;
+    font-size: 60px;
+    z-index: 2;
+    color: #fff;
+    border: 1px solid rgb(255, 238, 0);
+    background-image: url("../Icon/sun\ closebtn.png");
+    background-size: cover;
+    padding: 4px;
+    line-height: 60px;
+    cursor: pointer;
+    width:52.1px;
+    height:52.1px;
+	box-shadow: 
+	4px 4px 10px rgb(255, 238, 0), -4px -4px 10px rgb(255, 238, 0), -4px 4px 10px rgb(255, 238, 0), 4px -4px 10px rgb(255, 238, 0), 
+	8px 8px 10px rgb(255, 238, 0), -8px -8px 10px rgb(255, 238, 0), -8px 8px 10px rgb(255, 238, 0), 8px -8px 10px rgb(255, 238, 0), 
+	12px 12px 35px rgb(255, 238, 0), -12px -12px 35px rgb(255, 238, 0), -12px 12px 35px rgb(255, 238, 0), 12px -12px 35px rgb(255, 238, 0), 
+	inset 4px 4px 10px rgb(255, 238, 0), inset -4px -4px 10px rgb(255, 238, 0), inset 4px -4px 10px rgb(255, 238, 0), inset -4px 4px 10px rgb(255, 238, 0),
+	inset 8px 8px 10px rgb(255, 242, 0), inset -8px -8px 10px rgb(255, 242, 0), inset 8px -8px 10px rgb(255, 242, 0), inset -8px 8px 10px rgb(255, 242, 0),
+	inset 12px 12px 10px rgb(255, 249, 0), inset -12px -12px 10px rgb(255, 249, 0), inset 12px -12px 10px rgb(255, 249, 0), inset -12px 12px 10px rgb(255, 249, 0),
+	inset 16px 16px 10px rgb(255, 255, 0), inset -16px -16px 10px rgb(255, 255, 0), inset 16px -16px 10px rgb(255, 255, 0), inset -16px 16px 10px rgb(255, 255, 0),
+	inset 20px 20px 10px rgb(255, 255, 0), inset -20px -20px 10px rgb(255, 255, 0), inset 20px -20px 10px rgb(255, 255, 0), inset -20px 20px 10px rgb(255, 255, 0);
+	border-radius:100px;
+	
+	display: flex;
+	align-items: center;
+    animation: animatedSun 0.3s linear infinite normal forwards running;
+    z-index: -2;
+}
+
+@keyframes animatedSun{
+	
+	0%{
+		border: 1px solid rgb(255, 238, 0);
+		box-shadow: 
+		4px 4px 10px rgb(255, 238, 0), -4px -4px 10px rgb(255, 238, 0), -4px 4px 10px rgb(255, 238, 0), 4px -4px 10px rgb(255, 238, 0), 
+		8px 8px 10px rgb(255, 238, 0), -8px -8px 10px rgb(255, 238, 0), -8px 8px 10px rgb(255, 238, 0), 8px -8px 10px rgb(255, 238, 0), 
+		12px 12px 35px rgb(255, 238, 0), -12px -12px 35px rgb(255, 238, 0), -12px 12px 35px rgb(255, 238, 0), 12px -12px 35px rgb(255, 238, 0), 
+		inset 4px 4px 10px rgb(255, 238, 0), inset -4px -4px 10px rgb(255, 238, 0), inset 4px -4px 10px rgb(255, 238, 0), inset -4px 4px 10px rgb(255, 238, 0),
+		inset 8px 8px 10px rgb(255, 242, 0), inset -8px -8px 10px rgb(255, 242, 0), inset 8px -8px 10px rgb(255, 242, 0), inset -8px 8px 10px rgb(255, 242, 0),
+		inset 12px 12px 10px rgb(255, 249, 0), inset -12px -12px 10px rgb(255, 249, 0), inset 12px -12px 10px rgb(255, 249, 0), inset -12px 12px 10px rgb(255, 249, 0),
+		inset 16px 16px 10px rgb(255, 255, 0), inset -16px -16px 10px rgb(255, 255, 0), inset 16px -16px 10px rgb(255, 255, 0), inset -16px 16px 10px rgb(255, 255, 0),
+		inset 20px 20px 10px rgb(255, 255, 0), inset -20px -20px 10px rgb(255, 255, 0), inset 20px -20px 10px rgb(255, 255, 0), inset -20px 20px 10px rgb(255, 255, 0);}
+	
+	100%{border: 1px solid rgb(255, 242, 40);
+	box-shadow: 
+	4px 4px 10px rgb(255, 242, 40), -4px -4px 10px rgb(255, 242, 40), -4px 4px 10px rgb(255, 242, 40), 4px -4px 10px rgb(255, 242, 40), 
+	8px 8px 10px rgb(255, 242, 40), -8px -8px 10px rgb(255, 242, 40), -8px 8px 10px rgb(255, 242, 40), 8px -8px 10px rgb(255, 242, 40), 
+	12px 12px 35px rgb(255, 242, 40), -12px -12px 35px rgb(255, 242, 40), -12px 12px 35px rgb(255, 242, 40), 12px -12px 35px rgb(255, 242, 40), 
+	inset 4px 4px 10px rgb(255, 242, 40), inset -4px -4px 10px rgb(255, 242, 40), inset 4px -4px 10px rgb(255, 242, 40), inset -4px 4px 10px rgb(255, 242, 40),
+	inset 8px 8px 10px rgb(255, 249, 40), inset -8px -8px 10px rgb(255, 249, 40), inset 8px -8px 10px rgb(255, 249, 40), inset -8px 8px 10px rgb(255, 249, 40),
+	inset 12px 12px 10px rgb(255, 255, 40), inset -12px -12px 10px rgb(255, 255, 40), inset 12px -12px 10px rgb(255, 255, 40), inset -12px 12px 10px rgb(255, 255, 40),
+	inset 16px 16px 10px rgb(255, 255, 80), inset -16px -16px 10px rgb(255, 255, 80), inset 16px -16px 10px rgb(255, 255, 80), inset -16px 16px 10px rgb(255, 255, 80),
+	inset 20px 20px 10px rgb(255, 255, 120), inset -20px -20px 10px rgb(255, 255, 120), inset 20px -20px 10px rgb(255, 255, 120), inset -20px 20px 10px rgb(255, 255, 120);
+	}
+}
