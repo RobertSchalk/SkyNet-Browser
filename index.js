@@ -333,7 +333,10 @@ GetTheme();
         let currTab = $('.sky-tab[data-session="' + sessionID + '"]');
         let webview = $('.sky-view[data-session="' + sessionID + '"]');
         webview.on('dom-ready', function(){
-            
+            webview.blur();
+            webview.focus();  
+            //Do not delete blur / Focus!!! This preforms magic and allows your text cursors to
+            //show up in the webview. (As the webviw is expected to be buggy, it's experimental).
                 contextMenu({
                     window: webview[0],
                     labels: {
