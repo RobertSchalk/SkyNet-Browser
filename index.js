@@ -297,11 +297,14 @@ GetTheme();
         
         let c = url.slice(0,2).toLowerCase()
         let file = url.slice(0,8).toLowerCase()
+        let file2 = url.slice(0,1).toLowerCase()
         if(c ==='c:'){
             url
         } else if(file === 'file:///'){
             url
-        } else{
+        } else if(file2 === '/'){
+            url
+        }else{
             if (urlRegex({
                 strict: false,
                 exact: true,
