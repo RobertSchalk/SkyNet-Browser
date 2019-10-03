@@ -58,7 +58,7 @@ function createWindow (){
     winState.manage(mainWindow);
 
     //Uncomment this for release ----------------------------------------
-    mainWindow.setMenuBarVisibility(false);
+    //mainWindow.setMenuBarVisibility(false);
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
   ses.cookies.set(cookie, err => {
