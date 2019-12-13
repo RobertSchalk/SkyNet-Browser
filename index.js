@@ -1,5 +1,4 @@
-const electron = require('electron');
-const BrowserWindow = electron.remote.BrowserWindow; // To allow the creation of more windows from this page.
+const {electron, remote, ipcRenderer, BrowserWindow} = require('electron');
 const windowStateKeeper = require('electron-window-state'); //Helps save the previous window state of the browser. 
 const jsonfile = require('jsonfile'); // To allow the communication between the .json files.
 const favicon = require('favicon-getter').default; // Helps retrieve favicons from other websites.
@@ -39,6 +38,29 @@ currentTheme = ById('Theme'),
 menu = document.getElementsByClassName('menu'),
 newWindow = ById('newWindow');
 
+//Window controls
+const minimize = document.getElementById('minimize'),
+resize = document.getElementById('resize'),
+close = document.getElementById('close');
+
+//updates resize button
+function resizeButton(){
+const currentWindow = remote.getCurrentWindow()
+if(currentWindow.isMaximized()){
+    document.getElementById('resizeSpan').style.display = 'block';
+    document.getElementById('resizeSpan2').style.left = '3px';
+    document.getElementById('resizeSpan2').style.top = '5px';
+    document.getElementById('resizeSpan2').style.width = '7px';
+    document.getElementById('resizeSpan2').style.height = '7px';
+}else{
+    document.getElementById('resizeSpan').style.display = 'none';
+    document.getElementById('resizeSpan2').style.left = '0';
+    document.getElementById('resizeSpan2').style.top = '7px';
+    document.getElementById('resizeSpan2').style.width = '7px';
+    document.getElementById('resizeSpan2').style.height = '7px';
+}
+}
+resizeButton();
 // This will be used to count total tabs current in session.
 //Will return value on the NewTab Button Title. (hover)
 //total = total opened during session.
@@ -1138,3 +1160,19 @@ settings.addEventListener('click', CreateSettingsView);
 //skyWrite.addEventListener('click', CreateSkyWriteView);
 zoom.addEventListener('click', Zoom);
 newWindow.addEventListener('click', CreateNewWindow);
+window.addEventListener('resize', resizeButton)
+
+minimize.addEventListener('click', () =>{
+    remote.getCurrentWindow().minimize();
+});
+resize.addEventListener('click', () =>{
+    const currentWindow = remote.getCurrentWindow()
+    if(currentWindow.isMaximized()){
+        currentWindow.unmaximize();
+    }else{
+        currentWindow.maximize()
+    }
+})
+close.addEventListener('click',() =>{
+    remote.app.quit();
+});

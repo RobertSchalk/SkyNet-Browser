@@ -15,10 +15,11 @@ ol,ul{list-style:none}
 blockquote,q{quotes:none}
 #navigation{
 	width: 100%;
-	height: 30px;
-	padding: 1px 10px 0px 10px;
+	height: calc(30px + 54px);
+	padding: 0;
 	background-color: #48b4e0;
 	display:block;
+	position: relative;
 	top:0;
 	left:0;
 	border-bottom: 2px solid #03061f;
@@ -27,29 +28,84 @@ blockquote,q{quotes:none}
 }
 
 
-
-
 .inactive{
 	display: none;
 }
 
+.sky-windowButtons{
+	width: calc(90px - 2px);
+	height: calc(27px - 1px);
+	margin: 0;
+	padding: 0;
+	float: left;
+	border-bottom: 1px solid #000;
+	background-color: inherit;
+}
+.sky-windowControl{
+	width: calc(30px - 1px);
+	height: calc(26px);
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	float: left;
+	text-align: center;
+	line-height: 26px;
+	background-color: inherit;
+}
+.sky-windowControl span{
+	width: 10px;
+	height: 10px;
+	border: 2px solid #fff;
+	position: relative;
+	display: block;
+	top: 0;
+	left: 0;
+	margin: auto;
+	box-shadow: 1px 1px 2px #222;
+}
+.sky-windowControl > span{
+	width: 7px;
+	height: 7px;
+	border: 1.5px solid #fff;
+	background-color: inherit;
+	position: relative;
+	display: block;
+	top: 5px;
+	left: 3px;
+	margin: auto;
+}
 
+.sky-windowControl > span + span{
+	position: relative;
+	display: block;
+	top: -2px;
+	left: 0px;
+	margin: auto;
+}
+
+.sky-windowControl:hover{
+	cursor: pointer;
+	color: #999;
+	background-color: #2894c0;
+}
 .navButtons{
-	float:left;
+	float: left;
 	display:block;
-	width: 35px;
-	height: 35px;
+	width: 18px;
+	height: 18px;
 	font-size:20px;
 	color: #eee;
 	cursor: pointer;
 	line-height: 20px;
-	margin-top: 2px;
+	margin: 2px 1px;
 }
 
 #left{
 	margin-bottom: 3px;
 }
-
+.navControls{
+	margin: 2px 7px;
+}
 
 
 

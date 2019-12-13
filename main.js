@@ -41,7 +41,8 @@ function createWindow (){
         minHeight: 317,
         x: winState.x,
         y: winState.y,
-        //frame: false,
+        enableRemoteModule: true,
+        frame: false,
        // titleBarStyle: 'hidden',
       //  autoHideMenuBar: true,
         webPreferences: {

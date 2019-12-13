@@ -19,13 +19,21 @@
   </head>
   <body id="browser">
     <nav id="navigation">
-      <div  class="navButtons">
+        <div class="sky-tabgroup">
+            <div id="tabs" class="sky-tabs"></div>
+        </div>
+        <div class="sky-windowButtons">
+          <div id="minimize" class="sky-windowControl">🗕</div>
+          <div id="resize" class="sky-windowControl"><span id="resizeSpan2"></span><span id="resizeSpan"></span></div>
+          <div id="close" class="sky-windowControl">✖</div>
+        </div>
+      <div  class="navButtons navControls">
         <i id="back" class="fa fa-arrow-left" aria-hidden="false" title="back"></i>
       </div>
-      <div class="navButtons">
+      <div class="navButtons navControls">
         <i id="forward" class="fa fa-arrow-right" aria-hidden="false" title="forward"></i>
       </div>
-      <div class="navButtons">
+      <div class="navButtons navControls">
         <i id="refresh" class="fa fa-refresh" aria-hidden="false" data-state="ready" title="refresh page"></i>
       </div>
       <div id="omnibox">
@@ -45,27 +53,26 @@
       <div id="sky-popup" data-state="closed">
 
       </div>
+      <div id="lowBar">
+          <a id="newTab" class="sky-button">
+              <div class="close">
+                <i class="fa fa-plus-circle"></i>
+              </div>
+          </a>
+          <div id="favoritesBar">
+            <!--
+            <a class="favBar-item">url 1</a>
+            <a class="favBar-item">url 2</a>
+            <a class="favBar-item"></a>-->
+            
+          </div>
+          <div id="home" class="lowButtons" title="Go to your HomePage"><i class="fa fa-home" aria-hidden = "true"></i></div>
+          <div id="zoom" class="lowButtons" title="Zoom-in/out 100% / 200% / 300%"><i class="zoom" aria-hidden = "true">&#x1f50d;</i></div>
+          
+      </div>
     </nav>
     
-    <div id="lowBar">
-        <a id="newTab" class="sky-button">
-            <div class="close">
-              <i class="fa fa-plus-circle"></i>
-            </div>
-        </a>
-        <div id="favoritesBar">
-          <!--
-          <a class="favBar-item">url 1</a>
-          <a class="favBar-item">url 2</a>
-          <a class="favBar-item"></a>-->
-          
-        </div>
-        <div id="home" class="lowButtons" title="Go to your HomePage"><i class="fa fa-home" aria-hidden = "true"></i></div>
-        <div id="zoom" class="lowButtons" title="Zoom-in/out 100% / 200% / 300%"><i class="zoom" aria-hidden = "true">&#x1f50d;</i></div>
-        <div class="sky-tabgroup">
-            <div id="tabs" class="sky-tabs"></div>
-        </div>
-    </div>
+   
    
     
     <div class="page">
