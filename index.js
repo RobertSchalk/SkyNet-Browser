@@ -1157,7 +1157,7 @@ popup.addEventListener('click', handleUrl);
 devConsole.addEventListener('click', handleDevtools);
 print.addEventListener('click', Print)
 settings.addEventListener('click', CreateSettingsView);
-//skyWrite.addEventListener('click', CreateSkyWriteView);
+skyWrite.addEventListener('click', CreateSkyWriteView);
 zoom.addEventListener('click', Zoom);
 newWindow.addEventListener('click', CreateNewWindow);
 window.addEventListener('resize', resizeButton)

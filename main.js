@@ -62,7 +62,7 @@ function createWindow (){
     //mainWindow.setMenuBarVisibility(false);
 
   /*let cookie = {url:'https://myappdomain.com', name: 'cookie1', value:'electron', expirationDate: 1613852855}
-  ses.cookies.set(cookie, err => {
+  ses.cookies.set(cookie, err => {   
       console.log('cookie1 set')
   })
     mainWindow.webContents.on('did-finish-load', e =>{
