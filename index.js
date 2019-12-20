@@ -1,5 +1,4 @@
-const electron = require('electron');
-const BrowserWindow = electron.remote.BrowserWindow; // To allow the creation of more windows from this page.
+const {electron, remote, ipcRenderer, BrowserWindow} = require('electron');
 const windowStateKeeper = require('electron-window-state'); //Helps save the previous window state of the browser. 
 const jsonfile = require('jsonfile'); // To allow the communication between the .json files.
 const favicon = require('favicon-getter').default; // Helps retrieve favicons from other websites.
@@ -24,7 +23,7 @@ var history = path.join(__dirname, 'history.json');
 
 //declaring all of my elements that I need the most here.
 var omni = ById('url'),
-dev = ById('console'),
+devConsole = ById('console'),
 fave = ById('fave'),
 list = ById('list'),
 popup = ById('sky-popup'),
@@ -36,8 +35,32 @@ print = ById('print'),
 newWindow = ById('newWindow'),
 zoom = ById('zoom'),
 currentTheme = ById('Theme'),
-menu = document.getElementsByClassName('menu');
+menu = document.getElementsByClassName('menu'),
+newWindow = ById('newWindow');
 
+//Window controls
+const minimize = document.getElementById('minimize'),
+resize = document.getElementById('resize'),
+close = document.getElementById('close');
+
+//updates resize button
+function resizeButton(){
+const currentWindow = remote.getCurrentWindow()
+if(currentWindow.isMaximized()){
+    document.getElementById('resizeSpan').style.display = 'block';
+    document.getElementById('resizeSpan2').style.left = '3px';
+    document.getElementById('resizeSpan2').style.top = '5px';
+    document.getElementById('resizeSpan2').style.width = '7px';
+    document.getElementById('resizeSpan2').style.height = '7px';
+}else{
+    document.getElementById('resizeSpan').style.display = 'none';
+    document.getElementById('resizeSpan2').style.left = '0';
+    document.getElementById('resizeSpan2').style.top = '7px';
+    document.getElementById('resizeSpan2').style.width = '7px';
+    document.getElementById('resizeSpan2').style.height = '7px';
+}
+}
+resizeButton();
 // This will be used to count total tabs current in session.
 //Will return value on the NewTab Button Title. (hover)
 //total = total opened during session.
@@ -108,8 +131,6 @@ GetTheme();
         } else {
             this.TAB_ICON = "clean";
         }
-        this.SVG_RELOAD = '<svg height="100%" viewBox="0 0 24 24" id="nav-ready"> </svg>';
-        this.SVG_CLEAR = '<svg height="100%" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>';
         this.SVG_FAVICON = '<svg height="100%" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>';
     
 
@@ -189,13 +210,20 @@ GetTheme();
     $('#navigation').on('click', '#refresh', function(){
         
         //check webview  spot
+        if(refresh.getAttribute('data-state') === 'ready'){
+        NAV.reload();
+        } else{
+            NAV.stop();
+        }
+        /*
        if($(this).find('#nav-ready').length){
         NAV.reload();
         //console.log('refreshed');
         } else {
+            refresh.setAttribute('data-state', 'ready');
         NAV.stop();
         //console.log('refreshed stopped');
-        }
+        }*/
     });
 
     //highlights url text on first select
@@ -238,7 +266,7 @@ GetTheme();
         if(!webview) {
             $('#back').addClass('disabled');
             $('#foward').addClass('disabled');
-            $('#refresh').html(this.SVG_RELOAD).addClass('disabled');
+           refresh.setAttribute('data-state', 'not-ready');
             return;
         }
         if(webview.canGoBack()){
@@ -275,7 +303,7 @@ GetTheme();
         }
         tab.find('.sky-tab-icon').css('animation', 'navSpin 0.5s linear infinite normal forwards running');
         //animation:     play-state;
-        $('#refresh').html(this.SVG_CLEAR);
+        refresh.setAttribute('data-state', 'not-ready');
     } //:_loading()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -289,18 +317,21 @@ GetTheme();
         }
 
         tab.find('.sky-tab-icon').css('animation', '');
-        $('#refresh').html(this.SVG_RELOAD);
-    } //:_stopLoading();
-
+        refresh.setAttribute('data-state', 'ready');
+    }
+    //Checks the url entered to make sure it's a properly formatted URL or file location.
     this._purifyUrl = function(url){
         
         let c = url.slice(0,2).toLowerCase()
         let file = url.slice(0,8).toLowerCase()
+        let file2 = url.slice(0,1).toLowerCase()
         if(c ==='c:'){
             url
         } else if(file === 'file:///'){
             url
-        } else{
+        } else if(file2 === '/'){
+            url
+        }else{
             if (urlRegex({
                 strict: false,
                 exact: true,
@@ -313,8 +344,8 @@ GetTheme();
     }
         return url;
     
-    }//:_purifyUrl()
-    
+    }
+    //Sets the color of globe icon on tabs.
     this._setTabColor = function(url, currTab){
         const getHexColor = new Color(url, {
             amount: 1,
@@ -323,7 +354,7 @@ GetTheme();
         getHexColor.mostUsed(result => {
             currTab.find('.sky-tab-icon svg').attr('fill', result);
         });
-    } //:_setTabColor()
+    }
     
 
     //add event listeners to current webview
@@ -332,7 +363,10 @@ GetTheme();
         let currTab = $('.sky-tab[data-session="' + sessionID + '"]');
         let webview = $('.sky-view[data-session="' + sessionID + '"]');
         webview.on('dom-ready', function(){
-            
+            webview.blur();
+            webview.focus();  
+            //Do not delete blur / Focus!!! This preforms magic and allows your text cursors to
+            //show up in the webview. (As the webviw is expected to be buggy, it's experimental).
                 contextMenu({
                     window: webview[0],
                     labels: {
@@ -343,7 +377,6 @@ GetTheme();
                         copyImage: 'Copy image',
                         copyImageAddress: 'Copy image address',
                         saveImageAs: "Save image as...",
-                        copyImageAddress: 'Copy Image Address',
                         inspect: 'Inspect',
                         services: "Services"
 
@@ -380,11 +413,6 @@ GetTheme();
            
     }
 
-
-
-
-
-
           /*
             let  currentUrl = webview[0].getURL(); //Retrieves the active view's url
             let currentTitle = webview[0].getTitle();
@@ -397,9 +425,6 @@ GetTheme();
                 });
                 
            */
-
-
-
         });
         webview.on('enter-html-full-screen', function(){
             $('.sky-view.active').siblings().not('script').hide();
@@ -408,8 +433,6 @@ GetTheme();
         webview.on('load-commit', function(){
             NAV._updateCtrls();
         });
-
-        
 ////\/\/\/\/
 ///\/\/\/\/\
 //\/\/\/\/\/
@@ -442,17 +465,7 @@ GetTheme();
 
         webview[0].addEventListener('did-fail-load', (res) => {
             if (res.validatedURL == $('#url').val() && res.errorCode != -3) {
-                this.executeJavaScript = ('document.body.innerHTML=' +
-                    '<div style="background-color:whitesmoke;padding:40px;margin:20px;">' +
-                    '<h2 align=center>This page failed to load correctly.</h2>' +
-                    '<p align=center><i>ERROR [ ' + res.errorCode + ', ' + res.errorDescription + ' ]</i></p>' +
-                    '<br/><hr/>' +
-                    '<h4>Try this</h4>' +
-                    '<li type=circle>Check your spelling - <b>"' + res.validatedURL + '".</b></li><br/>' +
-                    '<li type=circle><a href="javascript:location.reload();">Refresh</a> the page.</li><br/>' +
-                    '<li type=circle>Perform a <a href=javascript:location.href="https://www.bing.com/search?q=' + res.validatedURL + '">search</a> instead.</li><br/>' +
-                    '</div>'
-                );
+                console.log("Website failed to load correctly. Please check internet connection or url.");
             }
         });
         return webview[0];
@@ -484,16 +497,10 @@ GetTheme();
                 urlInput.off('blur');
             });
         }
-    } // :_updateUrl()
+    }
 
-} //:Navigation()
-
-
-  
-
+} 
 Navigation.prototype.newTab = function(url, options){
-    
-
     var defaults = {
         id: null, // null, 'yourIdHere'
         node: false,
@@ -522,7 +529,6 @@ Navigation.prototype.newTab = function(url, options){
             options.postTabOpenCallback = result.postTabOpenCallback;
         }
     }
-    
     //validate options.id
     $('.sky-tab, .sky-view').removeClass('active');
     if($('#' + options.id).length) {
@@ -535,7 +541,6 @@ Navigation.prototype.newTab = function(url, options){
     }
     //build tab
     var tab = '<div class="sky-tab active" data-session="' + this.SESSION_ID + '">';
-    
     //favicon
     if (options.icon == 'clean') {
         tab += '<i class="sky-tab-icon">' + this.SVG_FAVICON + '</i>';
@@ -557,11 +562,9 @@ Navigation.prototype.newTab = function(url, options){
 
     //finish tab
     tab+= '</div>';
-
     $('#tabs').append(tab);
 
     //add webview
-
     let composedWebviewTag = `<webview class="sky-view active" data-session="${this.SESSION_ID}" src="${this._purifyUrl(url)}"`;
     
     composedWebviewTag += ` data-readonly="${((options.readonlyUrl) ? 'true': 'false')}"`;
@@ -576,8 +579,6 @@ Navigation.prototype.newTab = function(url, options){
             composedWebviewTag += ` ${key}="${options.webviewAttributes[key]}"`;
         });
     }
-
-
     $('#sky-views').append(`${composedWebviewTag}></webview>`);    
     // enable reload button
     $('#refresh').removeClass('disabled');
@@ -589,9 +590,6 @@ Navigation.prototype.newTab = function(url, options){
         options.postTabOpenCallback(newWebview)
     }
     (this.changeTabCallback || (() => {}))(newWebview);
-    
-
-
     totalTabs++;
     currentTabs++;
     console.log(currentTabs);
@@ -643,9 +641,7 @@ Navigation.prototype.closeTab = function(id) {
     session.remove();
     this._updateUrl();
     this._updateCtrls();
-    
-    
-} //:closeTab()
+}
 
 
 //go back on current / specified view
@@ -661,7 +657,7 @@ Navigation.prototype.back = function(id){
             console.log('ERROR[electron-navigation][func "back();"]: Cannot find the ID "' + id + '"');
         }
     }
-} //:back()
+}
 
 //go forward on current / specified view
 
@@ -676,7 +672,7 @@ Navigation.prototype.forward = function (id) {
             console.log('ERROR[electron-navigation][func "forward();"]: Cannot find the ID "' + id + '"');
         }
     }
-} //:forward()
+}
 
 
 // reload current / specified view
@@ -692,7 +688,7 @@ Navigation.prototype.reload = function (id) {
             console.log('ERROR[electron-navigation][func "reload();"]: Cannot find the ID "' + id + '"');
         }
     }
-} //:reload()
+}
 
 
 // stop loading current or specified view
@@ -709,7 +705,7 @@ Navigation.prototype.stop = function (id) {
             console.log('ERROR[electron-navigation][func "stop();"]: Cannot find the ID "' + id + '"');
         }
     }
-} //:stop()
+}
 
 
 // listen for a message from webview
@@ -741,7 +737,7 @@ Navigation.prototype.listen = function (id, callback) {
             });
         }
     }
-} //:listen()
+}
 
 // send message to webview
 
@@ -765,7 +761,7 @@ Navigation.prototype.send = function (id, channel, args) {
             });
         }
     }
-} //:send()
+}
 
 
 // open developer tools of current or ID'd webview
@@ -795,7 +791,7 @@ Navigation.prototype.openDevTools = function (id) {
             });
         }
     }
-} //:openDevTools()
+}
 
 
 // print current or specified tab and view
@@ -819,7 +815,7 @@ Navigation.prototype.printTab = function (id, opts) {
     if (webview != null) {
         webview.print(opts || {});
     }
-}//:printTab()
+}
 
 //toggle next avail tab
 
@@ -1008,6 +1004,7 @@ function AddToHistory(){
 }
 
 
+
 ///////////////////////////////---   --- Extras ---   ---//////////////////////////////////////////////////////
 
 //handles devtools for webview.
@@ -1110,6 +1107,41 @@ function CreateSkyWriteView () {
      ExtrasWindow();
 }
 
+function CreateNewWindow(){
+    let winState = windowStateKeeper({
+        defaultWidth: 1000,
+        defaultHeight: 800
+
+    })
+
+    //let skyWriteSession = session.fromPartition('skyWriteWindow')
+    // const settingsPath = path.join('file://', _dirname, '../settings/settings.html')
+     let browserWindow = new BrowserWindow({
+         width: winState.width,
+          height: winState.height,
+        minWidth: 700,
+        minHeight: 600,
+        webPreferences: {
+            nodeIntegration: true,
+             webviewTag: true,
+              electron: true,
+              path: true,
+               }
+        })
+
+        
+
+
+      //  let session = settingsWindow.webContents.session;
+        winState.manage(browserWindow);
+        browserWindow.on('close', function(){browserWindow = null})
+        browserWindow.loadFile('src/Index.html');
+
+        browserWindow.show();
+   
+     ExtrasWindow();
+}
+
 function Print(){
     ExtrasWindow();
     navigation.printTab();
@@ -1122,8 +1154,25 @@ list.addEventListener('click', ExtrasWindow);
 closeExtras.addEventListener('click', ExtrasWindow);
 favorites.addEventListener('click', openPopUp);
 popup.addEventListener('click', handleUrl);
-dev.addEventListener('click', handleDevtools);
+devConsole.addEventListener('click', handleDevtools);
 print.addEventListener('click', Print)
 settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
 zoom.addEventListener('click', Zoom);
+newWindow.addEventListener('click', CreateNewWindow);
+window.addEventListener('resize', resizeButton)
+
+minimize.addEventListener('click', () =>{
+    remote.getCurrentWindow().minimize();
+});
+resize.addEventListener('click', () =>{
+    const currentWindow = remote.getCurrentWindow()
+    if(currentWindow.isMaximized()){
+        currentWindow.unmaximize();
+    }else{
+        currentWindow.maximize()
+    }
+})
+close.addEventListener('click',() =>{
+    remote.app.quit();
+});

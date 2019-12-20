@@ -1,4 +1,6 @@
-
+*{
+	-webkit-user-select: none;
+}
 body {
     width: 100%;
     height: 100%;
@@ -8,16 +10,18 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: monospace;
+    text-shadow: 2px 2px 3px #000;
 }
 
 ol,ul{list-style:none}
 blockquote,q{quotes:none}
 #navigation{
 	width: 100%;
-	height: 30px;
-	padding: 1px 10px 0px 10px;
+	height: calc(30px + 54px);
+	padding: 0;
 	background-color: #48b4e0;
 	display:block;
+	position: relative;
 	top:0;
 	left:0;
 	border-bottom: 2px solid #03061f;
@@ -26,29 +30,85 @@ blockquote,q{quotes:none}
 }
 
 
-
-
 .inactive{
 	display: none;
 }
 
+.sky-windowButtons{
+	width: calc(90px - 2px);
+	height: calc(27px - 1px);
+	margin: 0;
+	padding: 0;
+	float: left;
+	border-bottom: 1px solid #000;
+	background-color: inherit;
+	-webkit-user-select: none;
+}
+.sky-windowControl{
+	width: calc(30px - 1px);
+	height: calc(26px);
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	float: left;
+	text-align: center;
+	line-height: 26px;
+	background-color: inherit;
+}
+.sky-windowControl span{
+	width: 10px;
+	height: 10px;
+	border: 2px solid #fff;
+	position: relative;
+	display: block;
+	top: 0;
+	left: 0;
+	margin: auto;
+	box-shadow: 1px 1px 2px #222;
+}
+.sky-windowControl > span{
+	width: 7px;
+	height: 7px;
+	border: 1.5px solid #fff;
+	background-color: inherit;
+	position: relative;
+	display: block;
+	top: 5px;
+	left: 3px;
+	margin: auto;
+}
 
+.sky-windowControl > span + span{
+	position: relative;
+	display: block;
+	top: -2px;
+	left: 0px;
+	margin: auto;
+}
+
+.sky-windowControl:hover{
+	cursor: pointer;
+	color: #999;
+	background-color: #2894c0;
+}
 .navButtons{
-	float:left;
+	float: left;
 	display:block;
-	width: 35px;
-	height: 35px;
+	width: 18px;
+	height: 18px;
 	font-size:20px;
 	color: #eee;
 	cursor: pointer;
 	line-height: 20px;
-	margin-top: 2px;
+	margin: 2px 1px;
 }
 
 #left{
 	margin-bottom: 3px;
 }
-
+.navControls{
+	margin: 2px 7px;
+}
 
 
 
@@ -65,7 +125,7 @@ blockquote,q{quotes:none}
 	color: #000;
 	font-family: monospace;
 	margin: 2px 37px 0px 0px;
-	
+	-webkit-user-select: auto;
 }
 
 #sky-popup{
@@ -153,7 +213,7 @@ blockquote,q{quotes:none}
     top: 0;
     left: 0;
 	/*background-color: rgba(0,0,0, 0.9);*/
-	background: #00b4ff;
+	background: #000000ca;
     overflow-x: hidden;
     transition: 0.5s;
 }
@@ -164,7 +224,7 @@ blockquote,q{quotes:none}
 	display: block;
 	margin: auto;
 	color: #f1f1f1;
-	text-shadow: 2px 2px 3px #333;
+	text-shadow: 2px 2px 3px #000;
 	text-align: center;
 	z-index: 2;
 	font-size: 50px;
@@ -187,7 +247,7 @@ blockquote,q{quotes:none}
     margin-top: 35px;
     Font-Family: Arial;
     color: #FFFFFF;
-    text-shadow: 2px 2px 4px #000;
+    text-shadow: 1px 1px 2px #000;
     z-index: 40;
     overflow: show;
 }
@@ -202,73 +262,62 @@ blockquote,q{quotes:none}
     right: 55px;
     font-size: 60px;
     z-index: 2;
-    color: #fff;
-    border: 1px solid rgb(255, 238, 0);
+	color: #fff;
+    border: 3px solid #cecece;;
     padding: 4px;
     line-height: 60px;
     cursor: pointer;
     width:52.1px;
     height:52.1px;
-	box-shadow: 
-	4px 4px 10px rgb(255, 238, 0), -4px -4px 10px rgb(255, 238, 0), -4px 4px 10px rgb(255, 238, 0), 4px -4px 10px rgb(255, 238, 0), 
-	8px 8px 10px rgb(255, 238, 0), -8px -8px 10px rgb(255, 238, 0), -8px 8px 10px rgb(255, 238, 0), 8px -8px 10px rgb(255, 238, 0), 
-	12px 12px 35px rgb(255, 238, 0), -12px -12px 35px rgb(255, 238, 0), -12px 12px 35px rgb(255, 238, 0), 12px -12px 35px rgb(255, 238, 0), 
-	inset 4px 4px 10px rgb(255, 238, 0), inset -4px -4px 10px rgb(255, 238, 0), inset 4px -4px 10px rgb(255, 238, 0), inset -4px 4px 10px rgb(255, 238, 0),
-	inset 8px 8px 10px rgb(255, 242, 0), inset -8px -8px 10px rgb(255, 242, 0), inset 8px -8px 10px rgb(255, 242, 0), inset -8px 8px 10px rgb(255, 242, 0),
-	inset 12px 12px 10px rgb(255, 249, 0), inset -12px -12px 10px rgb(255, 249, 0), inset 12px -12px 10px rgb(255, 249, 0), inset -12px 12px 10px rgb(255, 249, 0),
-	inset 16px 16px 10px rgb(255, 255, 0), inset -16px -16px 10px rgb(255, 255, 0), inset 16px -16px 10px rgb(255, 255, 0), inset -16px 16px 10px rgb(255, 255, 0),
-	inset 20px 20px 10px rgb(255, 255, 0), inset -20px -20px 10px rgb(255, 255, 0), inset 20px -20px 10px rgb(255, 255, 0), inset -20px 20px 10px rgb(255, 255, 0);
+	box-shadow: 2px 2px 3px #000;
 	border-radius:100px;
-	
 	display: flex;
 	align-items: center;
 	animation: animatedSun 0.3s linear infinite normal forwards running;
+	transition: 0.3s;
 }
 
-@keyframes animatedSun{
-	
-	0%{
-		border: 1px solid rgb(255, 238, 0);
-		box-shadow: 
-		4px 4px 10px rgb(255, 238, 0), -4px -4px 10px rgb(255, 238, 0), -4px 4px 10px rgb(255, 238, 0), 4px -4px 10px rgb(255, 238, 0), 
-		8px 8px 10px rgb(255, 238, 0), -8px -8px 10px rgb(255, 238, 0), -8px 8px 10px rgb(255, 238, 0), 8px -8px 10px rgb(255, 238, 0), 
-		12px 12px 35px rgb(255, 238, 0), -12px -12px 35px rgb(255, 238, 0), -12px 12px 35px rgb(255, 238, 0), 12px -12px 35px rgb(255, 238, 0), 
-		inset 4px 4px 10px rgb(255, 238, 0), inset -4px -4px 10px rgb(255, 238, 0), inset 4px -4px 10px rgb(255, 238, 0), inset -4px 4px 10px rgb(255, 238, 0),
-		inset 8px 8px 10px rgb(255, 242, 0), inset -8px -8px 10px rgb(255, 242, 0), inset 8px -8px 10px rgb(255, 242, 0), inset -8px 8px 10px rgb(255, 242, 0),
-		inset 12px 12px 10px rgb(255, 249, 0), inset -12px -12px 10px rgb(255, 249, 0), inset 12px -12px 10px rgb(255, 249, 0), inset -12px 12px 10px rgb(255, 249, 0),
-		inset 16px 16px 10px rgb(255, 255, 0), inset -16px -16px 10px rgb(255, 255, 0), inset 16px -16px 10px rgb(255, 255, 0), inset -16px 16px 10px rgb(255, 255, 0),
-		inset 20px 20px 10px rgb(255, 255, 0), inset -20px -20px 10px rgb(255, 255, 0), inset 20px -20px 10px rgb(255, 255, 0), inset -20px 20px 10px rgb(255, 255, 0);}
-	
-	100%{border: 1px solid rgb(255, 242, 40);
-	box-shadow: 
-	4px 4px 10px rgb(255, 242, 40), -4px -4px 10px rgb(255, 242, 40), -4px 4px 10px rgb(255, 242, 40), 4px -4px 10px rgb(255, 242, 40), 
-	8px 8px 10px rgb(255, 242, 40), -8px -8px 10px rgb(255, 242, 40), -8px 8px 10px rgb(255, 242, 40), 8px -8px 10px rgb(255, 242, 40), 
-	12px 12px 35px rgb(255, 242, 40), -12px -12px 35px rgb(255, 242, 40), -12px 12px 35px rgb(255, 242, 40), 12px -12px 35px rgb(255, 242, 40), 
-	inset 4px 4px 10px rgb(255, 242, 40), inset -4px -4px 10px rgb(255, 242, 40), inset 4px -4px 10px rgb(255, 242, 40), inset -4px 4px 10px rgb(255, 242, 40),
-	inset 8px 8px 10px rgb(255, 249, 40), inset -8px -8px 10px rgb(255, 249, 40), inset 8px -8px 10px rgb(255, 249, 40), inset -8px 8px 10px rgb(255, 249, 40),
-	inset 12px 12px 10px rgb(255, 255, 40), inset -12px -12px 10px rgb(255, 255, 40), inset 12px -12px 10px rgb(255, 255, 40), inset -12px 12px 10px rgb(255, 255, 40),
-	inset 16px 16px 10px rgb(255, 255, 80), inset -16px -16px 10px rgb(255, 255, 80), inset 16px -16px 10px rgb(255, 255, 80), inset -16px 16px 10px rgb(255, 255, 80),
-	inset 20px 20px 10px rgb(255, 255, 120), inset -20px -20px 10px rgb(255, 255, 120), inset 20px -20px 10px rgb(255, 255, 120), inset -20px 20px 10px rgb(255, 255, 120);
-	}
+.closebtn > .cross{
+width: 50%;
+height: 5px;
+transform: rotate(45deg);
+background-color: #cecece;
+margin: 3px auto;
+position: absolute;
+top: 25px;
+left: 15px;
+transition: 0.4s;
 }
 
-.sun{
-	height: 102px;
-	width: 102px;
-	background-image: url('../Icon/sun closebtn.png');
-	background-size: 100%;
-	background-repeat: no-repeat;
-	position: absolute;
-    top: 15px;
-    right: 35px;
-    font-size: 60px;
-    z-index: -2;
-    color: #fff;
-	border-radius:100px;
-	transition: 0.2s;
-	display: flex;
-	align-items: center;
+.closebtn > .cross + .cross{
+	
+width: 50%;
+height: 5px;
+transform: rotate(-45deg);
+background-color: #cecece;
+margin: auto;
+position: absolute;
+top: 25px;
+left: 15px;
+transition: 0.6s;
 }
+.closebtn:hover > .cross{
+	
+position: absolute;
+top: 25px;
+left: 7px;
+transform: rotate(270deg);
+}
+
+.closebtn:hover > .cross + .cross{
+	
+position: absolute;
+top: 28px;
+left: 22px;
+transform: rotate(-270deg);
+}
+
+
 
 #overlay-wrap{
 	position: absolute;

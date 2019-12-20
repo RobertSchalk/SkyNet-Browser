@@ -10,7 +10,6 @@
   	<link rel="stylesheet" href="../css/lowBar.css">
   	<link rel="stylesheet" href="../overlay.CSS">
     <link rel="stylesheet" href="../css/extras.css">
-    <link rel="stylesheet" href="../css/settings.css">
     <!--
     <link rel="stylesheet" href="bootstrap-4.1.3-dist/css/bootstrap.min.css">
     <script src="bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
@@ -20,14 +19,22 @@
   </head>
   <body id="browser">
     <nav id="navigation">
-      <div  class="navButtons">
+        <div class="sky-tabgroup" style="-webkit-app-region: drag">
+            <div id="tabs" class="sky-tabs"></div>
+        </div>
+        <div class="sky-windowButtons">
+          <div id="minimize" class="sky-windowControl">🗕</div>
+          <div id="resize" class="sky-windowControl"><span id="resizeSpan2"></span><span id="resizeSpan"></span></div>
+          <div id="close" class="sky-windowControl">✖</div>
+        </div>
+      <div  class="navButtons navControls">
         <i id="back" class="fa fa-arrow-left" aria-hidden="false" title="back"></i>
       </div>
-      <div class="navButtons">
+      <div class="navButtons navControls">
         <i id="forward" class="fa fa-arrow-right" aria-hidden="false" title="forward"></i>
       </div>
-      <div class="navButtons">
-        <i id="refresh" class="fa fa-refresh" aria-hidden="false" title="refresh page"></i>
+      <div class="navButtons navControls">
+        <i id="refresh" class="fa fa-refresh" aria-hidden="false" data-state="ready" title="refresh page"></i>
       </div>
       <div id="omnibox">
         <input type="text" id="url" title="Enter an address or search term" value="">
@@ -46,24 +53,26 @@
       <div id="sky-popup" data-state="closed">
 
       </div>
+      <div id="lowBar">
+          <a id="newTab" class="sky-button">
+              <div class="close">
+                <i class="fa fa-plus-circle"></i>
+              </div>
+          </a>
+          <div id="favoritesBar">
+            <!--
+            <a class="favBar-item">url 1</a>
+            <a class="favBar-item">url 2</a>
+            <a class="favBar-item"></a>-->
+            
+          </div>
+          <div id="home" class="lowButtons" title="Go to your HomePage"><i class="fa fa-home" aria-hidden = "true"></i></div>
+          <div id="zoom" class="lowButtons" title="Zoom-in/out 100% / 200% / 300%"><i class="zoom" aria-hidden = "true">&#x1f50d;</i></div>
+          
+      </div>
     </nav>
     
-    <div id="lowBar">
-        <a id="newTab" class="sky-button">
-            <div class="close">
-              <i class="fa fa-plus-circle"></i>
-            </div>
-        </a>
-        <div id="favoritesBar">
-          <div class="placeholder">Favorites bar will be here</div>
-        </div>
-        <div id="home" class="lowButtons" title="Go to your HomePage"><i class="fa fa-home" aria-hidden = "true"></i></div>
-        <div id="zoom" class="lowButtons" title="Zoom-in/out 100% / 200% / 300%"><i class="zoom" aria-hidden = "true">&#x1f50d;</i></div>
-          <div class="sky-tabgroup">
-            <div id="tabs" class="sky-tabs"></div>
-        </div>
-    </div>
-    
+   
    
     
     <div class="page">
@@ -80,27 +89,11 @@
         <h1 class="overlay-title">Sky Apps & Controls</h1>
     <div id="closeExtras" class="closebtn">
      <!--fa fa-times (original)-->
+     <span class="cross"></span>
+     <span class="cross"></span>
+
       </div>
-      <div class="sun" style="color: #fff;"></div>
     <!--  <div id="overlay-wrap" >-->
-        <div class="x1" >
-          <div class="cloud"></div>
-        </div>
-        <div class="x2">
-          <div class="cloud"></div>
-        </div>
-        <div class="x3">
-          <div class="cloud"></div>
-        </div>
-        <div class="x4">
-          <div class="cloud"></div>
-        </div>
-        <div class="x5">
-          <div class="cloud"></div>
-        </div>
-        <div class="x6">
-          <div class="cloud"></div>
-        </div>
      <!-- </div>-->
       
       <div class="overlay-content">
@@ -130,6 +123,7 @@
           </div>
           <div class="itemName">New Window</div>
           </div>
+          
           <div id="skyWrite" class="menuItem">
               <div class="iconContainer">
                   <img src="../Icon/SkyWrite.png" class="menuIcon"/>
@@ -147,7 +141,7 @@
           </div>
           <div class="menuItem">
               
-          </div>
+          </div> <!---->
         </div>
       
       </div>

@@ -1,9 +1,6 @@
 //Controls main features of the browser. 
 const { session } = require('electron');
 const electron = require('electron');
-const {ipcRenderer} = require('electron');
-const BrowserWindow = electron.remote.BrowserWindow; // To allow the creation of more windows from this page.
-const windowStateKeeper = require('electron-window-state'); //Helps save the previous window state of the browser. 
 const jsonfile = require('jsonfile'); // To allow the communication between the .json files.
 const favicon = require('favicon-getter').default; // Helps retrieve favicons from other websites.
 const path = require('path'); // Used for book marks. Joins a path and file location
@@ -16,11 +13,12 @@ const totalTabs = require("../index.js");
 var $ = require('jquery'); //allows jquery to be used
 var Color = require('color.js'); // Currently helps color the tab icons
 var globalCloseableTabsOverride;
+var CountTabs = require('./TabCounter');
 
 
-  function Navigation(options){
+function Navigation(options){
     var defaults = {
-        closableTabs: true,
+        closablsky: true,
         defaultFavicons: false,
         newTabCallback: null,
         changeTabCallback: null,
@@ -28,7 +26,7 @@ var globalCloseableTabsOverride;
     };
     options = options ? Object.assign(defaults, options) : defaults;
 
-    globalCloseableTabsOverride = options.closableTabs;
+    globalCloseablskyOverride = options.closablsky;
     const NAV = this;
     this.newTabCallback = options.newTabCallback;
     this.changeTabCallback = options.changeTabCallback;
@@ -38,8 +36,6 @@ var globalCloseableTabsOverride;
     } else {
         this.TAB_ICON = "clean";
     }
-    this.SVG_RELOAD = '<svg height="100%" viewBox="0 0 24 24" id="nav-ready"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/><path d="M0 0h24v24H0z" fill="none"/></svg>';
-    this.SVG_CLEAR = '<svg height="100%" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>';
     this.SVG_FAVICON = '<svg height="100%" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>';
 
 
@@ -48,30 +44,30 @@ var globalCloseableTabsOverride;
 // switch active view and tab on click
 //
 
-    $('#tabs').on('click', '.etabs-tab', function(){
-        $('.etabs-tab, .etabs-view').removeClass('active');
+    $('#tabs').on('click', '.sky-tab', function(){
+        $('.sky-tab, .sky-view').removeClass('active');
 
    
     var sessionID = $(this).data('session');
-    $('.etabs-tab, .etabs-view')
+    $('.sky-tab, .sky-view')
         .filter('[data-session="' + sessionID + '"]')
         .addClass('active');
-    var session = $('.etabs-view[data-session="' + sessionID + '"]')[0];
+    var session = $('.sky-view[data-session="' + sessionID + '"]')[0];
     (NAV.changeTabCallBack || (() => {}))(session);
     NAV._updateUrl(session.getURL());  
     //NAV._updateFile( 'SkyNet: ' + session.getTitle());
     NAV._updateCtrls();
 
     // close tab and view
-}).on('click', '.etabs-tab-buttons', function(){
+}).on('click', '.sky-tab-buttons', function(){
     currentTabs--;
-    CountTabs();
+    CountTabs.CountTabs();
     console.log(currentTabs);
-    var sessionID = $(this).parent('.etabs-tab').data('session');
-    var session = $('.etabs-tab, .etabs-view').filter('[data-session="' + sessionID + '"]');
+    var sessionID = $(this).parent('.sky-tab').data('session');
+    var session = $('.sky-tab, .sky-view').filter('[data-session="' + sessionID + '"]');
 
     if(session.hasClass('active')){
-        if(session.next('etabs-tab').length){
+        if(session.next('sky-tab').length){
             session.next().addClass('active');
             (NAV.changeTabCallBack || (() => {}))(session.next()[1]);
         } else{
@@ -95,8 +91,8 @@ $('#lowBar').on('click', '#newTab', function(){
         params = options.newTabParams
     } else{
         params = ['http://www.bing.com/', {
-            close: options.closableTabs,
-            icon: NAV.TAB_ICON
+            close: options.closablsky,
+            icon: "default"  //Sets the icon to hold Skynet's default icon. Once the first website of that tag has been loaded, it will replace the default icon.
         }];
     }
     NAV.newTab(...params);
@@ -119,13 +115,20 @@ $('#navigation').on('click', '#forward', function(){
 $('#navigation').on('click', '#refresh', function(){
     
     //check webview  spot
+    if(refresh.getAttribute('data-state') === 'ready'){
+    NAV.reload();
+    } else{
+        NAV.stop();
+    }
+    /*
    if($(this).find('#nav-ready').length){
     NAV.reload();
     //console.log('refreshed');
     } else {
+        refresh.setAttribute('data-state', 'ready');
     NAV.stop();
     //console.log('refreshed stopped');
-    }
+    }*/
 });
 
 //highlights url text on first select
@@ -144,15 +147,15 @@ $('#url').keyup(function(e){
     if(e.keyCode == 13) {
         if(e.shiftKey) {
             NAV.newTab(this.value, {
-                close: options.closableTabs,
+                close: options.closablsky,
                 icon: NAV.TAB_ICON
             });
         } else {
-            if($('.etabs-tab').length){
+            if($('.sky-tab').length){
                 NAV.changeTab(this.value);
             } else{
                 NAV.newTab(this.value, {
-                    close: options.closableTabs,
+                    close: options.closablsky,
                     icon: NAV.TAB_ICON
                 });
             }
@@ -164,11 +167,11 @@ $('#url').keyup(function(e){
 //Updates controls
 
 this._updateCtrls = function(){
-    webview = $('.etabs-view.active')[0];
+    webview = $('.sky-view.active')[0];
     if(!webview) {
         $('#back').addClass('disabled');
         $('#foward').addClass('disabled');
-        $('#refresh').html(this.SVG_RELOAD).addClass('disabled');
+       refresh.setAttribute('data-state', 'not-ready');
         return;
     }
     if(webview.canGoBack()){
@@ -182,11 +185,10 @@ this._updateCtrls = function(){
         $('#forward').addClass('disabled');
     } 
     if(webview.isLoading()){
-        this._loading();
         //console.log('webview loading.')
+        this._loading();
     } else {
         this._stopLoading();
-        //console.log('webview stopped loading.')
     }
     if (webview.getAttribute('data-readonly') == 'true'){
         $('#url').attr('readonly', 'readonly');
@@ -202,10 +204,11 @@ this._loading = function(tab) {
     tab = tab || null;
 
     if(tab == null) {
-        tab = $('.etabs-tab.active');
+        tab = $('.sky-tab.active');
     }
-    tab.find('.etabs-tab-icon').css('animation', 'nav-spin 2s linear infinate');
-    $('#refresh').html(this.SVG_CLEAR);
+    tab.find('.sky-tab-icon').css('animation', 'navSpin 0.5s linear infinite normal forwards running');
+    //animation:     play-state;
+    refresh.setAttribute('data-state', 'not-ready');
 } //:_loading()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -215,22 +218,25 @@ this._stopLoading = function (tab) {
     tab = tab || null;
 
     if(tab == null){
-        tab = $('.etabs-tab.active');
+        tab = $('.sky-tab.active');
     }
 
-    tab.find('.etabs-tab-icon').css('animation', '');
-    $('#refresh').html(this.SVG_RELOAD);
-} //:_stopLoading();
-
+    tab.find('.sky-tab-icon').css('animation', '');
+    refresh.setAttribute('data-state', 'ready');
+}
+//Checks the url entered to make sure it's a properly formatted URL or file location.
 this._purifyUrl = function(url){
     
     let c = url.slice(0,2).toLowerCase()
     let file = url.slice(0,8).toLowerCase()
+    let file2 = url.slice(0,1).toLowerCase()
     if(c ==='c:'){
         url
     } else if(file === 'file:///'){
         url
-    } else{
+    } else if(file2 === '/'){
+        url
+    }else{
         if (urlRegex({
             strict: false,
             exact: true,
@@ -243,26 +249,29 @@ this._purifyUrl = function(url){
 }
     return url;
 
-}//:_purifyUrl()
-
+}
+//Sets the color of globe icon on tabs.
 this._setTabColor = function(url, currTab){
     const getHexColor = new Color(url, {
         amount: 1,
         format: 'hex'
     });
     getHexColor.mostUsed(result => {
-        currTab.find('.etabs-tab-icon svg').attr('fill', result);
+        currTab.find('.sky-tab-icon svg').attr('fill', result);
     });
-} //:_setTabColor()
+}
 
 
 //add event listeners to current webview
 
 this._addEvents = function (sessionID,options) {
-    let currTab = $('.etabs-tab[data-session="' + sessionID + '"]');
-    let webview = $('.etabs-view[data-session="' + sessionID + '"]');
+    let currTab = $('.sky-tab[data-session="' + sessionID + '"]');
+    let webview = $('.sky-view[data-session="' + sessionID + '"]');
     webview.on('dom-ready', function(){
-        
+        webview.blur();
+        webview.focus();  
+        //Do not delete blur / Focus!!! This preforms magic and allows your text cursors to
+        //show up in the webview. (As the webviw is expected to be buggy, it's experimental).
             contextMenu({
                 window: webview[0],
                 labels: {
@@ -273,43 +282,65 @@ this._addEvents = function (sessionID,options) {
                     copyImage: 'Copy image',
                     copyImageAddress: 'Copy image address',
                     saveImageAs: "Save image as...",
-                    copyImageAddress: 'Copy Image Address',
                     inspect: 'Inspect',
                     services: "Services"
 
                 }
-                
-                
-                
-                
             });
      
     });
     webview.on('page-title-updated', function(){
         if(options.title == 'default'){
-            currTab.find('.etabs-tab-title').text(webview[0].getTitle());
-            currTab.find('.etabs-tab-title').attr('title', webview[0].getTitle());
+            currTab.find('.sky-tab-title').text(webview[0].getTitle());
+            currTab.find('.sky-tab-title').attr('title', webview[0].getTitle());
            
         }
     });
     webview.on('did-start-loading', function() {
         NAV._loading(currTab);
-      //  console.log('started loading.')
+        //console.log('started loading.')
+        
     });
     webview.on('did-stop-loading', function(){
+        console.log('stopped loading.')
         NAV._stopLoading(currTab);
-       // console.log('stopped loading.')
+       // var currURL = favicon(webview[0].getURL());
+       //retrieves website favicon and displays it on the tab.
+       //if statement tests if webview source is a website.
+       //If it returns that it's not a website, then it will not pass an icon
+       //and the icon will remain default. (sun.png)\
+       if(webview[0].getURL().toLowerCase().includes('http')){try{
+        favicon(webview[0].getURL()).then(function(fav){
+         currTab.find('.sky-tab-icon').attr('src', fav)
+     });} catch{
+         console.log('Website does not have favicon. OR \n SkyNet cannot find favicon.')
+     }
+       
+}
+
+      /*
+        let  currentUrl = webview[0].getURL(); //Retrieves the active view's url
+        let currentTitle = webview[0].getTitle();
+        let fav = null;
+        let hist = new Bookmark(uuid.v1(), currentUrl, fav, currentTitle);
+            jsonfile.readFile(history, function(err, curr) {
+                curr.push(hist);
+                jsonfile.writeFile(history, curr, function (err) {
+                },2);
+            });
+            
+       */
     });
     webview.on('enter-html-full-screen', function(){
-        $('.etabs-view.active').siblings().not('script').hide();
-        $('.etabs-view.active').parents().not('script').siblings().hide();
+        $('.sky-view.active').siblings().not('script').hide();
+        $('.sky-view.active').parents().not('script').siblings().hide();
     });
     webview.on('load-commit', function(){
         NAV._updateCtrls();
     });
-//////////
-//\\\\\\\\\
-///////////
+////\/\/\/\/
+///\/\/\/\/\
+//\/\/\/\/\/
     webview[0].addEventListener('did-navigate', (res) =>{
         NAV._updateUrl(res.url);
     });
@@ -318,7 +349,9 @@ this._addEvents = function (sessionID,options) {
     });
     webview[0].addEventListener('did-navigate-in-page', (res) =>{
         NAV._updateUrl(res.url);
+        
     });
+    
     webview[0].addEventListener("new-window", (res) =>{
         if(!(options.newWindowFrameNameBlacklistExpression instanceof RegExp && options.newWindowFrameNameBlacklistExpression.test(res.frameName))) {
             NAV.newTab(res.url, {
@@ -331,23 +364,13 @@ this._addEvents = function (sessionID,options) {
             NAV._setTabColor(res.favicons[0], currTab);
             
         } else if (options.icon == 'default') {
-            currTab.find('etabs-tab-icon').attr('src', res.favicons[0]);
+            currTab.find('sky-tab-icon').attr('src', res.favicons[0]);
         }
     });
 
     webview[0].addEventListener('did-fail-load', (res) => {
         if (res.validatedURL == $('#url').val() && res.errorCode != -3) {
-            this.executeJavaScript = ('document.body.innerHTML=' +
-                '<div style="background-color:whitesmoke;padding:40px;margin:20px;">' +
-                '<h2 align=center>This page failed to load correctly.</h2>' +
-                '<p align=center><i>ERROR [ ' + res.errorCode + ', ' + res.errorDescription + ' ]</i></p>' +
-                '<br/><hr/>' +
-                '<h4>Try this</h4>' +
-                '<li type=circle>Check your spelling - <b>"' + res.validatedURL + '".</b></li><br/>' +
-                '<li type=circle><a href="javascript:location.reload();">Refresh</a> the page.</li><br/>' +
-                '<li type=circle>Perform a <a href=javascript:location.href="https://www.bing.com/search?q=' + res.validatedURL + '">search</a> instead.</li><br/>' +
-                '</div>'
-            );
+            console.log("Website failed to load correctly. Please check internet connection or url.");
         }
     });
     return webview[0];
@@ -359,8 +382,8 @@ this._updateUrl = function(url){
     url = url || null;
     urlInput = $('#url');
     if(url == null){
-        if($('.etabs-view').length){
-            url = $('.etabs-view.active')[0].getURL();
+        if($('.sky-view').length){
+            url = $('.sky-view.active')[0].getURL();
         } else{
             url = '';
         }
@@ -379,22 +402,16 @@ this._updateUrl = function(url){
             urlInput.off('blur');
         });
     }
-} // :_updateUrl()
+}
 
-} //:Navigation()
-
-
-
-
+} 
 Navigation.prototype.newTab = function(url, options){
-
-
 var defaults = {
     id: null, // null, 'yourIdHere'
     node: false,
     webviewAttributes: {},
-    icon: "clean", // 'default', 'clean', 'c:\location\to\image.png'
-    title: "default", // 'default', 'your title here'
+    icon: 'default', // 'default', 'clean', 'c:\location\to\image.png'
+    title: 'default', // 'default', 'your title here'
     close: true,
     readonlyUrl: false,
     contextMenu: true,
@@ -417,9 +434,8 @@ if(typeof options.newTabCallback === "function"){
         options.postTabOpenCallback = result.postTabOpenCallback;
     }
 }
-
 //validate options.id
-$('.etabs-tab, .etabs-view').removeClass('active');
+$('.sky-tab, .sky-view').removeClass('active');
 if($('#' + options.id).length) {
     console.log('ERROR[electron-navigation][func "newTab();"]: The ID "' + options.id + '" already exists. Please use another one.');
     return false;
@@ -429,34 +445,32 @@ if (!(/^[A-Za-z]+[\w\-\:\.]*$/.test(options.id))) {
     return false;
 }
 //build tab
-var tab = '<div class="etabs-tab active" data-session="' + this.SESSION_ID + '">';
+var tab = '<div class="sky-tab active" data-session="' + this.SESSION_ID + '">';
 //favicon
 if (options.icon == 'clean') {
-    tab += '<i class="etabs-tab-icon">' + this.SVG_FAVICON + '</i>';
+    tab += '<i class="sky-tab-icon">' + this.SVG_FAVICON + '</i>';
 } else if (options.icon === 'default') {
-    tab += '<img class="etabs-tab-icon" src=""/>';
+    tab += '<img class="sky-tab-icon" src="../Icon/sun.png"/>';
 } else {
-    tab += '<img class="etabs-tab-icon" src="' + options.icon + '"/>';
+    tab += '<img class="sky-tab-icon" src="' + options.icon + '"/>';
 }
 //title
 if(options.title == 'default'){
-    tab += '<span class="etabs-tab-title"> . . . </span>';
+    tab += '<span class="sky-tab-title"> . . . </span>';
 } else {
-    tab += '<span class="etabs-tab-title">' + options.title + '</span';
+    tab += '<span class="sky-tab-title">' + options.title + '</span';
 }
 //close
-if(options.close && globalCloseableTabsOverride){
-    tab+= '<span class="etabs-tab-buttons"> <button class="etabs-tab-button-close">✖</button></span> '
+if(options.close && globalCloseablskyOverride){
+    tab+= '<span class="sky-tab-buttons"> <button class="sky-tab-button-close">✖</button></span> '
 }
 
 //finish tab
 tab+= '</div>';
-
 $('#tabs').append(tab);
 
 //add webview
-
-let composedWebviewTag = `<webview class="etabs-view active" data-session="${this.SESSION_ID}" src="${this._purifyUrl(url)}"`;
+let composedWebviewTag = `<webview class="sky-view active" data-session="${this.SESSION_ID}" src="${this._purifyUrl(url)}"`;
 
 composedWebviewTag += ` data-readonly="${((options.readonlyUrl) ? 'true': 'false')}"`;
 if (options.id) {
@@ -470,9 +484,7 @@ if (options.webviewAttributes) {
         composedWebviewTag += ` ${key}="${options.webviewAttributes[key]}"`;
     });
 }
-
-
-$('#etabs-views').append(`${composedWebviewTag}></webview>`);    
+$('#sky-views').append(`${composedWebviewTag}></webview>`);    
 // enable reload button
 $('#refresh').removeClass('disabled');
 
@@ -483,7 +495,6 @@ if(typeof options.postTabOpenCallback === "function"){
     options.postTabOpenCallback(newWebview)
 }
 (this.changeTabCallback || (() => {}))(newWebview);
-
 totalTabs++;
 currentTabs++;
 console.log(currentTabs);
@@ -496,7 +507,7 @@ return newWebview;
 Navigation.prototype.changeTab = function(url, id){
 id = id || null;
 if(id == null){
-    $('.etabs-view.active').attr('src', this._purifyUrl(url));
+    $('.sky-view.active').attr('src', this._purifyUrl(url));
 } else {
     if($('#' + id).length){
         $('#' + id).attr('src', this._purifyUrl(url));
@@ -513,17 +524,17 @@ id = id || null;
 
 var session;
 if(id == null){
-    session = $('.etabs-tab.active, .etabs-view.active');
+    session = $('.sky-tab.active, .sky-view.active');
 } else {
     if($('#' + id).length){
         var sessionID = $('#' + id).data('session');
-        session = $('.etabs-tab, .etabs-view').filter('[data-session="' + sessionID + '"]');
+        session = $('.sky-tab, .sky-view').filter('[data-session="' + sessionID + '"]');
     } else{
         console.log('ERROR[electron-navigation][func "closeTab();"]: Cannot find the ID "' + id + '"');
         return false;
     }
 }
-if(session.next('.etabs-tab').length){
+if(session.next('.sky-tab').length){
     session.next().addClass('active');
     (this.changeTabCallback || (() => {}))(session.next()[1]);
 } else{
@@ -535,9 +546,7 @@ if(session.next('.etabs-tab').length){
 session.remove();
 this._updateUrl();
 this._updateCtrls();
-
-
-} //:closeTab()
+}
 
 
 //go back on current / specified view
@@ -545,7 +554,7 @@ this._updateCtrls();
 Navigation.prototype.back = function(id){
 id = id || null;
 if(id == null){
-    $('.etabs-view.active')[0].goBack();
+    $('.sky-view.active')[0].goBack();
 } else{
     if($('#' + id).length) {
         $('#' + id)[0].goBack();
@@ -553,14 +562,14 @@ if(id == null){
         console.log('ERROR[electron-navigation][func "back();"]: Cannot find the ID "' + id + '"');
     }
 }
-} //:back()
+}
 
 //go forward on current / specified view
 
 Navigation.prototype.forward = function (id) {
 id = id || null;
 if (id == null) {
-    $('.etabs-view.active')[0].goForward();
+    $('.sky-view.active')[0].goForward();
 } else {
     if ($('#' + id).length) {
         $('#' + id)[0].goForward();
@@ -568,7 +577,7 @@ if (id == null) {
         console.log('ERROR[electron-navigation][func "forward();"]: Cannot find the ID "' + id + '"');
     }
 }
-} //:forward()
+}
 
 
 // reload current / specified view
@@ -576,7 +585,7 @@ if (id == null) {
 Navigation.prototype.reload = function (id) {
 id = id || null;
 if (id == null) {
-    $('.etabs-view.active')[0].reload();
+    $('.sky-view.active')[0].reload();
 } else {
     if ($('#' + id).length) {
         $('#' + id)[0].reload();
@@ -584,7 +593,7 @@ if (id == null) {
         console.log('ERROR[electron-navigation][func "reload();"]: Cannot find the ID "' + id + '"');
     }
 }
-} //:reload()
+}
 
 
 // stop loading current or specified view
@@ -593,7 +602,7 @@ Navigation.prototype.stop = function (id) {
 id = id || null;
 
 if (id == null) {
-    $('.etabs-view.active')[0].stop();
+    $('.sky-view.active')[0].stop();
 } else {
     if ($('#' + id).length) {
         $('#' + id)[0].stop();
@@ -601,7 +610,7 @@ if (id == null) {
         console.log('ERROR[electron-navigation][func "stop();"]: Cannot find the ID "' + id + '"');
     }
 }
-} //:stop()
+}
 
 
 // listen for a message from webview
@@ -633,7 +642,7 @@ if (webview != null) {
         });
     }
 }
-} //:listen()
+}
 
 // send message to webview
 
@@ -657,7 +666,7 @@ if (webview != null) {
         });
     }
 }
-} //:send()
+}
 
 
 // open developer tools of current or ID'd webview
@@ -668,7 +677,7 @@ let webview = null;
 
 // check id
 if (id == null) {
-    webview = $('.etabs-view.active')[0];
+    webview = $('.sky-view.active')[0];
 } else {
     if ($('#' + id).length) {
         webview = document.getElementById(id);
@@ -687,7 +696,7 @@ if (webview != null) {
         });
     }
 }
-} //:openDevTools()
+}
 
 
 // print current or specified tab and view
@@ -698,7 +707,7 @@ let webview = null
 
 // check id
 if (id == null) {
-    webview = $('.etabs-view.active')[0]
+    webview = $('.sky-view.active')[0]
 } else {
     if ($('#' + id).length) {
         webview = document.getElementById(id)
@@ -711,44 +720,44 @@ if (id == null) {
 if (webview != null) {
     webview.print(opts || {});
 }
-}//:printTab()
+}
 
 //toggle next avail tab
 
 
 Navigation.prototype.nextTab = function () {
-var tabs = $('.etabs-tab').toArray();
-var activeTabIndex = tabs.indexOf($('.etabs-tab.active')[0]);
+var tabs = $('.sky-tab').toArray();
+var activeTabIndex = tabs.indexOf($('.sky-tab.active')[0]);
 var nexti = activeTabIndex + 1;
 if (nexti > tabs.length - 1) nexti = 0;
-$($('.etabs-tab')[nexti]).trigger('click');
+$($('.sky-tab')[nexti]).trigger('click');
 return false
 } //:nextTab()
 
 // toggle previous available tab
 
 Navigation.prototype.prevTab = function () {
-var tabs = $('.etabs-tab').toArray();
-var activeTabIndex = tabs.indexOf($('.etabs-tab.active')[0]);
+var tabs = $('.sky-tab').toArray();
+var activeTabIndex = tabs.indexOf($('.sky-tab.active')[0]);
 var nexti = activeTabIndex - 1;
 if (nexti < 0) nexti = tabs.length - 1;
-$($('.etabs-tab')[nexti]).trigger('click');
+$($('.sky-tab')[nexti]).trigger('click');
 return false
 } //:prevTab()
 
 // go to a tab by index or keyword
 
 Navigation.prototype.goToTab = function (index) {
-$activeTabAndView = $('#tabs .etabs-tab.active, #etabs-views .etabs-view.active');
+$activeTabAndView = $('#tabs .sky-tab.active, #sky-views .sky-view.active');
 
 if (index == 'previous') {
-    $tabAndViewToActivate = $activeTabAndView.prev('#tabs .etabs-tab, #etabs-views .etabs-view');
+    $tabAndViewToActivate = $activeTabAndView.prev('#tabs .sky-tab, #sky-views .sky-view');
 } else if (index == 'next') {
-    $tabAndViewToActivate = $activeTabAndView.next('#tabs .etabs-tab, #etabs-views .etabs-view');
+    $tabAndViewToActivate = $activeTabAndView.next('#tabs .sky-tab, #sky-views .sky-view');
 } else if (index == 'last') {
-    $tabAndViewToActivate = $('#tabs .etabs-tab:last-of-type, #etabs-views .etabs-view:last-of-type');
+    $tabAndViewToActivate = $('#tabs .sky-tab:last-of-type, #sky-views .sky-view:last-of-type');
 } else {
-    $tabAndViewToActivate = $('#tabs .etabs-tab:nth-of-type(' + index + '), #etabs-views .etabs-view:nth-of-type(' + index + ')');
+    $tabAndViewToActivate = $('#tabs .sky-tab:nth-of-type(' + index + '), #sky-views .sky-view:nth-of-type(' + index + ')');
 }
 
 if ($tabAndViewToActivate.length) {

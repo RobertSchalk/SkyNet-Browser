@@ -3,17 +3,20 @@
 
 
 .sky-tabgroup{
-	width:100%;
+	width: calc(100% - 90px);
 	height: 27px;
 	position: relative;
 	top: 0;
 	left:0;
 	padding: 0;
 	display:block;
+	float: left;
 	margin: 0;
 /**/	margin-top: -3px; /**/
 	background: linear-gradient( #48b4e0, #1864b0);
-	border-top: 1px outset #00a;
+	border-bottom: 1px outset #00a;
+	border-top: 1px outset #fff;
+	-webkit-user-select: none;
 }
 
 .sky-tabs::-webkit-scrollbar{
@@ -28,7 +31,7 @@
 }
 
 .sky-tabs{
-	width: calc(100% - 10px);
+	width: calc(100% - 50px);
 	height:27px;
 	left:0;
 	display:block;
@@ -36,9 +39,12 @@
 	overflow-x:auto;
 	white-space:nowrap;
 	padding: 0px 5px 0px 5px;
-	margin: 0 auto;
+	margin: 0;
 	background: linear-gradient( #48b4e0, #1864b0);
-	border-top: 1px outset #00a;
+	border-bottom: 1px outset #00a;
+	border-top: 1px outset #fff;
+	border-right: 1px solid #fff;
+	-webkit-app-region: drag;
 }
 
 .sky-tab{
@@ -64,6 +70,9 @@
 	text-decoration: none;
 	transition: 0.3s;
 	z-index: 10;
+	font-size: 12px;
+	-webkit-app-region: no-drag;
+	
 }
 
 
@@ -146,11 +155,11 @@
 .sky-tab-icon {
     fill:#000;
 	align-content: flex-start;
-    width: 24px;
-	height: 24px;
+    width: 23px;
+	height: 23px;
 	display: inline-block;
 	border-radius:  12px;
-	
+	margin: 2px 1px;
 }
 
 
