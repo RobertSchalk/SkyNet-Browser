@@ -13,8 +13,6 @@ const Theme = require("../themes.js")
 var $ = require('jquery'); //allows jquery to be used
 var Color = require('color.js'); // Currently helps color the tab icons
 
-
-
 var globalCloseablskyOverride;
 //this is so I don't have to write "getElementById" so many times.
 var ById = function (id) {
@@ -22,7 +20,7 @@ var ById = function (id) {
 }
 var bookmarks = path.join(__dirname, '../data/bookmarks.json'); // setting bookmarks to the file pathway.
 //var themes = path.join(__dirname, 'themes.json');// setting bookmarks to the file pathway.
-var history = path.join(__dirname, '../data/history.json');
+//var history = path.join(__dirname, '../data/history.json');
 
 //declaring all of my elements that I need the most here.
 var omni = ById('url'),
@@ -40,6 +38,13 @@ zoom = ById('zoom'),
 currentTheme = ById('Theme'),
 menu = document.getElementsByClassName('menu'),
 newWindow = ById('newWindow');
+
+var SkyTabs = {
+    settings: { 
+        active: false,
+         id: null
+    }
+}
 
 //Gets the active theme for the browser.
 // function GetTheme(){
@@ -158,27 +163,7 @@ function handleUrl (event) {
 //Space for favorites bar functions
 
 
-//Controls the History.Json file.
-function AddToHistory(){
-    let  url = $('.sky-view.active')[0].getURL(); //Retrieves the active view's url
-    let title = webview.getTitle();
-    favicon(url).then(function(fav) {
-    let book = new Bookmark(uuid.v1(), url, fav, title);
-        jsonfile.readFile(history, function(err, curr) {
-            curr.push(book);
-            jsonfile.writeFile(bookmarks, curr, function (err) {
-            },2);
-            let url = curr[curr.length-1].url;
-            let icon = curr[curr.length-1].icon;
-            let id = curr[curr.length-1].id;
-            let title = curr[curr.length-1].title;
-            let bookmark = new Bookmark(id, url, icon, title);
-            let el = bookmark.ELEMENT();
-            popup.appendChild(el);
-        });
-        
-    });
-}
+
 
 
 
@@ -207,21 +192,44 @@ function ExtrasWindow() {
 //Creates the setting window when called on. Settings is currently handled in a different window.
 function CreateSettingsView () {
         
+    //Checks open tabs for the settings page. If it's already open, 
+    //It will prevent a duplication.
+    if(SkyTabs.settings.active){
+    var tabSearch = $(".sky-tab, .skynet-tab");
+    for(var i = 0; i < tabSearch.length; i++){
+        if(tabSearch[i].getAttribute('title') == 'Settings'){
+            SkyTabs.settings.active = true;
+            navigation.goToTab(i+1);
+            break;
+        } 
+        if(i == tabSearch.length - 1){
+            SkyTabs.settings.active = false;
+        }
+    }
+}
+    
     omni.blur();
+   if(!SkyTabs.settings.active){
+
    
-navigation.newTab(path.join(__dirname, 'settings/Settings.html'), {
+    navigation.newTab(path.join(__dirname, '../settings/Settings.html'), {
+            
+            node: true,
+            webviewAttributes: {
+                nodeIntegration: true,
+                icon: 'clean',
+                electron: true,
+                devtools: false,
+                openDevTools: false
+            },
+            readonlyUrl: true,
+            skynetTab: true,
+            skynetTabName: 'Settings'
+    });
+    SkyTabs.settings.active = true;
+    SkyTabs.settings.id = $('.sky-tab, .skynet-tab, .active')[0].getAttribute('data-session');
         
-        
-        node: true,
-        webviewAttributes: {
-            nodeIntegration: true,
-            icon: 'clean',
-            electron: true,
-            devtools: false,
-            openDevTools: false
-        },
-        readonlyUrl: false
-});
+    }
     ExtrasWindow();
 }
 
@@ -333,19 +341,3 @@ settings.addEventListener('click', CreateSettingsView);
 skyWrite.addEventListener('click', CreateSkyWriteView);
 zoom.addEventListener('click', Zoom);
 newWindow.addEventListener('click', CreateNewWindow);
-// window.addEventListener('resize', resizeButton)
-
-// minimize.addEventListener('click', () =>{
-//     remote.getCurrentWindow().minimize();
-// });
-// resize.addEventListener('click', () =>{
-//     const currentWindow = remote.getCurrentWindow()
-//     if(currentWindow.isMaximized()){
-//         currentWindow.unmaximize();
-//     }else{
-//         currentWindow.maximize()
-//     }
-// })
-// close.addEventListener('click',() =>{
-//     remote.app.quit();
-// });

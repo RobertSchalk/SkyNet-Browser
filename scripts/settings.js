@@ -5,14 +5,15 @@ var jsonfile = require('jsonfile');
 var favicon = require('favicon-getter').default;
 var path = require('path');
 var uuid = require('uuid');
-const Theme = require("./themes.js")
+const Theme = require("../themes.js")
 const version = electron.remote.app.getVersion();
 const fs = require('fs');
 const Bookmark = require("./bookmarks.js");
 const urlRegex = require('url-regex'); // checks a url and tells the browser what to do with it. It's a bit better than my original method.
 
-var themes = path.join(__dirname, 'themes.json');
-var bookmarks = path.join(__dirname, 'bookmarks.json');
+var bookmarks = path.join(__dirname, '../data/bookmarks.json'); // setting bookmarks to the file pathway.
+//var themes = path.join(__dirname, 'themes.json');// setting bookmarks to the file pathway.
+var history = path.join(__dirname, '../data/history.json');
 
 var ById = function (id) {
     return document.getElementById(id);

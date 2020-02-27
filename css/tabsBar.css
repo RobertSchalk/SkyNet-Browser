@@ -52,7 +52,6 @@
 }
 
 .sky-tab{
-
 	width: calc(30% - 7px);
 	margin: 0px 0px 0px;
 	/* display:inline-block; */
@@ -83,7 +82,20 @@
 	z-index: 2;
 }
 
+.skynet-tab{
+	border-right:rgb(158, 88, 88) 1px solid !important;
+	border-left:rgb(158, 88, 88) 1px solid !important;
+	background-color: #bb4D4d !important;
+}
 
+.skynet-tab .active{
+	background-color: #ee9D9D !important;
+	z-index: 10;
+}
+.skynet-tab:hover {
+	background-color: #ee9D9D !important;
+	z-index: 10;
+}
 
 
 /*
@@ -117,7 +129,7 @@
 
 
 
-.sky-tabgroup .sky-tab .active{
+.sky-tab .active{
 	background-color: #449Dee;
 	z-index: 10;
 }
