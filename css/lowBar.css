@@ -4,9 +4,9 @@
 	height: 25px;
 	padding: 0;
 	display: block;
-	float:left;
+	float: left;
 	background-color: #48b4e0;
-	margin: 3px 0 0;
+	/* margin: 3px 0 0; */
 	overflow: hidden;
 	border-top: 3px double #449Dee;
 }
@@ -45,12 +45,12 @@
 	display: block;
 	float: left;
 	padding: 0;
-	margin-right: 23px;
-	position: relative;
+	/* margin-right: 23px; */
+	/* position: relative;
 	top: 0;
 	left: 0;
 	bottom: 0;
-	right: 0;
+	right: 0; */
 }
 .favBar-item{
 	width: 70px;

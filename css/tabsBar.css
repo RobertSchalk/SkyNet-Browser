@@ -3,7 +3,7 @@
 
 
 .sky-tabgroup{
-	width: calc(100% - 90px);
+	width: calc(100% - 170px);
 	height: 27px;
 	position: relative;
 	top: 0;
@@ -17,6 +17,7 @@
 	border-bottom: 1px outset #00a;
 	border-top: 1px outset #fff;
 	-webkit-user-select: none;
+	box-shadow: inset -2px 0px 1px #000;
 }
 
 .sky-tabs::-webkit-scrollbar{
@@ -31,27 +32,35 @@
 }
 
 .sky-tabs{
-	width: calc(100% - 50px);
-	height:27px;
+	width: calc(100% - 10px);
+	max-width: calc(100% - 10px);
+	height: 26px;
+	padding: 0px 5px 0px 5px;
+	border-bottom: 1px outset #00a;
+	border-top: 1px outset #fff;
+	border-right: 1px solid #fff;
+	margin: 0;
 	left:0;
 	display:block;
 	overflow-y:hidden;
 	overflow-x:auto;
 	white-space:nowrap;
-	padding: 0px 5px 0px 5px;
-	margin: 0;
-	background: linear-gradient( #48b4e0, #1864b0);
-	border-bottom: 1px outset #00a;
-	border-top: 1px outset #fff;
-	border-right: 1px solid #fff;
+	/* background: linear-gradient( #48b4e0, #1864b0); */
 	-webkit-app-region: drag;
+	box-shadow: inset -2px 0px 1px #000;
+	/* box-shadow: inset -2px 2px 3px rgba(0,0,0,0.5); */
 }
 
 .sky-tab{
+
+	width: calc(30% - 7px);
 	margin: 0px 0px 0px;
-	display:inline-block;
+	/* display:inline-block; */
+	display: block;
+	float: left;
 	height: 100%;
 	margin-left:-4px;
+	border-radius: 10px 10px 0 0;
 	color:#eee;
 	text-align:left;
 	padding: 0px 5px 1px 2px;
@@ -64,7 +73,6 @@
 	border-right:rgb(53, 107, 158) 1px solid;
 	border-left:rgb(53, 107, 158) 1px solid;
 	line-height:15px;
-	width: 30%;
     max-width: 150px;
 	background-color: #004D96;
 	text-decoration: none;
@@ -72,7 +80,7 @@
 	z-index: 10;
 	font-size: 12px;
 	-webkit-app-region: no-drag;
-	
+	z-index: 2;
 }
 
 
@@ -111,6 +119,7 @@
 
 .sky-tabgroup .sky-tab .active{
 	background-color: #449Dee;
+	z-index: 10;
 }
 
 .sky-tab-buttons button {

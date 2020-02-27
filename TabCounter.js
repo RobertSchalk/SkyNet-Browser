@@ -1,3 +1,7 @@
+var ById = function (id) {
+    return document.getElementById(id);
+}
+
 function CountTabs(){
     
     var nt = ById('newTab');

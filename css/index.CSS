@@ -34,9 +34,18 @@ blockquote,q{quotes:none}
 	display: none;
 }
 
+.sky-windowBuffer{
+	width: 50px;
+	height: calc(26px - 1px);
+	margin: 0;
+	padding: 0;
+	float: left;
+	border-bottom: 1px solid #000;
+	/* box-shadow: -2px 2px 3px #000; */
+}
 .sky-windowButtons{
-	width: calc(90px - 2px);
-	height: calc(27px - 1px);
+	width: calc(120px);
+	height: calc(26px - 1px);
 	margin: 0;
 	padding: 0;
 	float: left;
@@ -45,12 +54,13 @@ blockquote,q{quotes:none}
 	-webkit-user-select: none;
 }
 .sky-windowControl{
-	width: calc(30px - 1px);
-	height: calc(26px);
+	width: calc(30px - 2px);
+	height: calc(25px);
 	vertical-align: middle;
+	border-left: 1px solid rgba(0,0,0,0.5);
 	margin: 0;
 	padding: 0;
-	float: left;
+	float: right;
 	text-align: center;
 	line-height: 26px;
 	background-color: inherit;
@@ -91,21 +101,50 @@ blockquote,q{quotes:none}
 	color: #999;
 	background-color: #2894c0;
 }
-.navButtons{
-	float: left;
-	display:block;
-	width: 18px;
-	height: 18px;
-	font-size:20px;
-	color: #eee;
-	cursor: pointer;
-	line-height: 20px;
-	margin: 2px 1px;
+
+.navButtonsGroup{
+	width: 120px;
+	height: 24px;
+	margin: 0;
+	padding: 0;
+	float: right;
+	display: block;
+	font-size: 20px;
 }
 
-#left{
-	margin-bottom: 3px;
+.navControlsGroup{
+	width: 90px;
+	height: 24px;
+	margin: 0;
+	padding: 0;
+	float: left;
+	display: block;
+	font-size: 20px;
 }
+
+.navButtons{
+	width: 29px;
+	height: 100%;
+	float: left;
+	display: flex;
+	font-size: 20px;
+	color: #eee;
+	cursor: pointer;
+	justify-items: center;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	text-align: center;
+	/* border: 1px solid #f00; */
+	/* line-height: 20px; */
+	/* margin: 2px 1px; */
+}
+.navButtons:hover{
+background-color: rgba(0,0,0,0.2);
+}
+/* #left{
+	margin-bottom: 3px;
+} */
 .navControls{
 	margin: 2px 7px;
 }
@@ -115,7 +154,7 @@ blockquote,q{quotes:none}
 #omnibox input{
 	float:left;
 	display:block;
-	width:calc(100% - 260px);
+	width: calc(100% - 59px - 90px - 120px - 20px); /* p/m/b - navControlsgroup - navButtonsGroup*/
 	height: 18px;
 	color:#333333;
 	border: 1px solid #000;

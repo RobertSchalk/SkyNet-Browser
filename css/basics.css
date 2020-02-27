@@ -9,3 +9,13 @@ blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
 table{border-collapse:collapse;border-spacing:0}body{height:100%;display:block}
 .common-buttons,#navigation ,#navigation #forward,#navigation #refresh,#navigation #fave,#navigation #list,#navigation #console{float:left;display:block;width:30px;font-size:20px;color:#eee}
+
+
+body{
+    margin: 0;
+    padding: 0;
+}
+html{
+    margin: 0;
+    padding: 0;
+}

@@ -2,6 +2,7 @@ bookmarks.json
 private
 private/RobertSchalk.pfx
 dist
+node_modules
 minesweeper.js
 src/MineSweeper.html
 src/games.html

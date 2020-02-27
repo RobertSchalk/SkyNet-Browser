@@ -20,39 +20,49 @@
   <body id="browser">
     <nav id="navigation">
         <div class="sky-tabgroup" style="-webkit-app-region: drag">
-            <div id="tabs" class="sky-tabs"></div>
+            <div id="tabs" class="sky-tabs" style="-webkit-app-region: drag"></div>
         </div>
+        <div class="sky-windowBuffer" style="-webkit-app-region: drag"></div>
         <div class="sky-windowButtons">
-          <div id="minimize" class="sky-windowControl">🗕</div>
-          <div id="resize" class="sky-windowControl"><span id="resizeSpan2"></span><span id="resizeSpan"></span></div>
+          <!-- fa-list| -->
+          <div id="list"  class="sky-windowControl" title="Open Extras">
+            <i class="fa fa-table" aria-hidden="true" ></i>
+          </div>
           <div id="close" class="sky-windowControl">✖</div>
+          <div id="resize" class="sky-windowControl"><span id="resizeSpan2"></span><span id="resizeSpan"></span></div>
+          <div id="minimize" class="sky-windowControl">🗕</div>
         </div>
-      <div  class="navButtons navControls">
+        <div class="navControlsGroup">
+        
+      <div  class="navButtons">
         <i id="back" class="fa fa-arrow-left" aria-hidden="false" title="back"></i>
       </div>
-      <div class="navButtons navControls">
+      <div class="navButtons">
         <i id="forward" class="fa fa-arrow-right" aria-hidden="false" title="forward"></i>
       </div>
-      <div class="navButtons navControls">
+      <div class="navButtons">
         <i id="refresh" class="fa fa-refresh" aria-hidden="false" data-state="ready" title="refresh page"></i>
-      </div>
+      </div>  
+    </div>
       <div id="omnibox">
         <input type="text" id="url" title="Enter an address or search term" value="">
       </div>
-      <div id="fave"  class="navButtons">
-        <i class="fa fa-star" aria-hidden="true" title="add to favorites"></i>
-      </div>
-      <!-- fa-list| -->
-      <div id="list"  class="navButtons" title="Open Extras">
-        <i class="fa fa-table" aria-hidden="true" ></i>
-      </div>
-      
-      <div id="favorites"  class="navButtons" title="Open/close Favorites">
-        <i class="fa fa-folder-open" aria-hidden="true"></i>
-      </div>
-      <div id="sky-popup" data-state="closed">
+      <div class="navButtonsGroup">
+            <div id="home" class="navButtons" title="Go to your HomePage"><i class="fa fa-home" aria-hidden = "true"></i></div>
+            
+            <div id="fave"  class="navButtons">
+              <i class="fa fa-star" aria-hidden="true" title="add to favorites"></i>
+            </div>
+            
+            
+            <div id="favorites"  class="navButtons" title="Open/close Favorites">
+              <i class="fa fa-folder-open" aria-hidden="true"></i>
+            </div>
 
-      </div>
+            <div id="sky-popup" data-state="closed"> </div>
+            <div id="zoom" class="navButtons" title="Zoom-in/out 100% / 200% / 300%"><i class="zoom" aria-hidden = "true">&#x1f50d;</i></div>
+          
+    </div>
       <div id="lowBar">
           <a id="newTab" class="sky-button">
               <div class="close">
@@ -66,8 +76,6 @@
             <a class="favBar-item"></a>-->
             
           </div>
-          <div id="home" class="lowButtons" title="Go to your HomePage"><i class="fa fa-home" aria-hidden = "true"></i></div>
-          <div id="zoom" class="lowButtons" title="Zoom-in/out 100% / 200% / 300%"><i class="zoom" aria-hidden = "true">&#x1f50d;</i></div>
           
       </div>
     </nav>
@@ -151,10 +159,10 @@
 
 
       <script>
-        require('../index.js');
+        require('../scripts/index.js');
+        require('../scripts/navigation.js');
+        require('../scripts/windowControls.js')
         //require('bootstrap');
-
-        
       </script>
 	</body>
 </html>

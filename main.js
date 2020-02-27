@@ -42,7 +42,7 @@ function createWindow (){
         x: winState.x,
         y: winState.y,
         enableRemoteModule: true,
-        frame: false,
+        //frame: false,
        // titleBarStyle: 'hidden',
       //  autoHideMenuBar: true,
         webPreferences: {
