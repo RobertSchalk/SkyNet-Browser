@@ -122,7 +122,7 @@ jsonfile.readFile(bookmarks, function(err, obj) {
             let id = obj[i].id;
             let title = obj[i].title;
             let bookmark = new Bookmark(id, url, icon, title);
-            let el = bookmark.ELEMENT();
+            let el = bookmark.ELEMENT(true);
             bookmarksList.appendChild(el);
         }
     }
@@ -213,7 +213,7 @@ function CreateBookmark(url, title) {
             let id = curr[curr.length-1].id;
             let title = curr[curr.length-1].title;
             let bookmark = new Bookmark(id, url, icon, title);
-            let el = bookmark.ELEMENT();
+            let el = bookmark.ELEMENT(true);
             bookmarksList.appendChild(el);
         });
         

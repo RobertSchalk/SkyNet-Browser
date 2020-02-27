@@ -11,9 +11,13 @@ var Bookmark = function (id, url, faviconUrl, title) {
     this.title = title;
 }
 
-Bookmark.prototype.ELEMENT = function () {
+Bookmark.prototype.ELEMENT = function (newTab) {
+    var newtab = newtab || null;
     var a_tag = document.createElement('a');
     a_tag.href = this.url;
+    if(newTab){
+        a_tag.target = "_blank";
+    }
     a_tag.className = 'link';
     a_tag.textContent = this.title;
     a_tag.title = this.title + '\n' + this.url;
